@@ -8,6 +8,7 @@ import MapView from "@/app/components/MapView";
 import ProviderDetail from "@/app/components/ProviderDetail";
 import BookingFlow from "@/app/components/BookingFlow";
 import Confirmation from "@/app/components/Confirmation";
+/* eslint-disable @next/next/no-img-element */
 
 interface Category {
   id: string;
@@ -101,29 +102,29 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-white border-b border-stone-200 px-4 py-3 flex items-center justify-between">
+      <header className="bg-white border-b border-stone-200/60 px-5 py-2.5 flex items-center justify-between">
         <button
           onClick={() => { setView("search"); setSelectedProvider(null); }}
-          className="text-xl font-bold tracking-tight text-primary"
+          className="flex items-center"
         >
-          soonest
+          <img src="/logo.png" alt="Soonest" className="h-10 w-auto" />
         </button>
         {view === "results" && (
           <div className="flex items-center gap-2 text-sm">
-            <span className="text-stone-400">{results.length} results</span>
+            <span className="text-stone-400 font-medium">{results.length} results</span>
           </div>
         )}
       </header>
 
       <main className="flex-1 flex flex-col">
         {view === "search" && (
-          <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+          <div className="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-primary-light/40 to-white">
             <div className="w-full max-w-xl space-y-8">
-              <div className="text-center space-y-2">
-                <h1 className="text-4xl font-bold tracking-tight">
+              <div className="text-center space-y-3">
+                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary-dark to-accent bg-clip-text text-transparent">
                   Find an appointment, fast
                 </h1>
-                <p className="text-stone-500 text-lg">
+                <p className="text-stone-500 text-lg max-w-md mx-auto">
                   Search every bookable service near you — ranked by soonest available
                 </p>
               </div>

@@ -47,7 +47,7 @@ export default function MapView({ results, center, onSelect }: Props) {
           el.className = "map-marker";
           el.style.cssText = `
             width: 28px; height: 28px; border-radius: 50%;
-            background: ${i === 0 ? "#e94560" : "#1a1a2e"};
+            background: ${i === 0 ? "#7c3aed" : "#4c1d95"};
             color: white; display: flex; align-items: center;
             justify-content: center; font-size: 11px; font-weight: 700;
             cursor: pointer; border: 2px solid white;
