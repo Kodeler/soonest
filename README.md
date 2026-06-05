@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Soonest
 
-## Getting Started
+Availability-first services booking aggregator. Searches every bookable service near a user and surfaces ranked options optimized for soonest available + closest + best reviewed.
 
-First, run the development server:
+Think "Kayak for appointments."
+
+## Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Set up the database
+npx prisma migrate dev
+
+# Seed mock data (30 providers across 10 categories)
+npm run seed
+
+# Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The app runs fully on mock data with no external keys.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Optional: Enable Live Adapters
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env` and uncomment the keys you want:
 
-## Learn More
+### Square (sandbox)
+1. Create a free Square Developer account
+2. Create a sandbox app
+3. Set `SQUARE_ACCESS_TOKEN`, `SQUARE_APPLICATION_ID`, `SQUARE_APPLICATION_SECRET`
+4. Set `SQUARE_ENVIRONMENT=sandbox`
 
-To learn more about Next.js, take a look at the following resources:
+### Zocdoc (sandbox, US health only)
+1. Apply for Zocdoc developer access
+2. Set `ZOCDOC_CLIENT_ID`, `ZOCDOC_CLIENT_SECRET`, `ZOCDOC_ENV=sandbox`
+3. Only returns results for US locations + health categories
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Mapbox (map view)
+1. Create a free Mapbox account
+2. Set `NEXT_PUBLIC_MAPBOX_TOKEN`
+3. Without this, the app degrades to list-only view
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Architecture
 
-## Deploy on Vercel
+```
+SearchQuery → ProviderRegistry → [Mock, Square, Zocdoc, Scraper*]
+                                        ↓
+                                  Merge + Dedupe
+                                        ↓
+                                  Ranking Engine
+                                        ↓
+                                   Ranked Results → UI
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+*Scraper is a disabled stub.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Key Principle
+One `BookingProvider` interface. All providers are peers. Ranking, API routes, and UI never branch on source.
+
+### Adding a New Adapter
+1. Create `lib/providers/newplatform.ts` implementing `BookingProvider`
+2. Add to `ProviderRegistry` constructor (gated by env key)
+3. Done — no UI or ranking changes needed
+
+## Ranking
+
+```
+score = wTime * timeScore + wDistance * distanceScore + wRating * ratingScore + wPrice * priceScore
+```
+
+| Mode    | Time | Distance | Rating | Price |
+|---------|------|----------|--------|-------|
+| Default | 0.40 | 0.25     | 0.35   | 0.00  |
+| ASAP    | 0.70 | 0.20     | 0.10   | 0.00  |
+
+Rating uses Bayesian dampening — 5.0 with 2 reviews doesn't beat 4.7 with 400.
+
+## Tech Stack
+
+- Next.js 16 (App Router) + TypeScript
+- Tailwind CSS 4
+- Prisma 7 + SQLite (dev) / Postgres (prod)
+- Square Node SDK (sandbox)
+- Mapbox GL JS (optional)
+- Zod 4 for API validation
+- Vitest for tests
+
+## Project Structure
+
+```
+app/
+  api/
+    search/         POST — fan-out search across all providers
+    providers/[id]  GET — provider detail + slots + reviews
+    book/           POST — book a slot
+    categories/     GET — all service categories
+    connect/square/ GET — Square OAuth flow
+  components/       React UI components
+lib/
+  providers/
+    mock.ts         MockBookingProvider (always enabled)
+    square.ts       SquareBookingProvider (sandbox)
+    zocdoc.ts       ZocdocBookingProvider (sandbox, US health)
+    scraper.ts      ScraperBookingProvider (disabled stub)
+    registry.ts     ProviderRegistry (fan-out + dedupe)
+  ranking.ts        Pure ranking engine
+  types.ts          Shared TypeScript interfaces
+  geo.ts            Haversine distance
+  config.ts         Environment config + constants
+  validation.ts     Zod schemas
+prisma/
+  schema.prisma     Data model
+  seed.ts           Mock data generator
+```
+
+## Tests
+
+```bash
+npm test
+```
+
+Tests cover:
+- Ranking engine (sub-scores, weight modes, source-agnosticism)
+- Geo distance (haversine)
+- All adapter interfaces
+- Zocdoc US/health gating
+- Scraper disabled state
+
+## See Also
+
+- [NEXT_STEPS.md](NEXT_STEPS.md) — per-provider OAuth reality, seller onboarding, rollout strategy, consumer auth + payments roadmap

@@ -1,64 +1,262 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import type { RankedResult } from "@/lib/types";
+import SearchBar from "@/app/components/SearchBar";
+import ResultsList from "@/app/components/ResultsList";
+import MapView from "@/app/components/MapView";
+import ProviderDetail from "@/app/components/ProviderDetail";
+import BookingFlow from "@/app/components/BookingFlow";
+import Confirmation from "@/app/components/Confirmation";
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  icon: string;
+  vertical: string;
+}
+
+type View = "search" | "results" | "detail" | "booking" | "confirmation";
 
 export default function Home() {
+  const [view, setView] = useState<View>("search");
+  const [results, setResults] = useState<RankedResult[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+  const [bookingResult, setBookingResult] = useState<{
+    bookingId: string;
+    providerName: string;
+    slotTime: string;
+    bookingUrl?: string;
+  } | null>(null);
+
+  const [searchParams, setSearchParams] = useState({
+    lat: 43.6532,
+    lng: -79.3832,
+    radiusKm: 25,
+    categorySlug: "",
+    keyword: "",
+    asap: false,
+  });
+
+  const [showMap, setShowMap] = useState(false);
+  const [sortBy, setSortBy] = useState<"score" | "time" | "distance" | "rating">("score");
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((d) => setCategories(d.categories || []))
+      .catch(() => {});
+  }, []);
+
+  const handleSearch = useCallback(async (params: typeof searchParams) => {
+    setLoading(true);
+    setError(null);
+    setSearchParams(params);
+
+    try {
+      const res = await fetch("/api/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lat: params.lat,
+          lng: params.lng,
+          radiusKm: params.radiusKm,
+          categorySlug: params.categorySlug || undefined,
+          keyword: params.keyword || undefined,
+          asap: params.asap,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      setResults(data.results);
+      setView("results");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Search failed");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const sortedResults = [...results].sort((a, b) => {
+    switch (sortBy) {
+      case "time":
+        if (!a.soonestSlot) return 1;
+        if (!b.soonestSlot) return -1;
+        return new Date(a.soonestSlot.startsAt).getTime() - new Date(b.soonestSlot.startsAt).getTime();
+      case "distance":
+        return (a.distanceKm ?? 999) - (b.distanceKm ?? 999);
+      case "rating":
+        return b.ratingAvg - a.ratingAvg;
+      default:
+        return b.score - a.score;
+    }
+  });
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="flex flex-col min-h-screen">
+      <header className="bg-white border-b border-stone-200 px-4 py-3 flex items-center justify-between">
+        <button
+          onClick={() => { setView("search"); setSelectedProvider(null); }}
+          className="text-xl font-bold tracking-tight text-primary"
+        >
+          soonest
+        </button>
+        {view === "results" && (
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-stone-400">{results.length} results</span>
+          </div>
+        )}
+      </header>
+
+      <main className="flex-1 flex flex-col">
+        {view === "search" && (
+          <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+            <div className="w-full max-w-xl space-y-8">
+              <div className="text-center space-y-2">
+                <h1 className="text-4xl font-bold tracking-tight">
+                  Find an appointment, fast
+                </h1>
+                <p className="text-stone-500 text-lg">
+                  Search every bookable service near you — ranked by soonest available
+                </p>
+              </div>
+              <SearchBar
+                categories={categories}
+                onSearch={handleSearch}
+                loading={loading}
+                initialParams={searchParams}
+              />
+              {error && (
+                <div className="text-center text-red-600 text-sm">{error}</div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {view === "results" && (
+          <div className="flex-1 flex flex-col">
+            <div className="bg-white border-b border-stone-200 px-4 py-3">
+              <SearchBar
+                categories={categories}
+                onSearch={handleSearch}
+                loading={loading}
+                initialParams={searchParams}
+                compact
+              />
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-2 bg-white border-b border-stone-100 overflow-x-auto">
+              <div className="flex gap-1 flex-shrink-0">
+                {(["score", "time", "distance", "rating"] as const).map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSortBy(s)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+                      sortBy === s
+                        ? "bg-primary text-white"
+                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                    }`}
+                  >
+                    {s === "score" ? "Best match" : s === "time" ? "Soonest" : s === "distance" ? "Nearest" : "Top rated"}
+                  </button>
+                ))}
+              </div>
+              <div className="ml-auto flex-shrink-0 md:hidden">
+                <button
+                  onClick={() => setShowMap(!showMap)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium bg-stone-100 text-stone-600 whitespace-nowrap"
+                >
+                  {showMap ? "List" : "Map"}
+                </button>
+              </div>
+            </div>
+
+            {results.length === 0 && !loading ? (
+              <div className="flex-1 flex items-center justify-center text-center px-4">
+                <div className="space-y-2">
+                  <p className="text-stone-500 text-lg">No results found</p>
+                  <p className="text-stone-400 text-sm">
+                    Try expanding your search radius or changing the category
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1 flex overflow-hidden" style={{ height: "calc(100vh - 140px)" }}>
+                <div
+                  className={`overflow-y-auto ${
+                    showMap ? "hidden md:block" : "flex-1"
+                  } md:w-[420px] md:flex-none`}
+                >
+                  <ResultsList
+                    results={sortedResults}
+                    onSelect={(id) => {
+                      setSelectedProvider(id);
+                      setView("detail");
+                    }}
+                  />
+                </div>
+                <div
+                  className={`flex-1 ${
+                    showMap ? "" : "hidden md:block"
+                  }`}
+                >
+                  <MapView
+                    results={sortedResults}
+                    center={{ lat: searchParams.lat, lng: searchParams.lng }}
+                    onSelect={(id) => {
+                      setSelectedProvider(id);
+                      setView("detail");
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {view === "detail" && selectedProvider && (
+          <ProviderDetail
+            providerId={selectedProvider}
+            onBack={() => setView("results")}
+            onBook={(slotId) => {
+              setSelectedSlotId(slotId);
+              setView("booking");
+            }}
+          />
+        )}
+
+        {view === "booking" && selectedSlotId && selectedProvider && (
+          <BookingFlow
+            slotId={selectedSlotId}
+            providerId={selectedProvider}
+            onBack={() => setView("detail")}
+            onSuccess={(result) => {
+              setBookingResult(result);
+              setView("confirmation");
+            }}
+            onSlotTaken={() => {
+              setView("results");
+              handleSearch(searchParams);
+            }}
+          />
+        )}
+
+        {view === "confirmation" && bookingResult && (
+          <Confirmation
+            booking={bookingResult}
+            onFindAnother={() => {
+              setView("search");
+              setBookingResult(null);
+            }}
+          />
+        )}
       </main>
     </div>
   );
