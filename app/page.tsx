@@ -107,7 +107,7 @@ export default function Home() {
           onClick={() => { setView("search"); setSelectedProvider(null); }}
           className="flex items-center"
         >
-          <img src="/logo.png" alt="Soonest" className="h-10 w-auto" />
+          <img src="/logo.png" alt="Soonest" className="h-9 sm:h-10 w-auto" />
         </button>
         {view === "results" && (
           <div className="flex items-center gap-2 text-sm">

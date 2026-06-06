@@ -175,11 +175,11 @@ export default function SearchBar({
         ))}
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row gap-2">
         <button
           type="button"
           onClick={() => setParams((p) => ({ ...p, asap: !p.asap }))}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
             params.asap
               ? "bg-accent text-white shadow-lg shadow-accent/25"
               : "bg-accent-light text-accent border border-accent/20 hover:bg-accent/10"
@@ -194,7 +194,8 @@ export default function SearchBar({
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 py-2.5 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 disabled:opacity-50 transition-colors"
+          onClick={(e) => { e.preventDefault(); onSearch(params); }}
+          className="flex-1 py-3 bg-primary text-white rounded-xl text-base font-semibold hover:bg-primary-dark active:bg-primary-dark disabled:opacity-50 transition-colors"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
