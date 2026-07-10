@@ -9,7 +9,7 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://soonest-ten.vercel.app"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://soonest.today"
   ),
   title: "Soonest — Don't book soon. Book soonest.",
   description:
