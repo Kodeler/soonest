@@ -145,7 +145,11 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                 {"$".repeat(provider.priceTier)}
                 <span className="text-stone-300">{"$".repeat(4 - provider.priceTier)}</span>
               </span>
-              {provider.source !== "mock" && (
+              {provider.source === "mock" ? (
+                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-stone-100 text-stone-400 font-bold" title="Sample listing shown while real providers onboard">
+                  Sample
+                </span>
+              ) : (
                 <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
                   {provider.source}
                 </span>
@@ -166,6 +170,12 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                   Book soonest — {formatSlotTime(soonest.startsAt)}
                 </button>
               </div>
+            )}
+            {provider.source === "mock" && (
+              <p className="text-xs text-stone-400 pt-1">
+                Sample listing — bookings here are demonstrations, not real
+                appointments. Real providers are onboarding now.
+              </p>
             )}
           </div>
         </div>

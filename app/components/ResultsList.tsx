@@ -122,7 +122,11 @@ export default function ResultsList({ results, onSelect }: Props) {
                   </span>
                 )}
                 <PriceTier tier={r.priceTier} />
-                {r.source !== "mock" && (
+                {r.source === "mock" ? (
+                  <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-stone-100 text-stone-400 font-bold" title="Sample listing shown while real providers onboard">
+                    Sample
+                  </span>
+                ) : (
                   <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
                     {r.source}
                   </span>
