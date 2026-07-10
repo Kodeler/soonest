@@ -45,9 +45,10 @@ export default function AdminLeadsPage() {
         <Link href="/" className="text-lg font-extrabold text-ink">
           soonest
         </Link>
-        <span className="text-xs font-bold uppercase tracking-wider text-stone-400">
-          Admin · Leads
-        </span>
+        <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-stone-400">
+          <span className="text-primary">Leads</span>
+          <Link href="/admin/add-provider" className="hover:text-primary">Add provider</Link>
+        </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-5 py-10">

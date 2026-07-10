@@ -136,11 +136,17 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="flex items-center gap-1 text-sm">
-                <span className="text-amber-400">★</span>
-                <span className="font-bold text-ink">{provider.ratingAvg.toFixed(1)}</span>
-                <span className="text-stone-400">({provider.ratingCount} reviews)</span>
-              </span>
+              {provider.ratingCount === 0 ? (
+                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-violet-50 text-primary font-bold">
+                  ✦ New on Soonest
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 text-sm">
+                  <span className="text-amber-400">★</span>
+                  <span className="font-bold text-ink">{provider.ratingAvg.toFixed(1)}</span>
+                  <span className="text-stone-400">({provider.ratingCount} reviews)</span>
+                </span>
+              )}
               <span className="text-stone-500 text-sm font-medium">
                 {"$".repeat(provider.priceTier)}
                 <span className="text-stone-300">{"$".repeat(4 - provider.priceTier)}</span>
@@ -151,7 +157,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                 </span>
               ) : (
                 <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
-                  {provider.source}
+                  {provider.source === "manual" ? "Verified" : provider.source}
                 </span>
               )}
               {provider.phone && (

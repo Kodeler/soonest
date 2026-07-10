@@ -30,6 +30,7 @@ model Provider {
   npi         String?
   phone       String?
   imageUrl    String?
+  hoursJson   String?
   services    Service[]
   reviews     Review[]
   createdAt   DateTime  @default(now())

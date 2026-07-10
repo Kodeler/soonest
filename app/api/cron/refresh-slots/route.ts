@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
+import { regenerateSlotsForProvider } from "@/lib/slots";
 
 // Regenerates the rolling availability window for mock providers.
 // Vercel cron hits this daily; without it, all seeded slots drift into
@@ -73,7 +74,24 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    return Response.json({ ok: true, services: services.length, created });
+    // Real (manually onboarded) providers regenerate from their stored
+    // weekly hours instead of the synthetic pattern above.
+    const manualProviders = await prisma.provider.findMany({
+      where: { source: "manual" },
+      select: { id: true },
+    });
+    let manualCreated = 0;
+    for (const p of manualProviders) {
+      manualCreated += await regenerateSlotsForProvider(p.id);
+    }
+
+    return Response.json({
+      ok: true,
+      services: services.length,
+      created,
+      manualProviders: manualProviders.length,
+      manualCreated,
+    });
   } catch (e) {
     console.error("Slot refresh error:", e);
     return Response.json({ error: "Refresh failed" }, { status: 500 });

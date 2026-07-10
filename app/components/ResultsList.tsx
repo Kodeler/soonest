@@ -68,6 +68,13 @@ function PriceTier({ tier }: { tier: number }) {
 }
 
 function Stars({ rating, count }: { rating: number; count: number }) {
+  if (count === 0) {
+    return (
+      <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-violet-50 text-primary font-bold">
+        ✦ New
+      </span>
+    );
+  }
   return (
     <span className="flex items-center gap-1 text-xs">
       <span className="text-amber-400">★</span>
@@ -128,7 +135,7 @@ export default function ResultsList({ results, onSelect }: Props) {
                   </span>
                 ) : (
                   <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
-                    {r.source}
+                    {r.source === "manual" ? "Verified" : r.source}
                   </span>
                 )}
                 <span className="text-[11px] text-primary-dark/70 bg-accent-light px-2 py-0.5 rounded-full font-medium">

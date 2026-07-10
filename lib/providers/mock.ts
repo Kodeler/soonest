@@ -14,8 +14,10 @@ export class MockBookingProvider implements BookingProvider {
   source = "mock";
 
   async search(query: SearchQuery): Promise<ProviderResult[]> {
+    // Serves both sample ("mock") providers and real, manually-onboarded
+    // ("manual") ones — they live in the same DB and book the same way.
     const providers = await prisma.provider.findMany({
-      where: { source: "mock" },
+      where: { source: { in: ["mock", "manual"] } },
       include: {
         services: { include: { category: true } },
       },
@@ -67,7 +69,7 @@ export class MockBookingProvider implements BookingProvider {
         ratingAvg: p.ratingAvg,
         ratingCount: p.ratingCount,
         priceTier: p.priceTier,
-        source: "mock",
+        source: p.source,
         phone: p.phone ?? undefined,
         imageUrl: p.imageUrl ?? undefined,
         services: relevantServices.map((s) => ({
@@ -122,13 +124,17 @@ export class MockBookingProvider implements BookingProvider {
   }
 
   async book(slotId: string, contact: ContactInfo): Promise<BookingResult> {
-    const slot = await prisma.slot.findUnique({ where: { id: slotId } });
+    const slot = await prisma.slot.findUnique({
+      where: { id: slotId },
+      include: { service: { include: { provider: true } } },
+    });
     if (!slot || slot.status !== "open") {
       return { success: false, error: "Slot no longer available" };
     }
 
-    // Simulate occasional "just taken" failures (10% chance)
-    if (Math.random() < 0.1) {
+    // Simulate occasional "just taken" failures (10% chance) — sample
+    // listings only. Real (manual) providers must never fake-fail.
+    if (slot.service.provider.source === "mock" && Math.random() < 0.1) {
       await prisma.slot.update({
         where: { id: slotId },
         data: { status: "booked" },
@@ -144,7 +150,7 @@ export class MockBookingProvider implements BookingProvider {
       return tx.booking.create({
         data: {
           slotId,
-          source: "mock",
+          source: slot.service.provider.source,
           contactName: contact.name,
           contactPhone: contact.phone,
           contactEmail: contact.email,
