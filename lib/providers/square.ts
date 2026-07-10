@@ -1,4 +1,4 @@
-import { Client, Environment } from "square";
+import { SquareClient, SquareEnvironment } from "square";
 import { haversineKm } from "@/lib/geo";
 import { prisma } from "@/lib/db";
 import type {
@@ -11,13 +11,17 @@ import type {
   TimeRange,
 } from "@/lib/types";
 
-function getClient(): Client {
+function assertSandbox() {
   if (process.env.SQUARE_ENVIRONMENT === "production") {
     throw new Error("Square production is not allowed in this build");
   }
-  return new Client({
-    accessToken: process.env.SQUARE_ACCESS_TOKEN!,
-    environment: Environment.Sandbox,
+}
+
+function makeClient(token: string): SquareClient {
+  assertSandbox();
+  return new SquareClient({
+    token,
+    environment: SquareEnvironment.Sandbox,
   });
 }
 
@@ -25,7 +29,7 @@ export class SquareBookingProvider implements BookingProvider {
   source = "square";
 
   async search(query: SearchQuery): Promise<ProviderResult[]> {
-    const client = getClient();
+    assertSandbox();
     const results: ProviderResult[] = [];
 
     const tokens = await prisma.sellerToken.findMany({
@@ -44,12 +48,9 @@ export class SquareBookingProvider implements BookingProvider {
 
     for (const token of allTokens) {
       try {
-        const sellerClient = new Client({
-          accessToken: token.accessToken,
-          environment: Environment.Sandbox,
-        });
+        const client = makeClient(token.accessToken);
 
-        const { result: locResult } = await sellerClient.locationsApi.listLocations();
+        const locResult = await client.locations.list();
         const locations = locResult.locations || [];
 
         for (const loc of locations) {
@@ -63,22 +64,26 @@ export class SquareBookingProvider implements BookingProvider {
           );
           if (dist > query.radiusKm) continue;
 
-          const { result: catResult } =
-            await sellerClient.catalogApi.searchCatalogItems({
-              productTypes: ["APPOINTMENTS_SERVICE"],
-            });
+          const catResult = await client.catalog.searchItems({
+            productTypes: ["APPOINTMENTS_SERVICE"],
+          });
 
           const items = catResult.items || [];
-          const services = items.map((item) => ({
-            id: item.id!,
-            name: item.itemData?.name || "Service",
-            durationMin: 60,
-            priceCents: Number(
-              item.itemData?.variations?.[0]?.itemVariationData?.priceMoney
-                ?.amount || 0
-            ),
-            categorySlug: "other",
-          }));
+          const services = items.map((item) => {
+            const itemData = item.type === "ITEM" ? item.itemData : undefined;
+            const variation = itemData?.variations?.[0];
+            const priceMoney =
+              variation?.type === "ITEM_VARIATION"
+                ? variation.itemVariationData?.priceMoney
+                : undefined;
+            return {
+              id: item.id!,
+              name: itemData?.name || "Service",
+              durationMin: 60,
+              priceCents: Number(priceMoney?.amount ?? 0),
+              categorySlug: "other",
+            };
+          });
 
           results.push({
             id: `square-${loc.id}`,
@@ -92,7 +97,7 @@ export class SquareBookingProvider implements BookingProvider {
             ratingCount: 0,
             priceTier: 2,
             source: "square",
-            externalId: loc.id,
+            externalId: loc.id ?? undefined,
             phone: loc.phoneNumber ?? undefined,
             services,
             distanceKm: Math.round(dist * 10) / 10,
@@ -111,11 +116,12 @@ export class SquareBookingProvider implements BookingProvider {
     serviceId: string,
     range: TimeRange
   ): Promise<SlotResult[]> {
-    const client = getClient();
+    if (!process.env.SQUARE_ACCESS_TOKEN) return [];
+    const client = makeClient(process.env.SQUARE_ACCESS_TOKEN);
     const locationId = providerId.replace("square-", "");
 
     try {
-      const { result } = await client.bookingsApi.searchAvailability({
+      const result = await client.bookings.searchAvailability({
         query: {
           filter: {
             startAtRange: {
@@ -147,18 +153,20 @@ export class SquareBookingProvider implements BookingProvider {
     if (process.env.SQUARE_ENVIRONMENT === "production") {
       return { success: false, error: "Production booking not allowed" };
     }
+    if (!process.env.SQUARE_ACCESS_TOKEN) {
+      return { success: false, error: "Square not configured" };
+    }
 
-    const client = getClient();
+    const client = makeClient(process.env.SQUARE_ACCESS_TOKEN);
     const parts = slotId.split("-");
     const locationId = parts[2];
     const startAt = parts.slice(4).join("-");
 
     try {
-      const { result } = await client.bookingsApi.createBooking({
+      await client.bookings.create({
         booking: {
           locationId,
           startAt,
-          customerId: undefined,
           appointmentSegments: [],
         },
         idempotencyKey: slotId,

@@ -29,6 +29,7 @@ export interface ProviderResult {
   priceTier: number;
   source: string;
   externalId?: string;
+  npi?: string;
   phone?: string;
   imageUrl?: string;
   services: ServiceResult[];
