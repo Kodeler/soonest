@@ -253,7 +253,7 @@ export default function Home() {
                 </div>
               </div>
             ) : (
-              <div className="flex-1 flex overflow-hidden" style={{ height: "calc(100vh - 178px)" }}>
+              <div className="flex overflow-hidden" style={{ height: "calc(100dvh - 178px)", flex: "none" }}>
                 <div
                   className={`overflow-y-auto ${
                     showMap ? "hidden md:block" : "flex-1"

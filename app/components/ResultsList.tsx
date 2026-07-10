@@ -1,6 +1,7 @@
 "use client";
 
 import type { RankedResult } from "@/lib/types";
+import Monogram from "./Monogram";
 
 function minutesUntil(iso: string): number {
   return Math.floor((new Date(iso).getTime() - Date.now()) / 60000);
@@ -92,14 +93,15 @@ export default function ResultsList({ results, onSelect }: Props) {
           style={{ animationDelay: `${Math.min(i, 10) * 45}ms` }}
         >
           <div className="flex items-start gap-3">
-            <div
-              className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
-                i < 3
-                  ? "btn-gradient text-white shadow-none"
-                  : "bg-stone-100 text-stone-500"
-              }`}
-            >
-              {i + 1}
+            <div className="relative flex-shrink-0 mt-0.5">
+              <Monogram name={r.name} size={42} />
+              <div
+                className={`absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ring-2 ring-white ${
+                  i < 3 ? "bg-ink text-white" : "bg-stone-200 text-stone-600"
+                }`}
+              >
+                {i + 1}
+              </div>
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">

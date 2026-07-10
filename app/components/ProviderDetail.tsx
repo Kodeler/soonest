@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { SlotResult } from "@/lib/types";
+import Monogram from "./Monogram";
 
 interface ProviderData {
   id: string;
@@ -127,8 +128,13 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
         <div className="animate-fade-up relative overflow-hidden rounded-3xl border border-violet-100 bg-gradient-to-br from-accent-light via-white to-white p-6">
           <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-violet-200/30 blur-2xl" aria-hidden />
           <div className="relative space-y-2.5">
-            <h1 className="text-3xl font-extrabold tracking-tight text-ink">{provider.name}</h1>
-            <p className="text-stone-500 text-sm">{provider.address}</p>
+            <div className="flex items-center gap-4">
+              <Monogram name={provider.name} size={56} />
+              <div>
+                <h1 className="text-3xl font-extrabold tracking-tight text-ink">{provider.name}</h1>
+                <p className="text-stone-500 text-sm mt-0.5">{provider.address}</p>
+              </div>
+            </div>
             <div className="flex flex-wrap items-center gap-3">
               <span className="flex items-center gap-1 text-sm">
                 <span className="text-amber-400">★</span>
