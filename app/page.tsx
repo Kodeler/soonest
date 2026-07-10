@@ -159,13 +159,14 @@ export default function Home() {
                   Live availability across Toronto
                 </div>
                 <h1 className="text-[2.6rem] leading-[1.05] sm:text-6xl font-extrabold tracking-tight text-ink">
-                  Whatever you need,
+                  Don&apos;t book soon.
                   <br />
-                  <span className="text-gradient">booked sooner.</span>
+                  <span className="text-gradient">Book soonest.</span>
                 </h1>
                 <p className="text-stone-500 text-lg sm:text-xl max-w-lg mx-auto">
-                  One search across massage, hair, dental, physio and more —
-                  ranked by who can take you first.
+                  Time is money — spend it wisely. One search across massage,
+                  hair, fitness, dental and more, ranked by who can take you
+                  first.
                 </p>
               </div>
 
@@ -189,8 +190,8 @@ export default function Home() {
                 style={{ animationDelay: "220ms" }}
               >
                 {[
-                  ["45+", "providers"],
-                  ["2,000+", "open slots this week"],
+                  ["55+", "providers"],
+                  ["3,000+", "open slots this week"],
                   ["<1 min", "to book"],
                 ].map(([stat, label]) => (
                   <div key={label}>

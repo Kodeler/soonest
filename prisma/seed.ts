@@ -23,6 +23,11 @@ const CATEGORIES = [
   { name: "Tattoo", slug: "tattoo", icon: "🎨", vertical: "personal" },
   { name: "Mechanic", slug: "mechanic", icon: "🔧", vertical: "auto" },
   { name: "Chiropractor", slug: "chiropractor", icon: "🤲", vertical: "health" },
+  { name: "Facials & Spa", slug: "spa", icon: "🧖", vertical: "personal" },
+  { name: "Fitness Classes", slug: "fitness", icon: "💪", vertical: "fitness" },
+  { name: "Yoga & Pilates", slug: "yoga", icon: "🧘", vertical: "fitness" },
+  { name: "Music Lessons", slug: "music-lessons", icon: "🎸", vertical: "education" },
+  { name: "Pet Grooming", slug: "pet-grooming", icon: "🐩", vertical: "pets" },
 ];
 
 interface MockProvider {
@@ -103,6 +108,29 @@ const PROVIDERS: MockProvider[] = [
   { name: "Restore Chiropractic", address: "1173 Woodbine Ave", lat: 43.6880, lng: -79.3130, ratingAvg: 4.8, ratingCount: 567, priceTier: 3, categorySlug: "chiropractor", services: [{ name: "Full Spine Adjustment", durationMin: 30, priceCents: 8500 }, { name: "Posture Assessment", durationMin: 45, priceCents: 10000 }], phone: "(416) 555-0130" },
   { name: "King West Chiropractic", address: "500 King St W", lat: 43.6445, lng: -79.3970, ratingAvg: 4.6, ratingCount: 203, priceTier: 2, categorySlug: "chiropractor", services: [{ name: "Express Adjustment", durationMin: 15, priceCents: 5500 }, { name: "Soft Tissue Therapy", durationMin: 30, priceCents: 8000 }], phone: "(416) 555-0153" },
   { name: "Bloor Chiro & Wellness", address: "1098 Bloor St W", lat: 43.6600, lng: -79.4360, ratingAvg: 4.5, ratingCount: 145, priceTier: 2, categorySlug: "chiropractor", services: [{ name: "Chiro + Massage Combo", durationMin: 60, priceCents: 12000 }, { name: "Pediatric Chiro", durationMin: 20, priceCents: 6000 }], phone: "(416) 555-0154" },
+
+  // FACIALS & SPA
+  { name: "Glow Facial Bar", address: "638 Queen St W", lat: 43.6470, lng: -79.4045, ratingAvg: 4.7, ratingCount: 289, priceTier: 3, categorySlug: "spa", services: [{ name: "Signature Facial", durationMin: 60, priceCents: 12000 }, { name: "Hydrafacial", durationMin: 45, priceCents: 17500 }], phone: "(416) 555-0155" },
+  { name: "Pure Bliss Day Spa", address: "2200 Yonge St", lat: 43.7075, lng: -79.3985, ratingAvg: 4.5, ratingCount: 412, priceTier: 3, categorySlug: "spa", services: [{ name: "Spa Day Package", durationMin: 120, priceCents: 25000 }, { name: "Express Glow Facial", durationMin: 30, priceCents: 7500 }], phone: "(416) 555-0156" },
+  { name: "The Skin Studio Leslieville", address: "1220 Queen St E", lat: 43.6625, lng: -79.3285, ratingAvg: 4.8, ratingCount: 176, priceTier: 2, categorySlug: "spa", services: [{ name: "Custom Facial", durationMin: 60, priceCents: 11000 }, { name: "Chemical Peel", durationMin: 45, priceCents: 13500 }], phone: "(416) 555-0157" },
+
+  // FITNESS CLASSES
+  { name: "Sweat Society", address: "460 King St W", lat: 43.6448, lng: -79.3955, ratingAvg: 4.8, ratingCount: 523, priceTier: 2, categorySlug: "fitness", services: [{ name: "HIIT Class", durationMin: 50, priceCents: 3000 }, { name: "Strength Fundamentals", durationMin: 60, priceCents: 3500 }], phone: "(416) 555-0158" },
+  { name: "Ride Cycle Club", address: "373 King St W", lat: 43.6452, lng: -79.3925, ratingAvg: 4.6, ratingCount: 391, priceTier: 2, categorySlug: "fitness", services: [{ name: "Spin Class", durationMin: 45, priceCents: 2800 }, { name: "Beginner Ride", durationMin: 45, priceCents: 2500 }], phone: "(416) 555-0159" },
+  { name: "Liberty Strength Co", address: "99 Atlantic Ave", lat: 43.6395, lng: -79.4215, ratingAvg: 4.7, ratingCount: 214, priceTier: 2, categorySlug: "fitness", services: [{ name: "Drop-in WOD", durationMin: 60, priceCents: 2500 }, { name: "Intro Session", durationMin: 60, priceCents: 0 }], phone: "(416) 555-0160" },
+
+  // YOGA & PILATES
+  { name: "Danforth Hot Yoga", address: "720 Danforth Ave", lat: 43.6790, lng: -79.3450, ratingAvg: 4.6, ratingCount: 358, priceTier: 2, categorySlug: "yoga", services: [{ name: "Hot Yoga Flow", durationMin: 75, priceCents: 2600 }, { name: "Yin Yoga", durationMin: 60, priceCents: 2400 }], phone: "(416) 555-0161" },
+  { name: "The Pilates Loft", address: "833 College St", lat: 43.6540, lng: -79.4210, ratingAvg: 4.9, ratingCount: 187, priceTier: 3, categorySlug: "yoga", services: [{ name: "Reformer Class", durationMin: 55, priceCents: 4500 }, { name: "Private Session", durationMin: 55, priceCents: 9500 }], phone: "(416) 555-0162" },
+  { name: "Union Yoga + Wellness", address: "148 Ossington Ave", lat: 43.6465, lng: -79.4200, ratingAvg: 4.7, ratingCount: 264, priceTier: 2, categorySlug: "yoga", services: [{ name: "Vinyasa Flow", durationMin: 60, priceCents: 2500 }, { name: "Restorative Yoga", durationMin: 75, priceCents: 2800 }], phone: "(416) 555-0163" },
+
+  // MUSIC LESSONS
+  { name: "Bloor West Music Studio", address: "2290 Bloor St W", lat: 43.6510, lng: -79.4750, ratingAvg: 4.8, ratingCount: 142, priceTier: 2, categorySlug: "music-lessons", services: [{ name: "Guitar Lesson", durationMin: 30, priceCents: 4000 }, { name: "Piano Lesson", durationMin: 30, priceCents: 4500 }], phone: "(416) 555-0164" },
+  { name: "Riverdale School of Music", address: "620 Gerrard St E", lat: 43.6665, lng: -79.3480, ratingAvg: 4.9, ratingCount: 231, priceTier: 2, categorySlug: "music-lessons", services: [{ name: "Voice Lesson", durationMin: 45, priceCents: 5500 }, { name: "Drum Lesson", durationMin: 30, priceCents: 4000 }], phone: "(416) 555-0165" },
+
+  // PET GROOMING
+  { name: "The Dog Bowl Spa", address: "1108 Queen St W", lat: 43.6435, lng: -79.4225, ratingAvg: 4.7, ratingCount: 306, priceTier: 2, categorySlug: "pet-grooming", services: [{ name: "Full Groom", durationMin: 90, priceCents: 8500 }, { name: "Bath & Brush", durationMin: 45, priceCents: 4500 }], phone: "(416) 555-0166" },
+  { name: "Posh Paws Grooming", address: "556 Mt Pleasant Rd", lat: 43.7040, lng: -79.3885, ratingAvg: 4.5, ratingCount: 198, priceTier: 2, categorySlug: "pet-grooming", services: [{ name: "Small Dog Groom", durationMin: 60, priceCents: 7000 }, { name: "Nail Trim", durationMin: 15, priceCents: 1800 }], phone: "(416) 555-0167" },
 ];
 
 const REVIEW_TEMPLATES = [
