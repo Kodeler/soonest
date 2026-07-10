@@ -8,10 +8,24 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Soonest — Find appointments, fast",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://soonest-ten.vercel.app"
+  ),
+  title: "Soonest — Don't book soon. Book soonest.",
   description:
-    "Search every bookable service near you and find the soonest available appointment.",
+    "One search across massage, hair, fitness, dental and more — ranked by who can take you first. Toronto appointments, booked in under a minute.",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "Soonest — Don't book soon. Book soonest.",
+    description:
+      "Toronto appointments ranked by who can take you first. Book in under a minute.",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

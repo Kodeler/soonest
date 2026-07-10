@@ -2,6 +2,18 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { leadSchema } from "@/lib/validation";
 
+// Admin: list leads. Auth via the same secret that protects the cron route.
+export async function GET(req: NextRequest) {
+  const secret = process.env.CRON_SECRET;
+  if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const leads = await prisma.providerLead.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return Response.json({ leads });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

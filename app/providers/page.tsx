@@ -251,8 +251,10 @@ export default function ProvidersPage() {
         </section>
       </main>
 
-      <footer className="px-5 py-6 border-t border-stone-100 text-center text-xs text-stone-400">
-        Soonest — Don&apos;t book soon. Book soonest.
+      <footer className="px-5 py-6 border-t border-stone-100 text-center text-xs text-stone-400 space-x-5">
+        <span>Soonest — Don&apos;t book soon. Book soonest.</span>
+        <Link href="/privacy" className="hover:text-primary">Privacy</Link>
+        <Link href="/terms" className="hover:text-primary">Terms</Link>
       </footer>
     </div>
   );
