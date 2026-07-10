@@ -37,33 +37,43 @@ function generateIcsUrl(providerName: string, slotTime: string): string {
 
 export default function Confirmation({ booking, onFindAnother }: Props) {
   return (
-    <div className="flex-1 flex items-center justify-center px-4 py-12">
-      <div className="max-w-sm w-full text-center space-y-6">
-        <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto">
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#059669"
-            strokeWidth="2.5"
-          >
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
+    <div className="hero-mesh flex-1 flex items-center justify-center px-4 py-12">
+      <div className="max-w-sm w-full text-center space-y-7">
+        <div className="animate-pop relative mx-auto w-20 h-20">
+          <div className="absolute inset-0 rounded-full bg-emerald-200/50 blur-xl" aria-hidden />
+          <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Booking confirmed</h1>
+        <div className="space-y-2 animate-fade-up" style={{ animationDelay: "150ms" }}>
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+            You&apos;re booked
+          </h1>
           <p className="text-stone-500 text-sm">
-            Your appointment has been booked successfully
+            Your appointment is confirmed — that was fast.
           </p>
         </div>
 
-        <div className="bg-white rounded-xl border border-stone-200 p-4 text-left space-y-2">
-          <div className="text-xs text-stone-400">Booking ID</div>
-          <div className="text-sm font-mono text-stone-600">
-            {booking.bookingId}
+        <div
+          className="animate-fade-up bg-white/90 backdrop-blur rounded-2xl border border-violet-100 p-4 text-left space-y-1.5 shadow-sm"
+          style={{ animationDelay: "220ms" }}
+        >
+          <div className="text-[10px] uppercase tracking-wider font-bold text-stone-400">
+            Booking ID
           </div>
+          <div className="text-sm font-mono text-ink">{booking.bookingId}</div>
         </div>
 
         {booking.bookingUrl && (
@@ -71,25 +81,28 @@ export default function Confirmation({ booking, onFindAnother }: Props) {
             href={booking.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full py-3 bg-accent text-white rounded-xl font-semibold hover:bg-accent/90 transition-colors"
+            className="btn-gradient block w-full py-3.5 text-white rounded-2xl font-bold"
           >
             Complete on provider site
           </a>
         )}
 
-        <div className="flex flex-col gap-2">
+        <div
+          className="animate-fade-up flex flex-col gap-2.5"
+          style={{ animationDelay: "300ms" }}
+        >
           {booking.slotTime && booking.providerName && (
             <a
               href={generateIcsUrl(booking.providerName, booking.slotTime)}
               download="appointment.ics"
-              className="block w-full py-3 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 transition-colors"
+              className="block w-full py-3.5 bg-white border border-stone-200 rounded-2xl text-sm font-semibold text-ink hover:border-violet-200 transition-colors"
             >
               Add to calendar
             </a>
           )}
           <button
             onClick={onFindAnother}
-            className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors"
+            className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold"
           >
             Find another appointment
           </button>

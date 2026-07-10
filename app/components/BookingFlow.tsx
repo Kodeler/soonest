@@ -15,6 +15,9 @@ interface Props {
   onSlotTaken: () => void;
 }
 
+const fieldClass =
+  "w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-violet-300 text-sm text-ink placeholder:text-stone-400 transition-colors";
+
 export default function BookingFlow({
   slotId,
   providerId,
@@ -67,10 +70,10 @@ export default function BookingFlow({
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="max-w-md mx-auto px-4 py-8 space-y-6">
+      <div className="max-w-md mx-auto px-4 py-8 space-y-7">
         <button
           onClick={onBack}
-          className="flex items-center gap-1 text-sm text-stone-500 hover:text-stone-700"
+          className="flex items-center gap-1.5 text-sm font-semibold text-stone-500 hover:text-primary transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5M12 5l-7 7 7 7" />
@@ -78,64 +81,66 @@ export default function BookingFlow({
           Back
         </button>
 
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold">Confirm booking</h1>
+        <div className="space-y-1.5 animate-fade-up">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+            Lock it in
+          </h1>
           <p className="text-stone-500 text-sm">
-            Enter your details to book this appointment
+            Your details — takes about 20 seconds
           </p>
         </div>
 
         {slotTaken ? (
-          <div className="space-y-4">
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-              <p className="text-amber-800 text-sm font-medium">
+          <div className="space-y-4 animate-fade-up">
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+              <p className="text-amber-800 text-sm font-bold">
                 This slot was just taken
               </p>
-              <p className="text-amber-600 text-xs mt-1">
-                Someone else booked it just before you. Let&apos;s find the next
-                best option.
+              <p className="text-amber-600 text-xs mt-1.5 leading-relaxed">
+                Someone beat you to it by seconds. Let&apos;s find the next best
+                option — there are plenty.
               </p>
             </div>
             <button
               onClick={onSlotTaken}
-              className="w-full py-3 bg-accent text-white rounded-xl font-semibold hover:bg-accent/90 transition-colors"
+              className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold"
             >
-              Find next available
+              ⚡ Find next available
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-stone-700">Name</label>
+          <form onSubmit={handleSubmit} className="space-y-4 animate-fade-up" style={{ animationDelay: "80ms" }}>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-ink">Name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your full name"
-                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30 text-sm"
+                className={fieldClass}
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-stone-700">Phone</label>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-ink">Phone</label>
               <input
                 type="tel"
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="(416) 555-0000"
-                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30 text-sm"
+                className={fieldClass}
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-stone-700">Email</label>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-ink">Email</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30 text-sm"
+                className={fieldClass}
               />
             </div>
 
@@ -146,7 +151,7 @@ export default function BookingFlow({
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 disabled:opacity-50 transition-colors"
+              className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold disabled:opacity-50"
             >
               {submitting ? (
                 <span className="flex items-center justify-center gap-2">
@@ -157,6 +162,9 @@ export default function BookingFlow({
                 "Confirm booking"
               )}
             </button>
+            <p className="text-center text-xs text-stone-400">
+              No account needed. Free to book.
+            </p>
           </form>
         )}
       </div>

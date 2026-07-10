@@ -27,6 +27,9 @@ interface Props {
   compact?: boolean;
 }
 
+const inputClass =
+  "w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-violet-300 text-sm text-ink placeholder:text-stone-400 transition-colors";
+
 export default function SearchBar({
   categories,
   onSearch,
@@ -69,7 +72,7 @@ export default function SearchBar({
           value={params.keyword}
           onChange={(e) => setParams((p) => ({ ...p, keyword: e.target.value }))}
           placeholder="Search services..."
-          className="flex-1 min-w-[140px] px-3 py-2 text-sm rounded-lg border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30"
+          className="flex-1 min-w-[140px] px-3 py-2 text-sm rounded-xl border border-stone-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 text-ink placeholder:text-stone-400"
         />
         <select
           value={params.categorySlug}
@@ -78,7 +81,7 @@ export default function SearchBar({
             setParams(updated);
             onSearch(updated);
           }}
-          className="px-3 py-2 text-sm rounded-lg border border-stone-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent/30"
+          className="px-3 py-2 text-sm rounded-xl border border-stone-200 bg-white text-ink focus:outline-none focus:ring-2 focus:ring-accent/40"
         >
           <option value="">All categories</option>
           {categories.map((c) => (
@@ -95,18 +98,19 @@ export default function SearchBar({
             setParams(updated);
             onSearch(updated);
           }}
-          className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+          className={`px-3 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
             params.asap
-              ? "bg-accent text-white"
-              : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+              ? "btn-gradient text-white"
+              : "bg-white border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
           }`}
         >
-          ASAP
+          ⚡ ASAP
         </button>
         <button
           type="submit"
+          onClick={(e) => { e.preventDefault(); onSearch(params); }}
           disabled={loading}
-          className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium disabled:opacity-50"
+          className="btn-gradient px-4 py-2 text-white rounded-xl text-sm font-bold disabled:opacity-50"
         >
           {loading ? "..." : "Search"}
         </button>
@@ -118,18 +122,24 @@ export default function SearchBar({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-2">
         <div className="flex-1 relative">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </span>
           <input
             type="text"
             value={locationText}
             onChange={(e) => setLocationText(e.target.value)}
             placeholder="Location"
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30 text-sm"
+            className={`${inputClass} pl-10`}
           />
           <button
             type="button"
             onClick={detectLocation}
             disabled={detectingLocation}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-stone-100 text-stone-400"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-violet-50 text-stone-400 hover:text-primary transition-colors"
             title="Use my location"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -138,23 +148,31 @@ export default function SearchBar({
             </svg>
           </button>
         </div>
-        <input
-          type="text"
-          value={params.keyword}
-          onChange={(e) => setParams((p) => ({ ...p, keyword: e.target.value }))}
-          placeholder="Search services, providers..."
-          className="flex-1 px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-accent/30 text-sm"
-        />
+        <div className="flex-1 relative">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </span>
+          <input
+            type="text"
+            value={params.keyword}
+            onChange={(e) => setParams((p) => ({ ...p, keyword: e.target.value }))}
+            placeholder="Massage, haircut, dentist..."
+            className={`${inputClass} pl-10`}
+          />
+        </div>
       </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide sm:flex-wrap sm:overflow-visible">
         <button
           type="button"
           onClick={() => setParams((p) => ({ ...p, categorySlug: "" }))}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
+          className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
             !params.categorySlug
-              ? "bg-primary text-white"
-              : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+              ? "bg-ink text-white shadow-md shadow-ink/20"
+              : "bg-stone-50 border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
           }`}
         >
           All
@@ -164,10 +182,10 @@ export default function SearchBar({
             type="button"
             key={c.slug}
             onClick={() => setParams((p) => ({ ...p, categorySlug: c.slug }))}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
               params.categorySlug === c.slug
-                ? "bg-primary text-white"
-                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                ? "bg-ink text-white shadow-md shadow-ink/20"
+                : "bg-stone-50 border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
             }`}
           >
             {c.icon} {c.name}
@@ -175,17 +193,18 @@ export default function SearchBar({
         ))}
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-2">
+      <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
         <button
           type="button"
           onClick={() => setParams((p) => ({ ...p, asap: !p.asap }))}
-          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+          aria-pressed={params.asap}
+          className={`flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all ${
             params.asap
-              ? "bg-accent text-white shadow-lg shadow-accent/25"
-              : "bg-accent-light text-accent border border-accent/20 hover:bg-accent/10"
+              ? "btn-gradient text-white"
+              : "bg-accent-light text-primary border-2 border-dashed border-violet-200 hover:border-violet-300"
           }`}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill={params.asap ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
           </svg>
           Find me the soonest
@@ -195,7 +214,7 @@ export default function SearchBar({
           type="submit"
           disabled={loading}
           onClick={(e) => { e.preventDefault(); onSearch(params); }}
-          className="flex-1 py-3 bg-primary text-white rounded-xl text-base font-semibold hover:bg-primary-dark active:bg-primary-dark disabled:opacity-50 transition-colors"
+          className="btn-gradient flex-1 py-3.5 text-white rounded-2xl text-base font-bold disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
