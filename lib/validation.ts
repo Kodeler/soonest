@@ -23,6 +23,17 @@ export const slotsSchema = z.object({
   endDate: z.string(),
 });
 
+export const leadSchema = z.object({
+  business: z.string().min(1).max(200),
+  name: z.string().min(1).max(200),
+  email: z.string().email(),
+  phone: z.string().max(40).optional(),
+  category: z.string().max(100).optional(),
+  plan: z.enum(["free", "founding"]).default("free"),
+  message: z.string().max(2000).optional(),
+});
+
 export type SearchInput = z.infer<typeof searchSchema>;
 export type BookInput = z.infer<typeof bookSchema>;
 export type SlotsInput = z.infer<typeof slotsSchema>;
+export type LeadInput = z.infer<typeof leadSchema>;

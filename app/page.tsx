@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import type { RankedResult } from "@/lib/types";
 import SearchBar from "@/app/components/SearchBar";
 import ResultsList from "@/app/components/ResultsList";
@@ -130,7 +131,7 @@ export default function Home() {
         >
           <img src="/logo.png" alt="Soonest" className="h-9 sm:h-10 w-auto" />
         </button>
-        {view === "results" && (
+        {view === "results" ? (
           <div className="flex items-center gap-2 text-sm">
             <span className="relative flex h-2 w-2">
               <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
@@ -140,6 +141,13 @@ export default function Home() {
               {results.length} open now
             </span>
           </div>
+        ) : (
+          <Link
+            href="/providers"
+            className="text-sm font-semibold text-stone-500 hover:text-primary transition-colors"
+          >
+            For businesses
+          </Link>
         )}
       </header>
 

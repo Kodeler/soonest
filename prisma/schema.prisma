@@ -79,6 +79,18 @@ model Booking {
   slot         Slot     @relation(fields: [slotId], references: [id])
 }
 
+model ProviderLead {
+  id        String   @id @default(cuid())
+  business  String
+  name      String
+  email     String
+  phone     String?
+  category  String?
+  plan      String   @default("free")
+  message   String?
+  createdAt DateTime @default(now())
+}
+
 model SellerToken {
   id               String   @id @default(cuid())
   source           String
