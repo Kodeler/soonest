@@ -11,7 +11,9 @@ interface Category {
   icon: string;
 }
 
-const STRIPE_FOUNDING_LINK = process.env.NEXT_PUBLIC_STRIPE_FOUNDING_LINK || "";
+const STRIPE_FOUNDING_LINK =
+  process.env.NEXT_PUBLIC_STRIPE_FOUNDING_LINK ||
+  "https://buy.stripe.com/aFa7sKejs7oV1nw2aRdwc00";
 
 const fieldClass =
   "w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-violet-300 text-sm text-ink placeholder:text-stone-400 transition-colors";
