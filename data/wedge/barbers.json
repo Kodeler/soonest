@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "pocket": "West Queen West / Ossington / Dundas West, Toronto",
+    "categorySlug": "haircut",
+    "provenance": "Compiled 2026-11-04 from each shop's own website or public booking platform profile (Booksy, Squire, Fresha). Prices are as published there; durations marked estimated in notes where the source did not publish one. No ratings are included because we have no authorized rating source. The sync script verifies every bookingUrl responds before a listing goes live and drops entries whose URL fails.",
+    "coordsNote": "fallbackLat/fallbackLng are approximate street-corner coordinates used only when Mapbox geocoding is unavailable at sync time; the sync prefers a fresh geocode of the address."
+  },
+  "listings": [
+    {
+      "name": "Barberhood",
+      "address": "68 Abell St #8, Toronto, ON",
+      "phone": "(437) 249-1338",
+      "website": "https://www.barberhood.ca/",
+      "bookingUrl": "https://www.barberhood.ca/",
+      "priceTier": 2,
+      "fallbackLat": 43.643,
+      "fallbackLng": -79.4253,
+      "services": [
+        { "name": "Haircut / fade", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Beard trim", "durationMin": 20, "priceCents": 2500 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 5000 }
+      ],
+      "notes": "Prices from barberhood.ca (fades from $40, beard trim $25, combo $50); durations estimated."
+    },
+    {
+      "name": "Garrison's Barber Shop (Queen West)",
+      "address": "254 Niagara St, Toronto, ON",
+      "website": "https://garrisons.ca/queen-west-barbershop",
+      "bookingUrl": "https://garrisons.ca/queen-west-barbershop",
+      "priceTier": 3,
+      "fallbackLat": 43.6425,
+      "fallbackLng": -79.4065,
+      "services": [
+        { "name": "Men's haircut", "durationMin": 30, "priceCents": 4800 }
+      ],
+      "notes": "Price and 30min duration from garrisons.ca."
+    },
+    {
+      "name": "Parkdale Barbers",
+      "address": "1205 Queen St W, Toronto, ON",
+      "phone": "(416) 538-3233",
+      "website": "https://www.parkdalebarbers.com/",
+      "bookingUrl": "https://www.fresha.com/lvp/parkdale-barbers-queen-street-west-toronto-JQlkll",
+      "priceTier": 3,
+      "fallbackLat": 43.6399,
+      "fallbackLng": -79.4305,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 6000 },
+        { "name": "Light beard trim", "durationMin": 15, "priceCents": 2500 }
+      ],
+      "notes": "Prices from the shop's Fresha profile; haircut listed 45-60min."
+    },
+    {
+      "name": "Queen West Barbers",
+      "address": "616 Queen St W, Toronto, ON",
+      "phone": "(647) 748-9378",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/queen-west-barbers-toronto",
+      "priceTier": 2,
+      "fallbackLat": 43.6468,
+      "fallbackLng": -79.4043,
+      "services": [
+        { "name": "Haircut", "durationMin": 30, "priceCents": 4500 },
+        { "name": "Haircut + beard trim", "durationMin": 45, "priceCents": 5500 },
+        { "name": "Line up", "durationMin": 20, "priceCents": 3500 },
+        { "name": "Hot towel shave", "durationMin": 30, "priceCents": 5000 }
+      ],
+      "notes": "Prices and durations from the shop's Squire profile; hot towel shave duration estimated."
+    },
+    {
+      "name": "Supreme Clientele Barbershop",
+      "address": "216 Ossington Ave, 2nd Floor, Toronto, ON",
+      "bookingUrl": "https://booksy.com/en-ca/5019_supreme-clientele-barbershop_barbershop_944431_toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6494,
+      "fallbackLng": -79.4205,
+      "services": [
+        { "name": "Adult haircut", "durationMin": 60, "priceCents": 5500 },
+        { "name": "Haircut + beard trim", "durationMin": 90, "priceCents": 6500 },
+        { "name": "Line-up", "durationMin": 45, "priceCents": 3500 }
+      ],
+      "notes": "Prices and durations from the shop's Booksy profile (pre-discount list prices)."
+    },
+    {
+      "name": "Macho Alpha Barbershop",
+      "address": "1526 Dundas St W, Toronto, ON",
+      "bookingUrl": "https://booksy.com/en-ca/17427_macho-alpha-barbershop_barbershop_944431_toronto",
+      "priceTier": 2,
+      "fallbackLat": 43.6496,
+      "fallbackLng": -79.4345,
+      "services": [
+        { "name": "Haircut", "durationMin": 35, "priceCents": 4000 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6000 },
+        { "name": "Kids haircut", "durationMin": 30, "priceCents": 3500 },
+        { "name": "Beard design", "durationMin": 20, "priceCents": 3000 }
+      ],
+      "notes": "Prices and durations from the shop's Booksy profile; kids/beard durations estimated."
+    },
+    {
+      "name": "Town Barber (Dundas West)",
+      "address": "1114 Dundas St W, Toronto, ON",
+      "phone": "(416) 399-3499",
+      "website": "https://www.townbarber.ca/",
+      "bookingUrl": "https://www.townbarber.ca/",
+      "priceTier": 2,
+      "fallbackLat": 43.6508,
+      "fallbackLng": -79.4223,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 3500 },
+        { "name": "Haircut + full face shave", "durationMin": 80, "priceCents": 5500 }
+      ],
+      "notes": "Prices from townbarber.ca service pages (HST included per site). Third-party platforms show higher prices; the shop's own site is used as authoritative."
+    },
+    {
+      "name": "The Fitting Room Toronto",
+      "address": "1243 Dundas St W, Toronto, ON",
+      "phone": "(416) 533-7666",
+      "website": "https://www.fittingroomtoronto.com/",
+      "bookingUrl": "https://www.fresha.com/lvp/the-fitting-room-toronto-dundas-st-w-toronto-1551ya",
+      "priceTier": 3,
+      "fallbackLat": 43.6498,
+      "fallbackLng": -79.4258,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 6500 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 7500 }
+      ],
+      "notes": "Prices from a third-party guide, weakest sourcing in this set; durations estimated. Confirm against the Fresha menu when network access allows."
+    }
+  ]
+}
