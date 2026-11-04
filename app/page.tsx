@@ -9,6 +9,7 @@ import MapView from "@/app/components/MapView";
 import ProviderDetail from "@/app/components/ProviderDetail";
 import BookingFlow from "@/app/components/BookingFlow";
 import Confirmation from "@/app/components/Confirmation";
+import { BoltIcon, ListIcon, MapIcon, SearchIcon } from "@/app/components/icons";
 /* eslint-disable @next/next/no-img-element */
 
 interface Category {
@@ -33,7 +34,7 @@ function SpeedLines({ className }: { className?: string }) {
       <rect x="30" y="8" width="70" height="7" rx="3.5" fill="#7c3aed" opacity="0.14" />
       <rect x="10" y="20" width="58" height="7" rx="3.5" fill="#7c3aed" opacity="0.22" />
       <rect x="44" y="32" width="40" height="7" rx="3.5" fill="#7c3aed" opacity="0.1" />
-      <circle cx="4" cy="23.5" r="3.5" fill="#7c3aed" opacity="0.3" />
+      <circle cx="4" cy="23.5" r="3.5" fill="#f59e0b" opacity="0.45" />
     </svg>
   );
 }
@@ -182,7 +183,24 @@ export default function Home() {
                 <h1 className="text-[2.6rem] leading-[1.05] sm:text-6xl font-extrabold tracking-tight text-ink">
                   Don&apos;t book soon.
                   <br />
-                  <span className="text-gradient">Book soonest.</span>
+                  <span className="relative inline-block">
+                    <span className="text-gradient">Book soonest.</span>
+                    <svg
+                      className="absolute left-0 -bottom-1.5 sm:-bottom-2.5 w-full"
+                      viewBox="0 0 220 10"
+                      fill="none"
+                      preserveAspectRatio="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M3 7.5C45 3.5 130 2.5 217 5.5"
+                        stroke="#f59e0b"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        opacity="0.8"
+                      />
+                    </svg>
+                  </span>
                 </h1>
                 <p className="text-stone-500 text-lg sm:text-xl max-w-lg mx-auto">
                   Time is money — spend it wisely. One search across massage,
@@ -255,22 +273,30 @@ export default function Home() {
                     <button
                       key={s}
                       onClick={() => setSortBy(s)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
+                      className={`inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
                         sortBy === s
                           ? "btn-gradient text-white"
                           : "bg-white border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
                       }`}
                     >
-                      {s === "score" ? "Best match" : s === "time" ? "⚡ Soonest" : s === "distance" ? "Nearest" : "Top rated"}
+                      {s === "time" && (
+                        <BoltIcon
+                          size={11}
+                          fill="currentColor"
+                          className={sortBy === s ? "" : "text-spark"}
+                        />
+                      )}
+                      {s === "score" ? "Best match" : s === "time" ? "Soonest" : s === "distance" ? "Nearest" : "Top rated"}
                     </button>
                   ))}
                 </div>
                 <div className="ml-auto flex-shrink-0 md:hidden">
                   <button
                     onClick={() => setShowMap(!showMap)}
-                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ink text-white whitespace-nowrap"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ink text-white whitespace-nowrap"
                   >
-                    {showMap ? "☰ List" : "🗺 Map"}
+                    {showMap ? <ListIcon size={12} /> : <MapIcon size={12} />}
+                    {showMap ? "List" : "Map"}
                   </button>
                 </div>
               </div>
@@ -279,8 +305,8 @@ export default function Home() {
             {results.length === 0 && !loading ? (
               <div className="flex-1 flex items-center justify-center text-center px-4">
                 <div className="space-y-3 animate-fade-up">
-                  <div className="mx-auto w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center text-3xl">
-                    🔍
+                  <div className="mx-auto w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center text-primary">
+                    <SearchIcon size={28} strokeWidth={1.8} />
                   </div>
                   <p className="text-ink text-lg font-semibold">No results found</p>
                   <p className="text-stone-400 text-sm max-w-xs mx-auto">

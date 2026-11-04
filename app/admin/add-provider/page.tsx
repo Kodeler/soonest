@@ -257,7 +257,7 @@ export default function AddProviderPage() {
             <select required value={categorySlug} onChange={(e) => setCategorySlug(e.target.value)} className={fieldClass}>
               <option value="">Category...</option>
               {categories.map((c) => (
-                <option key={c.slug} value={c.slug}>{c.icon} {c.name}</option>
+                <option key={c.slug} value={c.slug}>{c.name}</option>
               ))}
             </select>
           </div>

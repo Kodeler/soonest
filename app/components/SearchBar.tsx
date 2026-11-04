@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import CategoryIcon from "./CategoryIcon";
+import { BoltIcon } from "./icons";
 
 interface Category {
   id: string;
@@ -86,7 +88,7 @@ export default function SearchBar({
           <option value="">All categories</option>
           {categories.map((c) => (
             <option key={c.slug} value={c.slug}>
-              {c.icon} {c.name}
+              {c.name}
             </option>
           ))}
         </select>
@@ -98,13 +100,14 @@ export default function SearchBar({
             setParams(updated);
             onSearch(updated);
           }}
-          className={`px-3 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
+          className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
             params.asap
               ? "btn-gradient text-white"
               : "bg-white border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
           }`}
         >
-          ⚡ ASAP
+          <BoltIcon size={13} className={params.asap ? "" : "text-spark"} fill="currentColor" />
+          ASAP
         </button>
         <button
           type="submit"
@@ -182,13 +185,22 @@ export default function SearchBar({
             type="button"
             key={c.slug}
             onClick={() => setParams((p) => ({ ...p, categorySlug: c.slug }))}
-            className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
+            className={`group inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
               params.categorySlug === c.slug
                 ? "bg-ink text-white shadow-md shadow-ink/20"
                 : "bg-stone-50 border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
             }`}
           >
-            {c.icon} {c.name}
+            <CategoryIcon
+              icon={c.icon}
+              slug={c.slug}
+              className={
+                params.categorySlug === c.slug
+                  ? "text-white/80"
+                  : "text-stone-400 group-hover:text-primary transition-colors"
+              }
+            />
+            {c.name}
           </button>
         ))}
       </div>
@@ -204,9 +216,12 @@ export default function SearchBar({
               : "bg-accent-light text-primary border-2 border-dashed border-violet-200 hover:border-violet-300"
           }`}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill={params.asap ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-          </svg>
+          <BoltIcon
+            size={16}
+            fill={params.asap ? "currentColor" : "none"}
+            strokeWidth={2.5}
+            className={params.asap ? "" : "text-spark"}
+          />
           Find me the soonest
         </button>
 

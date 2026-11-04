@@ -111,7 +111,7 @@ export default function ProvidersPage() {
         {/* How it works */}
         <section className="px-4 py-14">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-extrabold text-ink text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink text-center mb-10">
               How it works
             </h2>
             <div className="grid sm:grid-cols-3 gap-4">
@@ -138,7 +138,7 @@ export default function ProvidersPage() {
         {/* Pricing */}
         <section className="px-4 py-14 bg-white border-y border-stone-100">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-extrabold text-ink text-center mb-2">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink text-center mb-2">
               Launch pricing
             </h2>
             <p className="text-stone-500 text-center mb-10 text-sm">
@@ -235,7 +235,7 @@ export default function ProvidersPage() {
                   <select value={category} onChange={(e) => setCategory(e.target.value)} className={fieldClass}>
                     <option value="">What kind of business?</option>
                     {categories.map((c) => (
-                      <option key={c.slug} value={c.slug}>{c.icon} {c.name}</option>
+                      <option key={c.slug} value={c.slug}>{c.name}</option>
                     ))}
                     <option value="other">Something else</option>
                   </select>

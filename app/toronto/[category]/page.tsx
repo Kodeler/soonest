@@ -67,10 +67,10 @@ export default async function CategoryHubPage({
 
   return (
     <div className="min-h-screen bg-surface">
-      <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-3 flex items-center justify-between">
+      <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-2.5 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="Soonest" className="h-9 w-auto" />
+          <img src="/logo.png" alt="Soonest" className="h-9 sm:h-10 w-auto" />
         </Link>
         <Link
           href="/providers"

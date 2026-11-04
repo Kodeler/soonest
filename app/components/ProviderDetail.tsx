@@ -5,6 +5,8 @@ import type { ListingTier, SlotResult } from "@/lib/types";
 import { track } from "@/lib/track";
 import Monogram from "./Monogram";
 import ClaimListing from "./ClaimListing";
+import TierBadge from "./TierBadge";
+import { ArrowUpRightIcon, BoltIcon } from "./icons";
 
 interface ProviderData {
   id: string;
@@ -119,7 +121,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-7">
+      <div className="max-w-2xl mx-auto px-4 py-8 space-y-8">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-sm font-semibold text-stone-500 hover:text-primary transition-colors"
@@ -156,19 +158,15 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                 {"$".repeat(provider.priceTier)}
                 <span className="text-stone-300">{"$".repeat(4 - provider.priceTier)}</span>
               </span>
-              {provider.source === "mock" ? (
-                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-stone-100 text-stone-400 font-bold" title="Sample listing shown while real providers onboard">
-                  Sample
-                </span>
-              ) : provider.tier === "live" ? (
-                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold" title="Availability comes straight from this provider's calendar — book in-app">
-                  ⚡ Live
-                </span>
-              ) : (
-                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-stone-100 text-stone-500 font-bold" title="Directory listing — booking completes on the provider's own site">
-                  Listed
-                </span>
-              )}
+              <TierBadge
+                tier={
+                  provider.source === "mock"
+                    ? "sample"
+                    : provider.tier === "live"
+                      ? "live"
+                      : "listed"
+                }
+              />
               {provider.phone && (
                 <span className="text-sm text-stone-400">{provider.phone}</span>
               )}
@@ -179,9 +177,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                   onClick={() => onBook(soonest.id)}
                   className="btn-gradient inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-sm font-bold"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
+                  <BoltIcon size={14} fill="currentColor" />
                   Book soonest — {formatSlotTime(soonest.startsAt)}
                 </button>
               </div>
@@ -201,9 +197,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                     className="btn-gradient inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-sm font-bold"
                   >
                     Book on their site
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M7 17L17 7M9 7h8v8" />
-                    </svg>
+                    <ArrowUpRightIcon size={13} strokeWidth={2.5} />
                   </a>
                 )}
                 {provider.phone && (
@@ -285,8 +279,9 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                   }`}
                 >
                   {i === 0 && (
-                    <span className="block text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-0.5">
-                      ⚡ Next up
+                    <span className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-0.5">
+                      <BoltIcon size={10} fill="currentColor" className="text-spark" />
+                      Next up
                     </span>
                   )}
                   {formatSlotTime(slot.startsAt)}
