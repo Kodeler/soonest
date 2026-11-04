@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-/* eslint-disable @next/next/no-img-element */
+import Logo from "@/app/components/Logo";
 
 interface Category {
   id: string;
@@ -69,8 +69,8 @@ export default function ProvidersPage() {
   return (
     <div className="flex flex-col min-h-screen bg-surface">
       <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-2.5 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
-          <img src="/logo.png" alt="Soonest" className="h-9 sm:h-10 w-auto" />
+        <Link href="/" className="flex items-center" aria-label="Soonest home">
+          <Logo size={30} />
         </Link>
         <Link
           href="/"
@@ -111,7 +111,7 @@ export default function ProvidersPage() {
         {/* How it works */}
         <section className="px-4 py-14">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink text-center mb-10">
               How it works
             </h2>
             <div className="grid sm:grid-cols-3 gap-4">
@@ -138,7 +138,7 @@ export default function ProvidersPage() {
         {/* Pricing */}
         <section className="px-4 py-14 bg-white border-y border-stone-100">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink text-center mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink text-center mb-2">
               Launch pricing
             </h2>
             <p className="text-stone-500 text-center mb-10 text-sm">
@@ -147,7 +147,7 @@ export default function ProvidersPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="rounded-3xl border border-stone-200 p-7 flex flex-col">
                 <h3 className="font-bold text-ink text-lg">Free listing</h3>
-                <div className="text-4xl font-extrabold text-ink mt-2">$0</div>
+                <div className="text-4xl font-bold text-ink mt-2">$0</div>
                 <ul className="text-sm text-stone-500 space-y-2.5 mt-5 mb-7">
                   <li>✓ Full profile with services & reviews</li>
                   <li>✓ Ranked by your real availability</li>
@@ -166,7 +166,7 @@ export default function ProvidersPage() {
                   Founding Provider
                 </div>
                 <h3 className="font-bold text-ink text-lg">Featured</h3>
-                <div className="text-4xl font-extrabold text-ink mt-2">
+                <div className="text-4xl font-bold text-ink mt-2">
                   $39<span className="text-base font-semibold text-stone-400">/mo</span>
                 </div>
                 <ul className="text-sm text-stone-500 space-y-2.5 mt-5 mb-7">
@@ -197,7 +197,7 @@ export default function ProvidersPage() {
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-extrabold text-ink">You&apos;re on the list</h2>
+                <h2 className="text-2xl font-bold text-ink">You&apos;re on the list</h2>
                 <p className="text-stone-500 text-sm max-w-xs mx-auto">
                   We&apos;ll reach out within one business day to get your
                   listing live{plan === "founding" ? " and set up your featured placement" : ""}.
@@ -206,7 +206,7 @@ export default function ProvidersPage() {
             ) : (
               <>
                 <div className="text-center mb-8">
-                  <h2 className="text-2xl font-extrabold text-ink">
+                  <h2 className="text-2xl font-bold text-ink">
                     {plan === "founding" ? "Become a Founding Provider" : "Get listed free"}
                   </h2>
                   <p className="text-stone-500 text-sm mt-1.5">

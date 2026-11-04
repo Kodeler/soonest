@@ -58,7 +58,7 @@ export default function AdminLeadsPage() {
   return (
     <div className="min-h-screen bg-surface">
       <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-3 flex items-center justify-between">
-        <Link href="/" className="text-lg font-extrabold text-ink">
+        <Link href="/" className="text-lg font-bold text-ink">
           soonest
         </Link>
         <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-stone-400">
@@ -70,7 +70,7 @@ export default function AdminLeadsPage() {
       <main className="max-w-3xl mx-auto px-5 py-10">
         {!leads ? (
           <form onSubmit={load} className="max-w-sm mx-auto mt-16 space-y-4">
-            <h1 className="text-xl font-extrabold text-ink text-center">
+            <h1 className="text-xl font-bold text-ink text-center">
               Provider leads
             </h1>
             <input
@@ -98,7 +98,7 @@ export default function AdminLeadsPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            <h1 className="text-xl font-extrabold text-ink">
+            <h1 className="text-xl font-bold text-ink">
               {leads.length} lead{leads.length === 1 ? "" : "s"}
             </h1>
             {leads.map((l) => (

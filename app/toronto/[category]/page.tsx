@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CATEGORY_LANDINGS, TORONTO_AREAS, getLanding } from "@/lib/seo-areas";
 import { getLandingProviders } from "@/lib/landing-data";
 import LandingShopCard from "@/app/components/LandingShopCard";
+import Logo from "@/app/components/Logo";
 
 export const revalidate = 3600;
 export const dynamicParams = false;
@@ -68,9 +69,8 @@ export default async function CategoryHubPage({
   return (
     <div className="min-h-screen bg-surface">
       <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-2.5 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="Soonest" className="h-9 sm:h-10 w-auto" />
+        <Link href="/" className="flex items-center" aria-label="Soonest home">
+          <Logo size={30} />
         </Link>
         <Link
           href="/providers"
@@ -87,7 +87,7 @@ export default async function CategoryHubPage({
         />
 
         <div className="space-y-3">
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink">
             {landing.plural} in Toronto
           </h1>
           <p className="text-stone-500 text-sm max-w-xl">

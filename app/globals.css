@@ -7,8 +7,8 @@
   --color-primary-light: #ede9fe;
   --color-accent: #7c3aed;
   --color-accent-light: #f5f3ff;
-  /* Secondary accent: "spark" amber for speed/energy moments (bolts, Next up,
-     hero underline). Used sparingly — emerald stays reserved for Live. */
+  /* Secondary accent: "spark" amber, used ONLY at glyph scale (tiny bolt
+     icons). Never on large surfaces — emerald stays reserved for Live. */
   --color-spark: #f59e0b;
   --color-spark-light: #fffbeb;
   --color-ink: #1a1033;
@@ -127,7 +127,6 @@
   background:
     radial-gradient(46rem 30rem at 85% -12%, rgba(139, 92, 246, 0.16), transparent 60%),
     radial-gradient(38rem 26rem at 4% 8%, rgba(196, 181, 253, 0.28), transparent 55%),
-    radial-gradient(26rem 20rem at 82% 92%, rgba(245, 158, 11, 0.05), transparent 60%),
     radial-gradient(30rem 22rem at 60% 108%, rgba(109, 40, 217, 0.1), transparent 60%),
     #faf9fc;
 }

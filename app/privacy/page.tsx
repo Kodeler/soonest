@@ -9,13 +9,13 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-surface">
       <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-3">
-        <Link href="/" className="text-lg font-extrabold text-ink">
+        <Link href="/" className="text-lg font-bold text-ink">
           soonest
         </Link>
       </header>
       <main className="max-w-2xl mx-auto px-5 py-12 space-y-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-ink">Privacy Policy</h1>
+          <h1 className="text-3xl font-bold text-ink">Privacy Policy</h1>
           <p className="text-sm text-stone-400 mt-2">Last updated: July 10, 2026</p>
         </div>
 

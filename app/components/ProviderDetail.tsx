@@ -138,7 +138,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
             <div className="flex items-center gap-4">
               <Monogram name={provider.name} size={56} />
               <div>
-                <h1 className="text-3xl font-extrabold tracking-tight text-ink">{provider.name}</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-ink">{provider.name}</h1>
                 <p className="text-stone-500 text-sm mt-0.5">{provider.address}</p>
               </div>
             </div>

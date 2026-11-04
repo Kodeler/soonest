@@ -83,7 +83,7 @@ export default function BookingFlow({
         </button>
 
         <div className="space-y-1.5 animate-fade-up">
-          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl font-bold tracking-tight text-ink">
             Lock it in
           </h1>
           <p className="text-stone-500 text-sm">

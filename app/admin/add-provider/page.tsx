@@ -156,7 +156,7 @@ export default function AddProviderPage() {
   return (
     <div className="min-h-screen bg-surface">
       <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-3 flex items-center justify-between">
-        <Link href="/" className="text-lg font-extrabold text-ink">
+        <Link href="/" className="text-lg font-bold text-ink">
           soonest
         </Link>
         <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-stone-400">
@@ -166,7 +166,7 @@ export default function AddProviderPage() {
       </header>
 
       <main className="max-w-xl mx-auto px-5 py-8">
-        <h1 className="text-2xl font-extrabold text-ink mb-1">Onboard a real provider</h1>
+        <h1 className="text-2xl font-bold text-ink mb-1">Onboard a real provider</h1>
         <p className="text-sm text-stone-500 mb-6">
           Live listings are bookable in-app — slots auto-generate from business
           hours and refresh daily. Directory listings show in search and hand
