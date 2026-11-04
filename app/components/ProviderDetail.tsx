@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { ListingTier, SlotResult } from "@/lib/types";
 import { track } from "@/lib/track";
 import Monogram from "./Monogram";
+import ClaimListing from "./ClaimListing";
 
 interface ProviderData {
   id: string;
@@ -294,6 +295,16 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
             </div>
           )}
         </div>
+
+        {provider.tier === "listed" && (
+          <div className="animate-fade-up" style={{ animationDelay: "170ms" }}>
+            <ClaimListing
+              providerId={provider.id}
+              providerName={provider.name}
+              categorySlug={provider.services[0]?.categorySlug}
+            />
+          </div>
+        )}
 
         {reviews.length > 0 && (
           <div className="space-y-3 animate-fade-up" style={{ animationDelay: "200ms" }}>

@@ -11,7 +11,23 @@ interface Lead {
   phone?: string | null;
   category?: string | null;
   plan: string;
+  kind?: string;
+  providerId?: string | null;
+  message?: string | null;
   createdAt: string;
+}
+
+function kindBadge(l: Lead): { label: string; cls: string } {
+  if (l.plan === "founding")
+    return { label: "founding", cls: "btn-gradient text-white" };
+  switch (l.kind) {
+    case "claim":
+      return { label: "claim", cls: "bg-amber-100 text-amber-700" };
+    case "contact":
+      return { label: "contact", cls: "bg-sky-100 text-sky-700" };
+    default:
+      return { label: "lead", cls: "bg-stone-100 text-stone-500" };
+  }
 }
 
 export default function AdminLeadsPage() {
@@ -103,16 +119,22 @@ export default function AdminLeadsPage() {
                     {l.category && (
                       <div className="text-xs text-stone-400 mt-1">{l.category}</div>
                     )}
+                    {l.message && (
+                      <p className="text-xs text-stone-600 mt-2 bg-stone-50 rounded-lg p-2 whitespace-pre-wrap">
+                        {l.message}
+                      </p>
+                    )}
+                    {l.providerId && (
+                      <div className="text-[11px] text-stone-400 mt-1.5">
+                        listing: <span className="font-mono">{l.providerId}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="text-right flex-shrink-0">
                     <span
-                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${
-                        l.plan === "founding"
-                          ? "btn-gradient text-white"
-                          : "bg-stone-100 text-stone-500"
-                      }`}
+                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${kindBadge(l).cls}`}
                     >
-                      {l.plan}
+                      {kindBadge(l).label}
                     </span>
                     <div className="text-[11px] text-stone-400 mt-1.5">
                       {new Date(l.createdAt).toLocaleString()}

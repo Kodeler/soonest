@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { leadSchema } from "@/lib/validation";
+import { logEvent } from "@/lib/events";
 
 // Admin: list leads. Auth via the same secret that protects the cron route.
 export async function GET(req: NextRequest) {
@@ -28,6 +29,12 @@ export async function POST(req: NextRequest) {
 
     const lead = await prisma.providerLead.create({
       data: parsed.data,
+    });
+
+    logEvent(`${parsed.data.kind}_lead_submitted`, {
+      leadId: lead.id,
+      providerId: parsed.data.providerId ?? null,
+      plan: parsed.data.plan,
     });
 
     return Response.json({ ok: true, id: lead.id });

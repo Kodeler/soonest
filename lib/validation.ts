@@ -30,6 +30,8 @@ export const leadSchema = z.object({
   phone: z.string().max(40).optional(),
   category: z.string().max(100).optional(),
   plan: z.enum(["free", "founding"]).default("free"),
+  kind: z.enum(["business", "claim", "contact"]).default("business"),
+  providerId: z.string().max(64).optional(),
   message: z.string().max(2000).optional(),
 });
 
