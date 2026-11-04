@@ -4,6 +4,7 @@ import type { Area, CategoryLanding } from "./seo-areas";
 
 export interface LandingProvider {
   id: string;
+  slug: string | null;
   name: string;
   address: string;
   phone: string | null;
@@ -41,6 +42,7 @@ export async function getLandingProviders(
     if (area && dist > area.radiusKm) continue;
     results.push({
       id: p.id,
+      slug: p.slug,
       name: p.name,
       address: p.address,
       phone: p.phone,

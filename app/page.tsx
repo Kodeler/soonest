@@ -9,6 +9,7 @@ import MapView from "@/app/components/MapView";
 import ProviderDetail from "@/app/components/ProviderDetail";
 import BookingFlow from "@/app/components/BookingFlow";
 import Confirmation from "@/app/components/Confirmation";
+import ConciergeCard from "@/app/components/ConciergeCard";
 /* eslint-disable @next/next/no-img-element */
 
 interface Category {
@@ -79,6 +80,16 @@ export default function Home() {
       .then((r) => r.json())
       .then((d) => setStats(d))
       .catch(() => {});
+    // Deep link from permalink pages: /?p=<providerId> opens the detail
+    // view. Deferred so hydration completes against the prerendered search
+    // view before the state switch.
+    const pid = new URLSearchParams(window.location.search).get("p");
+    if (pid) {
+      queueMicrotask(() => {
+        setSelectedProvider(pid);
+        setView("detail");
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -277,8 +288,8 @@ export default function Home() {
             </div>
 
             {results.length === 0 && !loading ? (
-              <div className="flex-1 flex items-center justify-center text-center px-4">
-                <div className="space-y-3 animate-fade-up">
+              <div className="flex-1 flex flex-col items-center justify-center px-4 py-10">
+                <div className="space-y-3 animate-fade-up text-center">
                   <div className="mx-auto w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center text-3xl">
                     🔍
                   </div>
@@ -286,6 +297,14 @@ export default function Home() {
                   <p className="text-stone-400 text-sm max-w-xs mx-auto">
                     Try expanding your search radius or picking a different category
                   </p>
+                </div>
+                <div className="w-full max-w-md mt-6">
+                  <ConciergeCard
+                    categoryName={
+                      categories.find((c) => c.slug === searchParams.categorySlug)?.name
+                    }
+                    keyword={searchParams.keyword || undefined}
+                  />
                 </div>
               </div>
             ) : (
@@ -301,6 +320,12 @@ export default function Home() {
                       setSelectedProvider(id);
                       setView("detail");
                     }}
+                  />
+                  <ConciergeCard
+                    categoryName={
+                      categories.find((c) => c.slug === searchParams.categorySlug)?.name
+                    }
+                    keyword={searchParams.keyword || undefined}
                   />
                 </div>
                 <div

@@ -23,17 +23,26 @@ export const slotsSchema = z.object({
   endDate: z.string(),
 });
 
-export const leadSchema = z.object({
-  business: z.string().min(1).max(200),
-  name: z.string().min(1).max(200),
-  email: z.string().email(),
-  phone: z.string().max(40).optional(),
-  category: z.string().max(100).optional(),
-  plan: z.enum(["free", "founding"]).default("free"),
-  kind: z.enum(["business", "claim", "contact"]).default("business"),
-  providerId: z.string().max(64).optional(),
-  message: z.string().max(2000).optional(),
-});
+export const leadSchema = z
+  .object({
+    business: z.string().min(1).max(200),
+    name: z.string().min(1).max(200),
+    email: z.string().email().optional(),
+    phone: z.string().max(40).optional(),
+    category: z.string().max(100).optional(),
+    plan: z.enum(["free", "founding"]).default("free"),
+    kind: z
+      .enum(["business", "claim", "contact", "concierge"])
+      .default("business"),
+    providerId: z.string().max(64).optional(),
+    message: z.string().max(2000).optional(),
+  })
+  // Concierge requests are phone-first (we text back options); everything
+  // else needs an email to reply to.
+  .refine((d) => (d.kind === "concierge" ? !!d.phone : !!d.email), {
+    message: "Provide an email (or a phone number for concierge requests)",
+    path: ["email"],
+  });
 
 export type SearchInput = z.infer<typeof searchSchema>;
 export type BookInput = z.infer<typeof bookSchema>;

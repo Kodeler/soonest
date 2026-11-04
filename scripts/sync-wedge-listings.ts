@@ -20,6 +20,7 @@ import { PrismaClient } from "../app/generated/prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { readdirSync, readFileSync } from "fs";
 import path from "path";
+import { slugify } from "../lib/slug";
 
 const tursoUrl = process.env.TURSO_DATABASE_URL;
 const tursoToken = process.env.TURSO_AUTH_TOKEN;
@@ -104,6 +105,17 @@ async function geocode(
   }
 }
 
+async function uniqueSlug(name: string): Promise<string> {
+  const base = slugify(name) || "shop";
+  let slug = base;
+  for (let i = 2; i < 50; i++) {
+    const taken = await prisma.provider.findUnique({ where: { slug } });
+    if (!taken) return slug;
+    slug = `${base}-${i}`;
+  }
+  return `${base}-${Date.now()}`;
+}
+
 async function syncListing(
   listing: WedgeListing,
   categoryId: string
@@ -142,7 +154,11 @@ async function syncListing(
   };
 
   if (existing) {
-    await prisma.provider.update({ where: { id: existing.id }, data: fields });
+    const slug = existing.slug ?? (await uniqueSlug(listing.name));
+    await prisma.provider.update({
+      where: { id: existing.id },
+      data: { ...fields, slug },
+    });
     // Replace the service menu wholesale — listed services have no slots
     // or bookings attached, so this is safe.
     await prisma.service.deleteMany({ where: { providerId: existing.id } });
@@ -157,6 +173,7 @@ async function syncListing(
   const provider = await prisma.provider.create({
     data: {
       name: listing.name,
+      slug: await uniqueSlug(listing.name),
       source: "listed",
       ratingAvg: 0,
       ratingCount: 0,

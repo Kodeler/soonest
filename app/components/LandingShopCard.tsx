@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { LandingProvider } from "@/lib/landing-data";
 
 function formatPrice(cents: number): string {
@@ -11,7 +12,12 @@ export default function LandingShopCard({ shop }: { shop: LandingProvider }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="font-bold text-lg text-ink leading-tight">
-            {shop.name}
+            <Link
+              href={`/shop/${shop.slug ?? shop.id}`}
+              className="hover:text-primary transition-colors"
+            >
+              {shop.name}
+            </Link>
           </h3>
           <p className="text-xs text-stone-400 mt-1">{shop.address}</p>
         </div>
