@@ -68,11 +68,11 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
   const [provider, setProvider] = useState<ProviderData | null>(null);
   const [slots, setSlots] = useState<SlotResult[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadedId, setLoadedId] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
+  const loading = loadedId !== providerId;
 
   useEffect(() => {
-    setLoading(true);
     fetch(`/api/providers/${providerId}`)
       .then((r) => r.json())
       .then((d) => {
@@ -84,7 +84,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
         }
       })
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => setLoadedId(providerId));
   }, [providerId]);
 
   if (loading) {
