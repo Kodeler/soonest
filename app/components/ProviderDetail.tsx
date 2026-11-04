@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { SlotResult } from "@/lib/types";
+import type { ListingTier, SlotResult } from "@/lib/types";
+import { track } from "@/lib/track";
 import Monogram from "./Monogram";
 
 interface ProviderData {
@@ -12,7 +13,10 @@ interface ProviderData {
   ratingCount: number;
   priceTier: number;
   source: string;
-  phone?: string;
+  tier: ListingTier;
+  bookingUrl?: string | null;
+  website?: string | null;
+  phone?: string | null;
   services: {
     id: string;
     name: string;
@@ -155,16 +159,20 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                 <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-stone-100 text-stone-400 font-bold" title="Sample listing shown while real providers onboard">
                   Sample
                 </span>
+              ) : provider.tier === "live" ? (
+                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold" title="Availability comes straight from this provider's calendar — book in-app">
+                  ⚡ Live
+                </span>
               ) : (
-                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
-                  {provider.source === "manual" ? "Verified" : provider.source}
+                <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-stone-100 text-stone-500 font-bold" title="Directory listing — booking completes on the provider's own site">
+                  Listed
                 </span>
               )}
               {provider.phone && (
                 <span className="text-sm text-stone-400">{provider.phone}</span>
               )}
             </div>
-            {soonest && (
+            {provider.tier === "live" && soonest && (
               <div className="pt-1.5">
                 <button
                   onClick={() => onBook(soonest.id)}
@@ -175,6 +183,39 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                   </svg>
                   Book soonest — {formatSlotTime(soonest.startsAt)}
                 </button>
+              </div>
+            )}
+            {provider.tier === "listed" && (provider.bookingUrl || provider.phone) && (
+              <div className="pt-1.5 flex flex-wrap items-center gap-2.5">
+                {provider.bookingUrl && (
+                  <a
+                    href={provider.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      track("external_booking_click", {
+                        providerId: provider.id,
+                      })
+                    }
+                    className="btn-gradient inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-sm font-bold"
+                  >
+                    Book on their site
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M7 17L17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                )}
+                {provider.phone && (
+                  <a
+                    href={`tel:${provider.phone.replace(/[^+\d]/g, "")}`}
+                    onClick={() =>
+                      track("provider_call_click", { providerId: provider.id })
+                    }
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold bg-white border border-stone-200 text-ink hover:border-violet-300 transition-colors"
+                  >
+                    Call {provider.phone}
+                  </a>
+                )}
               </div>
             )}
             {provider.source === "mock" && (
@@ -211,13 +252,24 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
         <div className="space-y-3 animate-fade-up" style={{ animationDelay: "140ms" }}>
           <h2 className="text-lg font-bold text-ink">
             Available times
-            {filteredSlots.length > 0 && (
+            {provider.tier === "live" && filteredSlots.length > 0 && (
               <span className="text-stone-400 font-normal text-sm ml-2">
                 {filteredSlots.length} open
               </span>
             )}
           </h2>
-          {filteredSlots.length === 0 ? (
+          {provider.tier === "listed" ? (
+            <div className="rounded-2xl border border-stone-200/80 bg-white p-4 space-y-1.5">
+              <p className="text-sm text-ink font-medium">
+                This business takes bookings on its own site.
+              </p>
+              <p className="text-xs text-stone-400">
+                Soonest shows live open times only when they come straight
+                from a provider&apos;s calendar, so we never guess. Use the
+                button above to see their availability and book direct.
+              </p>
+            </div>
+          ) : filteredSlots.length === 0 ? (
             <p className="text-stone-400 text-sm">No available slots this week</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">

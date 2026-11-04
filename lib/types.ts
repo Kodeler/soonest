@@ -18,6 +18,17 @@ export interface ContactInfo {
   email: string;
 }
 
+/**
+ * Data-fidelity tier of a listing.
+ * - "live": Soonest reads this provider's calendar through an authorized
+ *   source (in-system slots or a connected platform adapter) and can rank
+ *   by real availability and complete bookings in-app.
+ * - "listed": a directory entry built from the provider's own public info.
+ *   No availability data; booking hands off to the provider's booking page.
+ * The UI must never present a listed provider as having live availability.
+ */
+export type ListingTier = "live" | "listed";
+
 export interface ProviderResult {
   id: string;
   name: string;
@@ -28,6 +39,9 @@ export interface ProviderResult {
   ratingCount: number;
   priceTier: number;
   source: string;
+  tier: ListingTier;
+  bookingUrl?: string;
+  website?: string;
   externalId?: string;
   npi?: string;
   phone?: string;

@@ -64,6 +64,51 @@ describe("MockBookingProvider", () => {
     expect(result.success).toBe(false);
     expect(result.error).toContain("no longer available");
   });
+
+  it("tags listed providers and never queries their slots", async () => {
+    const { prisma } = await import("@/lib/db");
+    const dbProvider = {
+      id: "p1",
+      name: "Direct Barber",
+      address: "1 King St",
+      lat: 43.65,
+      lng: -79.38,
+      ratingAvg: 4.8,
+      ratingCount: 20,
+      priceTier: 2,
+      source: "listed",
+      phone: "555-0001",
+      imageUrl: null,
+      bookingUrl: "https://example.com/book",
+      website: "https://example.com",
+      services: [
+        {
+          id: "svc1",
+          name: "Haircut",
+          durationMin: 30,
+          priceCents: 4000,
+          category: { slug: "haircut" },
+        },
+      ],
+    };
+    vi.mocked(prisma.provider.findMany).mockResolvedValueOnce([
+      dbProvider,
+    ] as never);
+
+    const { MockBookingProvider } = await import("../providers/mock");
+    const provider = new MockBookingProvider();
+    const results = await provider.search({
+      lat: 43.65,
+      lng: -79.38,
+      radiusKm: 25,
+    });
+
+    expect(results.length).toBe(1);
+    expect(results[0].tier).toBe("listed");
+    expect(results[0].bookingUrl).toBe("https://example.com/book");
+    expect(results[0].soonestSlot).toBeUndefined();
+    expect(prisma.slot.findFirst).not.toHaveBeenCalled();
+  });
 });
 
 describe("ScraperBookingProvider", () => {

@@ -31,6 +31,8 @@ model Provider {
   phone       String?
   imageUrl    String?
   hoursJson   String?
+  bookingUrl  String?
+  website     String?
   services    Service[]
   reviews     Review[]
   createdAt   DateTime  @default(now())
@@ -90,6 +92,15 @@ model ProviderLead {
   plan      String   @default("free")
   message   String?
   createdAt DateTime @default(now())
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  propsJson String?
+  createdAt DateTime @default(now())
+
+  @@index([name, createdAt])
 }
 
 model SellerToken {

@@ -54,6 +54,9 @@ export default function AddProviderPage() {
     { name: "", durationMin: 30, priceCents: 5000 },
   ]);
   const [hours, setHours] = useState<DayHours[]>(DEFAULT_HOURS);
+  const [listingType, setListingType] = useState<"live" | "listed">("live");
+  const [bookingUrl, setBookingUrl] = useState("");
+  const [website, setWebsite] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -126,15 +129,23 @@ export default function AddProviderPage() {
           priceTier,
           categorySlug,
           services: services.filter((s) => s.name.trim()),
-          hours,
+          listingType,
+          hours: listingType === "live" ? hours : undefined,
+          bookingUrl: listingType === "listed" ? bookingUrl : undefined,
+          website: website || undefined,
         }),
       });
       const data = await res.json();
       if (res.status === 401) throw new Error("Wrong admin key");
       if (!res.ok) throw new Error(data.error || "Creation failed");
-      setResult(`Live! ${name} created with ${data.slots} bookable slots.`);
+      setResult(
+        listingType === "live"
+          ? `Live! ${name} created with ${data.slots} bookable slots.`
+          : `Listed! ${name} is in the directory and books on their own site.`
+      );
       setName(""); setAddress(""); setLat(null); setLng(null); setGeoLabel(null);
-      setPhone(""); setServices([{ name: "", durationMin: 30, priceCents: 5000 }]);
+      setPhone(""); setBookingUrl(""); setWebsite("");
+      setServices([{ name: "", durationMin: 30, priceCents: 5000 }]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed");
     } finally {
@@ -157,8 +168,9 @@ export default function AddProviderPage() {
       <main className="max-w-xl mx-auto px-5 py-8">
         <h1 className="text-2xl font-extrabold text-ink mb-1">Onboard a real provider</h1>
         <p className="text-sm text-stone-500 mb-6">
-          Creates a live, bookable listing. Slots auto-generate from business
-          hours and refresh daily.
+          Live listings are bookable in-app — slots auto-generate from business
+          hours and refresh daily. Directory listings show in search and hand
+          booking off to the provider&apos;s own site.
         </p>
 
         {result && (
@@ -176,6 +188,49 @@ export default function AddProviderPage() {
             placeholder="Admin key"
             className={fieldClass}
           />
+
+          <div className="bg-white rounded-2xl border border-stone-200/80 p-5 space-y-3">
+            <h2 className="font-bold text-ink text-sm">Listing type</h2>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  ["live", "⚡ Live", "We manage the calendar. Hours below generate bookable slots."],
+                  ["listed", "Listed", "Directory entry. Booking happens on their own site."],
+                ] as const
+              ).map(([value, label, hint]) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setListingType(value)}
+                  className={`rounded-xl border-2 p-3 text-left transition-all ${
+                    listingType === value
+                      ? "border-violet-400 bg-accent-light"
+                      : "border-stone-200 bg-white hover:border-violet-200"
+                  }`}
+                >
+                  <span className="block text-sm font-bold text-ink">{label}</span>
+                  <span className="block text-[11px] text-stone-400 mt-0.5">{hint}</span>
+                </button>
+              ))}
+            </div>
+            {listingType === "listed" && (
+              <input
+                type="url"
+                required
+                value={bookingUrl}
+                onChange={(e) => setBookingUrl(e.target.value)}
+                placeholder="Booking page URL (https://...)"
+                className={fieldClass}
+              />
+            )}
+            <input
+              type="url"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder="Website (optional)"
+              className={fieldClass}
+            />
+          </div>
 
           <div className="bg-white rounded-2xl border border-stone-200/80 p-5 space-y-3">
             <h2 className="font-bold text-ink text-sm">Business</h2>
@@ -234,6 +289,7 @@ export default function AddProviderPage() {
             <p className="text-[11px] text-stone-400">Name · minutes · price</p>
           </div>
 
+          {listingType === "live" && (
           <div className="bg-white rounded-2xl border border-stone-200/80 p-5 space-y-2.5">
             <h2 className="font-bold text-ink text-sm">Weekly hours</h2>
             {hours.map((h, i) => (
@@ -253,11 +309,16 @@ export default function AddProviderPage() {
               </div>
             ))}
           </div>
+          )}
 
           {error && <div className="text-red-600 text-sm">{error}</div>}
 
           <button type="submit" disabled={submitting} className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold disabled:opacity-50">
-            {submitting ? "Creating..." : "Create live listing"}
+            {submitting
+              ? "Creating..."
+              : listingType === "live"
+              ? "Create live listing"
+              : "Create directory listing"}
           </button>
         </form>
       </main>

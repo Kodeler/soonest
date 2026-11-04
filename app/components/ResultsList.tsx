@@ -115,7 +115,13 @@ export default function ResultsList({ results, onSelect }: Props) {
                 <h3 className="font-bold text-[15px] leading-tight text-ink min-w-0">
                   {r.name}
                 </h3>
-                {r.soonestSlot && <TimeChip startsAt={r.soonestSlot.startsAt} />}
+                {r.tier === "live" && r.soonestSlot ? (
+                  <TimeChip startsAt={r.soonestSlot.startsAt} />
+                ) : r.tier === "listed" ? (
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold whitespace-nowrap px-2.5 py-1 rounded-full flex-shrink-0 bg-stone-100 text-stone-500 ring-1 ring-stone-200">
+                    Books direct ↗
+                  </span>
+                ) : null}
               </div>
               <p className="text-xs text-stone-400 mt-1 truncate">{r.address}</p>
 
@@ -133,9 +139,13 @@ export default function ResultsList({ results, onSelect }: Props) {
                   <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-stone-100 text-stone-400 font-bold" title="Sample listing shown while real providers onboard">
                     Sample
                   </span>
+                ) : r.tier === "live" ? (
+                  <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold" title="Availability comes straight from this provider's calendar — book in-app">
+                    ⚡ Live
+                  </span>
                 ) : (
-                  <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
-                    {r.source === "manual" ? "Verified" : r.source}
+                  <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 font-bold" title="Directory listing — booking completes on the provider's own site">
+                    Listed
                   </span>
                 )}
                 <span className="text-[11px] text-primary-dark/70 bg-accent-light px-2 py-0.5 rounded-full font-medium">

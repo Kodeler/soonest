@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && npm run db:turso && next build",
     "db:deploy": "prisma migrate deploy",
     "db:turso": "npx tsx scripts/apply-migrations-turso.ts",
     "start": "next start",
@@ -19,6 +19,7 @@
     "@libsql/client": "^0.17.3",
     "@prisma/adapter-libsql": "^7.10.1",
     "@prisma/client": "^7.10.1",
+    "@vercel/analytics": "^2.0.1",
     "dotenv": "^17.4.2",
     "mapbox-gl": "^3.24.0",
     "next": "^16.4.5",

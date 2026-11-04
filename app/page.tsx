@@ -64,11 +64,20 @@ export default function Home() {
 
   const [showMap, setShowMap] = useState(false);
   const [sortBy, setSortBy] = useState<"score" | "time" | "distance" | "rating">("score");
+  const [stats, setStats] = useState<{
+    providers: number;
+    liveProviders: number;
+    openSlots: number;
+  } | null>(null);
 
   useEffect(() => {
     fetch("/api/categories")
       .then((r) => r.json())
       .then((d) => setCategories(d.categories || []))
+      .catch(() => {});
+    fetch("/api/stats")
+      .then((r) => r.json())
+      .then((d) => setStats(d))
       .catch(() => {});
   }, []);
 
@@ -138,7 +147,7 @@ export default function Home() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span className="text-stone-500 font-medium">
-              {results.length} open now
+              {results.length} {results.length === 1 ? "place" : "places"} found
             </span>
           </div>
         ) : (
@@ -164,7 +173,11 @@ export default function Home() {
                     <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                   </span>
-                  Live availability across Toronto
+                  {stats && stats.liveProviders > 0
+                    ? `${stats.liveProviders} Toronto ${
+                        stats.liveProviders === 1 ? "business" : "businesses"
+                      } with live availability`
+                    : "Toronto's appointment search"}
                 </div>
                 <h1 className="text-[2.6rem] leading-[1.05] sm:text-6xl font-extrabold tracking-tight text-ink">
                   Don&apos;t book soon.
@@ -193,21 +206,27 @@ export default function Home() {
                 )}
               </div>
 
-              <div
-                className="animate-fade-up flex items-center justify-center gap-6 sm:gap-10 text-center"
-                style={{ animationDelay: "220ms" }}
-              >
-                {[
-                  ["55+", "providers"],
-                  ["3,000+", "open slots this week"],
-                  ["<1 min", "to book"],
-                ].map(([stat, label]) => (
-                  <div key={label}>
-                    <div className="text-xl sm:text-2xl font-extrabold text-ink">{stat}</div>
-                    <div className="text-xs sm:text-sm text-stone-400 font-medium">{label}</div>
-                  </div>
-                ))}
-              </div>
+              {stats && stats.providers >= 5 && (
+                <div
+                  className="animate-fade-up flex items-center justify-center gap-6 sm:gap-10 text-center"
+                  style={{ animationDelay: "220ms" }}
+                >
+                  {(
+                    [
+                      [`${stats.providers}`, "Toronto businesses"],
+                      ...(stats.openSlots > 0
+                        ? [[`${stats.openSlots.toLocaleString()}`, "open slots this week"] as [string, string]]
+                        : []),
+                      ["<1 min", "to book"],
+                    ] as [string, string][]
+                  ).map(([stat, label]) => (
+                    <div key={label}>
+                      <div className="text-xl sm:text-2xl font-extrabold text-ink">{stat}</div>
+                      <div className="text-xs sm:text-sm text-stone-400 font-medium">{label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="flex items-center justify-center gap-5 text-xs text-stone-400">
                 <Link href="/providers" className="hover:text-primary">List your business</Link>

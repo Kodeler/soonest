@@ -97,6 +97,7 @@ export class SquareBookingProvider implements BookingProvider {
             ratingCount: 0,
             priceTier: 2,
             source: "square",
+            tier: "live",
             externalId: loc.id ?? undefined,
             phone: loc.phoneNumber ?? undefined,
             services,
