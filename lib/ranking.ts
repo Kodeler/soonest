@@ -24,7 +24,7 @@ export function rankResults(
         weights.price * priceScore;
 
       const breakdown = { timeScore, distanceScore, ratingScore, priceScore };
-      const rankingReason = buildReason(breakdown, weights);
+      const rankingReason = buildReason(breakdown, weights, r.ratingCount > 0);
 
       return { ...r, score, breakdown, rankingReason };
     })
@@ -67,12 +67,18 @@ export function computePriceScore(priceTier: number): number {
 
 function buildReason(
   breakdown: RankedResult["breakdown"],
-  weights: RankingWeights
+  weights: RankingWeights,
+  hasRatings: boolean
 ): string {
   const factors: { label: string; contribution: number }[] = [
     { label: "Available soon", contribution: weights.time * breakdown.timeScore },
     { label: "Nearby", contribution: weights.distance * breakdown.distanceScore },
-    { label: "Highly rated", contribution: weights.rating * breakdown.ratingScore },
+    {
+      label: "Highly rated",
+      // The rating prior keeps unrated shops rankable, but a shop with no
+      // reviews must never be described as highly rated.
+      contribution: hasRatings ? weights.rating * breakdown.ratingScore : 0,
+    },
     { label: "Great value", contribution: weights.price * breakdown.priceScore },
   ];
 

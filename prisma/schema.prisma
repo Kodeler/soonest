@@ -19,6 +19,7 @@ model ServiceCategory {
 model Provider {
   id          String    @id @default(cuid())
   name        String
+  slug        String?   @unique
   address     String
   lat         Float
   lng         Float
