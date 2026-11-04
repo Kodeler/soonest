@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { getRegistry } from "@/lib/providers/registry";
 import { bookSchema } from "@/lib/validation";
+import { logEvent } from "@/lib/events";
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,12 +20,14 @@ export async function POST(req: NextRequest) {
     const result = await registry.book(slotId, { name, phone, email });
 
     if (!result.success) {
+      logEvent("booking_failed", { reason: result.error ?? "unknown" });
       return Response.json(
         { error: result.error, slotTaken: true },
         { status: 409 }
       );
     }
 
+    logEvent("booking_confirmed", { bookingId: result.bookingId ?? null });
     return Response.json(result);
   } catch (e) {
     console.error("Booking error:", e);

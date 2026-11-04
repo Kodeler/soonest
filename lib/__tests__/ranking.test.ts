@@ -104,6 +104,7 @@ describe("rankResults", () => {
       ratingCount: 100,
       priceTier: 2,
       source: "mock",
+      tier: "live",
       services: [],
       ...overrides,
     };
@@ -176,6 +177,40 @@ describe("rankResults", () => {
     const ranked = rankResults(results, 43.65, -79.38, 25, defaultWeights, now);
     expect(ranked.length).toBe(2);
     expect(ranked[0].score).toBeGreaterThan(ranked[1].score);
+  });
+
+  it("gives listed providers zero time score so live availability wins", () => {
+    const listed = makeProvider({
+      id: "listed",
+      tier: "listed",
+      distanceKm: 1,
+      soonestSlot: undefined,
+    });
+    const live = makeProvider({
+      id: "live",
+      tier: "live",
+      distanceKm: 1,
+      soonestSlot: {
+        id: "s1",
+        serviceId: "svc1",
+        serviceName: "Svc",
+        startsAt: new Date(now.getTime() + 20 * 60000).toISOString(),
+        endsAt: new Date(now.getTime() + 50 * 60000).toISOString(),
+        source: "mock",
+      },
+    });
+
+    const ranked = rankResults(
+      [listed, live],
+      43.65,
+      -79.38,
+      25,
+      defaultWeights,
+      now
+    );
+    expect(ranked[0].id).toBe("live");
+    expect(ranked[1].breakdown.timeScore).toBe(0);
+    expect(ranked[1].rankingReason).not.toContain("Available soon");
   });
 
   it("never uses source in ranking", () => {

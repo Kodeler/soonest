@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
+import { logEvent } from "@/lib/events";
 
 export async function GET(
   _req: NextRequest,
@@ -33,9 +34,16 @@ export async function GET(
       include: { service: true },
     });
 
+    logEvent("provider_viewed", {
+      providerId: id,
+      source: provider.source,
+      tier: provider.source === "listed" ? "listed" : "live",
+    });
+
     return Response.json({
       provider: {
         ...provider,
+        tier: provider.source === "listed" ? "listed" : "live",
         services: provider.services.map((s) => ({
           id: s.id,
           name: s.name,

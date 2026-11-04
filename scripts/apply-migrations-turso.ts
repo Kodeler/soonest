@@ -13,8 +13,9 @@ const url = process.env.TURSO_DATABASE_URL;
 const authToken = process.env.TURSO_AUTH_TOKEN;
 
 if (!url || !authToken) {
-  console.error("Set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN first.");
-  process.exit(1);
+  // No Turso credentials (local dev, CI) — nothing to migrate here.
+  console.log("TURSO_DATABASE_URL/TURSO_AUTH_TOKEN not set; skipping.");
+  process.exit(0);
 }
 
 const client = createClient({ url, authToken });
@@ -40,7 +41,7 @@ async function main() {
         await client.execute(stmt);
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
-        if (msg.includes("already exists")) {
+        if (msg.includes("already exists") || msg.includes("duplicate column")) {
           console.log(`  skipped (exists): ${stmt.slice(0, 60)}...`);
         } else {
           throw e;

@@ -91,12 +91,21 @@ function dedupeResults(results: ProviderResult[]): ProviderResult[] {
 
     if (!existing) {
       seen.set(key, r);
-    } else if (r.source !== "mock" && existing.source === "mock") {
+    } else if (preferOver(r, existing)) {
       seen.set(key, r);
     }
   }
 
   return Array.from(seen.values());
+}
+
+// When the same business appears twice, keep the higher-fidelity record:
+// a live (calendar-connected) record beats a listed directory entry, and
+// any real record beats a sample.
+function preferOver(a: ProviderResult, b: ProviderResult): boolean {
+  const fidelity = (r: ProviderResult) =>
+    r.source === "mock" ? 0 : r.tier === "listed" ? 1 : 2;
+  return fidelity(a) > fidelity(b);
 }
 
 function normalizeKey(name: string, address: string): string {

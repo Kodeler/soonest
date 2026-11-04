@@ -14,10 +14,12 @@ export class MockBookingProvider implements BookingProvider {
   source = "mock";
 
   async search(query: SearchQuery): Promise<ProviderResult[]> {
-    // Serves both sample ("mock") providers and real, manually-onboarded
-    // ("manual") ones — they live in the same DB and book the same way.
+    // Serves every DB-resident provider: sample ("mock"), real managed
+    // ("manual"), and directory entries ("listed"). The first two are live
+    // tier (we hold their calendar); "listed" has no availability data and
+    // books on the provider's own site.
     const providers = await prisma.provider.findMany({
-      where: { source: { in: ["mock", "manual"] } },
+      where: { source: { in: ["mock", "manual", "listed"] } },
       include: {
         services: { include: { category: true } },
       },
@@ -49,16 +51,20 @@ export class MockBookingProvider implements BookingProvider {
         ? p.services.filter((s) => s.category.slug === query.categorySlug)
         : p.services;
 
+      const isListed = p.source === "listed";
+
       const serviceIds = relevantServices.map((s) => s.id);
-      const soonestSlot = await prisma.slot.findFirst({
-        where: {
-          serviceId: { in: serviceIds },
-          status: "open",
-          startsAt: { gte: now },
-        },
-        orderBy: { startsAt: "asc" },
-        include: { service: true },
-      });
+      const soonestSlot = isListed
+        ? null
+        : await prisma.slot.findFirst({
+            where: {
+              serviceId: { in: serviceIds },
+              status: "open",
+              startsAt: { gte: now },
+            },
+            orderBy: { startsAt: "asc" },
+            include: { service: true },
+          });
 
       results.push({
         id: p.id,
@@ -70,6 +76,9 @@ export class MockBookingProvider implements BookingProvider {
         ratingCount: p.ratingCount,
         priceTier: p.priceTier,
         source: p.source,
+        tier: isListed ? "listed" : "live",
+        bookingUrl: p.bookingUrl ?? undefined,
+        website: p.website ?? undefined,
         phone: p.phone ?? undefined,
         imageUrl: p.imageUrl ?? undefined,
         services: relevantServices.map((s) => ({

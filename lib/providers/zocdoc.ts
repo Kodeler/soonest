@@ -118,6 +118,7 @@ export class ZocdocBookingProvider implements BookingProvider {
           ratingCount: p.review_count || 0,
           priceTier: 2,
           source: "zocdoc",
+          tier: "live",
           externalId: p.id?.toString(),
           npi: p.npi,
           services: [

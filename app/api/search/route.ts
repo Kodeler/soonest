@@ -3,6 +3,7 @@ import { getRegistry } from "@/lib/providers/registry";
 import { rankResults } from "@/lib/ranking";
 import { RANKING_WEIGHTS } from "@/lib/config";
 import { searchSchema } from "@/lib/validation";
+import { logEvent } from "@/lib/events";
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,6 +31,14 @@ export async function POST(req: NextRequest) {
       query.radiusKm,
       weights
     );
+
+    logEvent("search", {
+      category: query.categorySlug ?? null,
+      keyword: query.keyword ? true : false,
+      asap: query.asap,
+      results: ranked.length,
+      liveResults: ranked.filter((r) => r.tier === "live").length,
+    });
 
     return Response.json({
       results: ranked,
