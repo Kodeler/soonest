@@ -83,15 +83,20 @@ model Booking {
 }
 
 model ProviderLead {
-  id        String   @id @default(cuid())
-  business  String
-  name      String
-  email     String
-  phone     String?
-  category  String?
-  plan      String   @default("free")
-  message   String?
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  business   String
+  name       String
+  email      String
+  phone      String?
+  category   String?
+  plan       String   @default("free")
+  // What this inbound is: "business" (wants to join), "claim" (owner of an
+  // existing listing), or "contact" (general message / correction / removal).
+  kind       String   @default("business")
+  // Set on "claim": the Provider row the sender says they own.
+  providerId String?
+  message    String?
+  createdAt  DateTime @default(now())
 }
 
 model Event {

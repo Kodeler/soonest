@@ -230,6 +230,7 @@ export default function Home() {
 
               <div className="flex items-center justify-center gap-5 text-xs text-stone-400">
                 <Link href="/providers" className="hover:text-primary">List your business</Link>
+                <Link href="/contact" className="hover:text-primary">Contact</Link>
                 <Link href="/privacy" className="hover:text-primary">Privacy</Link>
                 <Link href="/terms" className="hover:text-primary">Terms</Link>
               </div>
