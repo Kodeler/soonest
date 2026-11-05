@@ -120,6 +120,13 @@ export const CATEGORY_LANDINGS: CategoryLanding[] = [
     singular: "nail salon",
     schemaType: "NailSalon",
   },
+  {
+    slug: "massage",
+    categorySlug: "massage",
+    plural: "Massage clinics",
+    singular: "massage clinic",
+    schemaType: "HealthAndBeautyBusiness",
+  },
 ];
 
 export function getLanding(slug: string): CategoryLanding | undefined {
