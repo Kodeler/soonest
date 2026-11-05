@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BoltIcon } from "./icons";
 
 interface Props {
   slotId: string;
@@ -70,7 +71,7 @@ export default function BookingFlow({
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="max-w-md mx-auto px-4 py-8 space-y-7">
+      <div className="max-w-md mx-auto px-4 py-8 space-y-8">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-sm font-semibold text-stone-500 hover:text-primary transition-colors"
@@ -82,7 +83,7 @@ export default function BookingFlow({
         </button>
 
         <div className="space-y-1.5 animate-fade-up">
-          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl font-bold tracking-tight text-ink">
             Lock it in
           </h1>
           <p className="text-stone-500 text-sm">
@@ -103,9 +104,10 @@ export default function BookingFlow({
             </div>
             <button
               onClick={onSlotTaken}
-              className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold"
+              className="btn-gradient w-full py-3.5 text-white rounded-2xl font-bold inline-flex items-center justify-center gap-2"
             >
-              ⚡ Find next available
+              <BoltIcon size={14} fill="currentColor" />
+              Find next available
             </button>
           </div>
         ) : (

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { LandingProvider } from "@/lib/landing-data";
+import TierBadge from "./TierBadge";
+import { ArrowUpRightIcon } from "./icons";
 
 function formatPrice(cents: number): string {
   return `$${(cents / 100).toFixed(0)}`;
@@ -28,15 +30,7 @@ export default function LandingShopCard({ shop }: { shop: LandingProvider }) {
               {"$".repeat(4 - shop.priceTier)}
             </span>
           </span>
-          {shop.tier === "live" ? (
-            <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-bold">
-              ⚡ Live
-            </span>
-          ) : (
-            <span className="text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 font-bold">
-              Listed
-            </span>
-          )}
+          <TierBadge tier={shop.tier === "live" ? "live" : "listed"} />
         </div>
       </div>
 
@@ -60,9 +54,7 @@ export default function LandingShopCard({ shop }: { shop: LandingProvider }) {
             className="btn-gradient inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold"
           >
             Book
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M7 17L17 7M9 7h8v8" />
-            </svg>
+            <ArrowUpRightIcon size={11} strokeWidth={2.5} />
           </a>
         )}
         {shop.phone && (

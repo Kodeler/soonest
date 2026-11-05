@@ -150,7 +150,7 @@ export default async function ShopPage({
           <div className="flex flex-wrap items-center gap-2.5 pt-1">
             {tier === "live" ? (
               <Link
-                href={`/?p=${p.id}`}
+                href={`/p/${p.id}`}
                 className="btn-gradient inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-sm font-bold"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1">
