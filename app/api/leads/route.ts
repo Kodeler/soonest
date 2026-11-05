@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     const lead = await prisma.providerLead.create({
-      data: parsed.data,
+      data: { ...parsed.data, email: parsed.data.email ?? "" },
     });
 
     logEvent(`${parsed.data.kind}_lead_submitted`, {

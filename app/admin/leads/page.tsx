@@ -25,6 +25,8 @@ function kindBadge(l: Lead): { label: string; cls: string } {
       return { label: "claim", cls: "bg-amber-100 text-amber-700" };
     case "contact":
       return { label: "contact", cls: "bg-sky-100 text-sky-700" };
+    case "concierge":
+      return { label: "concierge", cls: "bg-violet-100 text-violet-700" };
     default:
       return { label: "lead", cls: "bg-stone-100 text-stone-500" };
   }

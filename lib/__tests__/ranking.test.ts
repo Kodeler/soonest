@@ -213,6 +213,17 @@ describe("rankResults", () => {
     expect(ranked[1].rankingReason).not.toContain("Available soon");
   });
 
+  it("never labels an unrated provider as highly rated", () => {
+    const unrated = makeProvider({
+      id: "new",
+      ratingAvg: 0,
+      ratingCount: 0,
+      distanceKm: 1,
+    });
+    const ranked = rankResults([unrated], 43.65, -79.38, 25, defaultWeights, now);
+    expect(ranked[0].rankingReason).not.toContain("Highly rated");
+  });
+
   it("never uses source in ranking", () => {
     const a = makeProvider({ id: "a", source: "mock", distanceKm: 5 });
     const b = makeProvider({ id: "b", source: "square", distanceKm: 5 });

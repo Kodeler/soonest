@@ -2,7 +2,8 @@
   "_meta": {
     "pocket": "West-downtown Toronto corridor: Queen West, Ossington, Dundas West, Kensington, Little Italy, King West, Roncesvalles, The Junction",
     "categorySlug": "haircut",
-    "provenance": "Compiled 2026-11-04 from each shop's own website or public booking platform profile (Booksy, Squire, Fresha, Square, Acuity). Prices are as published there; durations are typical estimates where the source did not publish one (see per-listing notes). No ratings are included because we have no authorized rating source. The sync script verifies every bookingUrl responds before a listing goes live and drops entries whose URL fails. Excluded on purpose: The Mad One (256A Queen W, conflicting permanently-closed signals), Glassbox Roncesvalles (stale listing for what is now MDRN at the same address), Bellwoods Barbers (closed per blogTO), Stil Cultur / Ossington Barber Shop / Twentitu / Apollo (no confirmed booking URL or published prices yet).",
+    "provenance": "Compiled 2026-11-04 from each shop's own website or public booking platform profile (Booksy, Squire, Fresha, Square, Acuity, Setmore). Expanded and re-verified 2026-11-04: all 30 original entries were checked against current platform/shop data and 15 shops were added. The sandbox for that pass blocked direct fetches of booking platforms, so verification and new-shop sourcing are search-derived (extended web search snapshots of the platforms' and shops' own pages); per-listing notes say which source each menu came from. Prices are as published there; durations are typical estimates where the source did not publish one (see per-listing notes). No ratings are included because we have no authorized rating source. The sync script verifies every bookingUrl responds before a listing goes live and drops entries whose URL fails.",
+    "exclusions": "Excluded on purpose, with reasons, as of 2026-11-04. Closed or closing: The Mad One (256A Queen W; Yelp page updated Aug 2026 is titled CLOSED and Squire shows Currently Closed), Bellwoods Barbers (closed per blogTO), Cameron House Barbers (408 Queen W; shop post dated 2025-11-28 announced Dec 30 as last day), Driven Barber (2005 Dundas W; blogTO marks NOW CLOSED). Stale/renamed listings at live addresses: Glassbox Roncesvalles (now MDRN, listed), Mr. Barber / Mister Barber at 3270 Dundas W (prior name of Cornerstone, listed), La Section Barbershop at 802 Dundas W (older/alternate name of 802 Barbershop, listed), Gents Barbershop (directory alias of Town Barber, listed), Joe's Barber Shop 541 College (likely stale listing next to GT8), Mi Hermano at 207 Augusta (alias at Rock Da House's address; the real Mi Hermano on Harbord is listed). No shop-published price or confirmed booking page: Ossington Barber Shop (735 Ossington; Fresha stub is call-to-book, only third-party prices), Apollo Barbers (499 Queen W; unclaimed Fresha stub, and Booksy now shows Compound Interest at this address), Compound Interest (499 Queen W; Booksy aggregate pages show Haircut $60/45min but its own profile URL could not be confirmed - relist once pinned down), Barberella (891 Dundas W; only a third-party from-$35), College Barber Shop (824 College), Blood & Bandages (895 College), Rod Gun & Barbers was promoted to listed after its own site's price page was found, Stag Head Barber Shop (2737 Dundas W; cash only, address unconfirmed), Jack's Barber Shop (903 Dundas W; possibly closed), Top Cuts Unisex (2845 Dundas W), Benny's Barber Shop (Junction; nothing confirmable), Barking Iron (1640 Queen W; operation unconfirmed), Point Blank Hair (1398 Queen W; cash only, mixed salon), Baz & Banks (Liberty Village; no online booking, address unconfirmed), Crowns and Locks (20 Vanauley; unverified), Proper Barbers (Kensington; unverified), Clippers Barbershop 884 College (template/demo site, possibly not a real shop). Salons, not barber-focused: Antidote Studio, Alibi Cutting Room, LES Studio, Silver Arrow, Golden Comb, Embu Hair, Tim' Barber, King's Landing Barber Shoppe (also no prices), Moretti Hair / Chroma Hair Shop, Nice Cut / Seefu / Haircut Hero / K-Two (Spadina), Toronto Hair Care. Address conflicts too risky to list: La Barberia (1153 vs 1572 Dundas W), Artistry Barbershop (1224 King W; multiple names at one address), P's Luxury Barber Suite / Pure Souls (424 Dundas W; Setmore booking disabled, conflicting addresses), A Q Barber (1502 Queen W; Fresha mixes it with Parkdale Barbers), Fade Room (431 Roncesvalles; address belongs to Moretti Hair). Out of the coverage pocket: 52 Barber Studio (52 Fort York Blvd, CityPlace; also no published prices), LMNT (282 Queen W, east of Spadina), Solidaire (150 Dundas W), Duke Barber Shop (750 Spadina, Bloor), FYF Studio (116 Dundas W), Gus The Other Barber (Koreatown), JDED (Yonge/Eglinton), Tony's Place (Financial District), BlackBox (East Bayfront), Garrison's on Jarvis (east downtown). Strong future leads pending one manual check: Hagen's solo haircut price (listed with its priced services), Mi Hermano's current from-price ($35 vs $50 across Fresha snapshots, listed at $50), Glassbox Ossington per-barber ranges (listed at from-prices).",
     "coordsNote": "fallbackLat/fallbackLng are approximate street-address coordinates used only when Mapbox geocoding is unavailable at sync time; the sync prefers a fresh geocode of the address."
   },
   "listings": [
@@ -20,7 +21,7 @@
         { "name": "Beard trim", "durationMin": 20, "priceCents": 2500 },
         { "name": "Haircut + beard", "durationMin": 60, "priceCents": 5000 }
       ],
-      "notes": "Prices from barberhood.ca (fades from $40; some barbers from $45); durations estimated."
+      "notes": "Prices from barberhood.ca (fades from $40; some barbers from $45); durations estimated. Re-verified 2026-11-04 via the site's service pages: from-$40 haircut and $50 cut+beard still published."
     },
     {
       "name": "Garrison's Barber Shop (Queen West)",
@@ -35,7 +36,7 @@
         { "name": "Men's haircut", "durationMin": 30, "priceCents": 4800 },
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 7500 }
       ],
-      "notes": "Prices and durations from garrisons.ca FAQ/services."
+      "notes": "Prices and durations from garrisons.ca FAQ/services. Re-verified 2026-11-04: site still lists $48/$75. No Roncesvalles location exists despite old blog roundups."
     },
     {
       "name": "Parkdale Barbers",
@@ -47,10 +48,9 @@
       "fallbackLat": 43.6399,
       "fallbackLng": -79.4305,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 6000 },
-        { "name": "Light beard trim", "durationMin": 15, "priceCents": 2500 }
+        { "name": "Haircut", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "Prices from the shop's Fresha profile; haircut listed 45-60min."
+      "notes": "Re-verified 2026-11-04 (search-derived): the shop's Square booking page shows Men's Haircut $60/1h, corroborating the $60 price; duration updated 45->60. The earlier $25 light beard trim no longer appears anywhere and was removed (the shop's own site hints at a $40 beard trim in a jumbled layout, and a $90 figure there looks like a first-time/long-hair rate - Square lists $100 for first-time clients). The Square page shows a Western Battery Rd address, so the Fresha profile for the 1205 Queen St W shop is kept as the booking link."
     },
     {
       "name": "Queen West Barbers",
@@ -66,7 +66,7 @@
         { "name": "Line up", "durationMin": 20, "priceCents": 3500 },
         { "name": "Hot towel shave", "durationMin": 30, "priceCents": 5000 }
       ],
-      "notes": "Prices and durations from the shop's Squire profile; hot towel shave duration estimated."
+      "notes": "Prices and durations from the shop's Squire profile; hot towel shave duration estimated. Re-verified 2026-11-04: Squire still shows $45/$55/$35."
     },
     {
       "name": "Supreme Clientele Barbershop",
@@ -80,7 +80,7 @@
         { "name": "Haircut + beard trim", "durationMin": 90, "priceCents": 6500 },
         { "name": "Line-up", "durationMin": 45, "priceCents": 3500 }
       ],
-      "notes": "Prices and durations from the shop's Booksy profile (pre-discount list prices)."
+      "notes": "Prices and durations from the shop's Booksy profile (pre-discount list prices). Re-verified 2026-11-04: Booksy still shows $55/$65/$35."
     },
     {
       "name": "Macho Alpha Barbershop",
@@ -93,39 +93,39 @@
         { "name": "Haircut", "durationMin": 35, "priceCents": 4000 },
         { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6000 },
         { "name": "Kids haircut", "durationMin": 30, "priceCents": 3500 },
-        { "name": "Beard design", "durationMin": 20, "priceCents": 3000 }
+        { "name": "Beard design", "durationMin": 30, "priceCents": 3000 }
       ],
-      "notes": "Prices and durations from the shop's Booksy profile; kids/beard durations estimated."
+      "notes": "Prices and durations from the shop's Booksy profile; kids duration estimated. Re-verified 2026-11-04: prices unchanged; beard design duration corrected 20->30min per Booksy. Not the Eglinton W shop with a similar name."
     },
     {
       "name": "Town Barber (Dundas West)",
       "address": "1114 Dundas St W, Toronto, ON",
       "phone": "(416) 399-3499",
       "website": "https://www.townbarber.ca/",
-      "bookingUrl": "https://www.townbarber.ca/",
-      "priceTier": 2,
+      "bookingUrl": "https://getsquire.com/discover/barbershop/town-barber-dundas-street-toronto",
+      "priceTier": 3,
       "fallbackLat": 43.6508,
       "fallbackLng": -79.4223,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 3500 },
-        { "name": "Haircut + full face shave", "durationMin": 80, "priceCents": 5500 }
+        { "name": "Haircut", "durationMin": 40, "priceCents": 4425 },
+        { "name": "Haircut + full face shave", "durationMin": 80, "priceCents": 8849 }
       ],
-      "notes": "Prices from townbarber.ca service pages (HST included per site). Third-party platforms show higher prices; the shop's own site is used as authoritative."
+      "notes": "Corrected 2026-11-04 (search-derived): switched from townbarber.ca prices to the shop's live Squire menu (haircut $44.25/40min; combo $88.49, duration estimated from old menu). The site still shows $35/$55 'HST included' but is internally inconsistent (solo shave $90 above the $55 combo) and looks stale; Squire is where bookings actually happen. Booking moved to the shop's Squire page accordingly."
     },
     {
       "name": "The Fitting Room Toronto",
       "address": "1243 Dundas St W, Toronto, ON",
       "phone": "(416) 533-7666",
       "website": "https://www.fittingroomtoronto.com/",
-      "bookingUrl": "https://www.fresha.com/lvp/the-fitting-room-toronto-dundas-st-w-toronto-1551ya",
+      "bookingUrl": "https://www.fresha.com/a/the-fitting-room-toronto-toronto-1243-dundas-street-west-c4siim5h",
       "priceTier": 3,
       "fallbackLat": 43.6498,
       "fallbackLng": -79.4258,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 6500 },
-        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 7500 }
+        { "name": "Haircut", "durationMin": 60, "priceCents": 5500 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "Prices from a third-party guide, weakest sourcing in this set; durations estimated. Confirm against the Fresha menu when network access allows."
+      "notes": "Corrected 2026-11-04 (search-derived): haircut from $55/1h per the shop's claimed Fresha profile structured data (range $40-100 by barber; the old $65/$75 came from a third-party guide and had no platform support). Cut+beard $60 is the shop site's from-price, weakest line here. Booking URL upgraded from the unclaimed Fresha stub to the claimed profile. Address 1243 Dundas St W confirmed (Fresha, Yelp Aug 2026); 1389 appears only in older articles. The shop also books on Squire with higher owner-tier prices."
     },
     {
       "name": "CADMEN Barbershop (Queen West)",
@@ -141,7 +141,7 @@
         { "name": "Hair + beard package", "durationMin": 60, "priceCents": 6600 },
         { "name": "Haircut (junior barber)", "durationMin": 45, "priceCents": 3200 }
       ],
-      "notes": "Prices from the shop's Squire profile and cadmen.ca guide ($32 junior to $66 expert package); junior duration estimated."
+      "notes": "Prices from the shop's Squire profile and cadmen.ca guide ($32 junior to $66 expert package); junior duration estimated. Re-verified 2026-11-04: site, Squire and Fresha all agree."
     },
     {
       "name": "Throne Barbershop",
@@ -157,7 +157,7 @@
         { "name": "Haircut + beard", "durationMin": 60, "priceCents": 9000 },
         { "name": "Taper line-up", "durationMin": 30, "priceCents": 5000 }
       ],
-      "notes": "Prices from thronebarbershop.com, corroborated by Squire; durations partly estimated (site lists 30-60min for cuts)."
+      "notes": "Prices from thronebarbershop.com, corroborated by Squire; durations partly estimated (site lists 30-60min for cuts). Re-verified 2026-11-04: $70 Sr Stylist cut and $90 combo still published; 'senior stylist' means barber tier, not a seniors' discount."
     },
     {
       "name": "Crows Nest Barbershop (Kensington)",
@@ -174,7 +174,7 @@
         { "name": "Beard trim", "durationMin": 30, "priceCents": 4000 },
         { "name": "Seniors & kids cut", "durationMin": 30, "priceCents": 3500 }
       ],
-      "notes": "Prices from crowsnestbarbershop.com; durations estimated."
+      "notes": "Prices from crowsnestbarbershop.com; durations estimated. Re-verified 2026-11-04: all four prices unchanged on the shop's page."
     },
     {
       "name": "Town Barber (Queen West)",
@@ -182,14 +182,16 @@
       "phone": "(416) 399-3499",
       "website": "https://www.townbarber.ca/",
       "bookingUrl": "https://getsquire.com/discover/barbershop/town-barber-queen-street-toronto",
-      "priceTier": 2,
+      "priceTier": 3,
       "fallbackLat": 43.6414,
       "fallbackLng": -79.4269,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 3500 },
-        { "name": "Haircut + full face shave", "durationMin": 80, "priceCents": 5500 }
+        { "name": "Haircut", "durationMin": 40, "priceCents": 4425 },
+        { "name": "Beard trim", "durationMin": 30, "priceCents": 3982 },
+        { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 7965 },
+        { "name": "Haircut + full face shave", "durationMin": 80, "priceCents": 8849 }
       ],
-      "notes": "Second Town Barber location (address per Fresha listing). Menu from townbarber.ca, which covers both locations; Squire shows higher prices."
+      "notes": "Corrected 2026-11-04 (search-derived): menu switched to the location's live Squire page (haircut $44.25/40min, beard $39.82, combos $79.65/$88.49; beard and combo durations estimated). townbarber.ca still shows the older $35/$55 'HST included' menu but appears stale - see the Dundas West entry. Location existence confirmed via Squire (active) and a City of Toronto record for 1158 Queen St W Unit B."
     },
     {
       "name": "black and white barbers",
@@ -203,7 +205,7 @@
         { "name": "Regular haircut", "durationMin": 30, "priceCents": 4000 },
         { "name": "Hot towel head shave + beard trim + line up", "durationMin": 45, "priceCents": 6500 }
       ],
-      "notes": "Prices and durations from the shop's Booksy profile (Dundas & Roncesvalles)."
+      "notes": "Prices and durations from the shop's Booksy profile (Dundas & Roncesvalles). Re-verified 2026-11-04: $40/30min haircut still on Booksy."
     },
     {
       "name": "West End Precision Barbers",
@@ -218,7 +220,7 @@
         { "name": "Beard trim", "durationMin": 20, "priceCents": 2500 },
         { "name": "Hot lather razor shave", "durationMin": 30, "priceCents": 3500 }
       ],
-      "notes": "From-prices from westendbarbers.ca (haircut 30-40min per site); other durations estimated. The Junction."
+      "notes": "From-prices from westendbarbers.ca (haircut 30-40min per site); other durations estimated. The Junction. Re-verified 2026-11-04: site prices unchanged."
     },
     {
       "name": "Pretty Good Barbershop",
@@ -229,12 +231,12 @@
       "fallbackLat": 43.6388,
       "fallbackLng": -79.4397,
       "services": [
-        { "name": "Traditional men's cut", "durationMin": 45, "priceCents": 5500 },
-        { "name": "Skin fade", "durationMin": 50, "priceCents": 7000 },
-        { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 7000 },
+        { "name": "Precision haircut", "durationMin": 40, "priceCents": 4500 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6500 },
+        { "name": "Beard trim / shave", "durationMin": 15, "priceCents": 2500 },
         { "name": "Line up", "durationMin": 20, "priceCents": 2500 }
       ],
-      "notes": "From-prices from the shop's newer Fresha listing; durations estimated. Parkdale."
+      "notes": "Corrected 2026-11-04 (search-derived): the earlier menu (traditional cut $55, skin fade $70) no longer appears anywhere; Fresha directory cards for this shop consistently show precision haircut $45 (30-45min), cut+beard $65/1h, beard trim/shave $25/15min, line up $25/20min across two independent checks, so that menu was adopted. Attribution is from Fresha area pages rather than the shop's own profile page, so treat as from-prices. Parkdale."
     },
     {
       "name": "RendezVous (Queen St)",
@@ -251,7 +253,7 @@
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 7000 },
         { "name": "Buzz cut", "durationMin": 20, "priceCents": 3500 }
       ],
-      "notes": "Prices from myrendezvous.ca location page, matching its Squire listing; durations estimated."
+      "notes": "Prices from myrendezvous.ca location page, matching its Squire listing; durations estimated. Re-verified 2026-11-04: site and Squire still agree on $50/$55/$70."
     },
     {
       "name": "GT8 Barbershop",
@@ -264,10 +266,11 @@
       "fallbackLng": -79.4124,
       "services": [
         { "name": "Haircut", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 5000 },
         { "name": "Beard trim + line-up", "durationMin": 20, "priceCents": 2500 },
         { "name": "Beard trim (straight razor)", "durationMin": 30, "priceCents": 3500 }
       ],
-      "notes": "Prices from the shop's Fresha listing and gt8barbershop.ca; beard durations estimated. Little Italy."
+      "notes": "Prices from the shop's Fresha listing and gt8barbershop.ca; beard and combo durations estimated. Re-verified 2026-11-04: Fresha shows haircut $40 and cut+beard $50 (combo added). Little Italy."
     },
     {
       "name": "Nasim Barbershop",
@@ -282,7 +285,7 @@
         { "name": "Skin fade", "durationMin": 45, "priceCents": 5000 },
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 6500 }
       ],
-      "notes": "Prices from nasimbarbershop.ca; durations estimated. Spadina at Queen."
+      "notes": "Prices from nasimbarbershop.ca; durations estimated. Spadina at Queen. Re-verified 2026-11-04: site prices unchanged; the shop also runs an active Squire page with matching prices."
     },
     {
       "name": "Rock Da House Barbershop",
@@ -295,11 +298,11 @@
       "fallbackLng": -79.4024,
       "services": [
         { "name": "Precision haircut", "durationMin": 45, "priceCents": 4500 },
-        { "name": "Beard trim / shave", "durationMin": 25, "priceCents": 2500 },
-        { "name": "Line-up", "durationMin": 20, "priceCents": 2500 },
+        { "name": "Beard trim / shave", "durationMin": 15, "priceCents": 2500 },
+        { "name": "Line-up / shape-up", "durationMin": 15, "priceCents": 2500 },
         { "name": "Children's haircut", "durationMin": 30, "priceCents": 3000 }
       ],
-      "notes": "Prices from the shop's Fresha listing; durations estimated. Kensington Market."
+      "notes": "Prices from the shop's Fresha listing. Re-verified 2026-11-04: prices unchanged; beard and line-up durations corrected to Fresha's published 15min. Kensington Market."
     },
     {
       "name": "Kolors Barbershop & Lounge",
@@ -311,9 +314,11 @@
       "fallbackLat": 43.6387,
       "fallbackLng": -79.44,
       "services": [
-        { "name": "Haircut + shave", "durationMin": 60, "priceCents": 5500 }
+        { "name": "Full haircut", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Haircut + shave", "durationMin": 45, "priceCents": 5000 },
+        { "name": "Line-up", "durationMin": 30, "priceCents": 3000 }
       ],
-      "notes": "Single confirmed service price from kolorsonqueen.com; duration estimated. Booksy link from the shop's own Facebook. Parkdale."
+      "notes": "Corrected 2026-11-04 (search-derived): menu from the shop's Booksy profile ('Kolors inc.', 1612 Queen St W): full haircut $40/40min, haircut+shave $50/45min (was $55/60min from the shop site), line-up $30/30min. Booksy link from the shop's own Facebook; kolorsonqueen.com confirms it books through Booksy. Parkdale."
     },
     {
       "name": "MDRN Barbershop (Roncy)",
@@ -328,7 +333,7 @@
         { "name": "The Cut", "durationMin": 50, "priceCents": 5000 },
         { "name": "The Cut + Beard", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "From-prices and durations from the shop's Fresha listing (shop moved booking from Squire to Fresha per its own site)."
+      "notes": "From-prices and durations from the shop's Fresha listing (shop moved booking from Squire to Fresha per its own site). Re-verified 2026-11-04: newest Fresha data still shows $50/$60; older cached pages show $45/$55, consistent with a past price rise."
     },
     {
       "name": "Imperium Barbershop",
@@ -344,7 +349,7 @@
         { "name": "Beard trim", "durationMin": 15, "priceCents": 3500 },
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "Prices and durations from the shop's Acuity booking page."
+      "notes": "Prices and durations from the shop's Acuity booking page. Re-verification attempted 2026-11-04 but the Acuity menu is not surfaced by search; address confirmed, no evidence of change, prices kept from the original Acuity sourcing."
     },
     {
       "name": "The Local Barber & Company",
@@ -360,7 +365,7 @@
         { "name": "Haircut + basic beard trim", "durationMin": 60, "priceCents": 5500 },
         { "name": "Hot towel shave", "durationMin": 45, "priceCents": 5500 }
       ],
-      "notes": "From-prices from the shop's Squire listing (prices rise with barber seniority); durations from listing where given."
+      "notes": "From-prices from the shop's Squire listing (prices rise with barber seniority: cut $45-55, cut+beard $55-65); durations from listing where given. Re-verified 2026-11-04 on Squire."
     },
     {
       "name": "The Barber Shop (Bloor & Bathurst)",
@@ -375,19 +380,21 @@
         { "name": "Haircut / taper", "durationMin": 40, "priceCents": 4000 },
         { "name": "Haircut + beard grooming", "durationMin": 60, "priceCents": 5500 }
       ],
-      "notes": "Prices from barbershopbloor.com; durations estimated. Formerly The Barber House."
+      "notes": "Prices from barbershopbloor.com; durations estimated. Formerly The Barber House. Re-verified 2026-11-04: both prices unchanged on the shop's site."
     },
     {
       "name": "The Manor (Ossington)",
       "address": "202 Ossington Ave, Toronto, ON",
+      "website": "https://themanorbarbershop.com/",
       "bookingUrl": "https://getsquire.com/discover/barbershop/the-manor-ossington-toronto",
       "priceTier": 3,
       "fallbackLat": 43.649,
       "fallbackLng": -79.4201,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 6500 }
+        { "name": "Haircut", "durationMin": 45, "priceCents": 6500 },
+        { "name": "Haircut + beard trim / line-up", "durationMin": 60, "priceCents": 9000 }
       ],
-      "notes": "Price and duration from the shop's Squire listing."
+      "notes": "Prices from the shop's Squire listing; the $90 combo's duration is estimated (Squire did not surface it). Re-verified 2026-11-04: $65/45min haircut confirmed; website added (themanorbarbershop.com, 2nd floor)."
     },
     {
       "name": "King Barberia",
@@ -399,9 +406,11 @@
       "services": [
         { "name": "Haircut", "durationMin": 45, "priceCents": 4500 },
         { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6000 },
-        { "name": "Line-up", "durationMin": 20, "priceCents": 2000 }
+        { "name": "Line-up", "durationMin": 15, "priceCents": 2000 },
+        { "name": "Beard trim", "durationMin": 20, "priceCents": 2500 },
+        { "name": "Hot towel straight razor shave", "durationMin": 30, "priceCents": 4500 }
       ],
-      "notes": "Prices from the shop's Squire listing; haircut duration from listing, others estimated. King West."
+      "notes": "Prices and durations from the shop's Squire listing. Re-verified 2026-11-04: line-up corrected to Squire's 15min; beard trim and hot towel shave added from the live menu. King West."
     },
     {
       "name": "JD Barbers (Queen West)",
@@ -411,10 +420,10 @@
       "fallbackLat": 43.6484,
       "fallbackLng": -79.3999,
       "services": [
-        { "name": "Haircut", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Haircut", "durationMin": 30, "priceCents": 4000 },
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "Prices from the shop's Squire listing; durations estimated."
+      "notes": "Prices from the shop's Squire listing; cut+beard duration estimated. Re-verified 2026-11-04: haircut duration corrected to Squire's listed 30min, though per-barber Squire pages are internally inconsistent, so prices here are the shop-page figures."
     },
     {
       "name": "Lion's Den Barbershop",
@@ -430,20 +439,21 @@
         { "name": "Hot towel shave", "durationMin": 40, "priceCents": 5000 },
         { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 6000 }
       ],
-      "notes": "Prices from lionsdenbarbershop.ca; durations estimated. The Junction."
+      "notes": "Prices from lionsdenbarbershop.ca; durations estimated. The Junction. Re-verified 2026-11-04: all four prices unchanged; address confirmed by a City of Toronto licence record."
     },
     {
       "name": "Shakur The Barber",
       "address": "498 Queen St W, 2nd Floor, Toronto, ON",
+      "website": "https://www.goodcompanyto.ca/barber-shop",
       "bookingUrl": "https://booksy.com/en-ca/6419_shakur-the-barber_barbershop_944431_toronto",
       "priceTier": 3,
       "fallbackLat": 43.6478,
       "fallbackLng": -79.4009,
       "services": [
-        { "name": "Haircut", "durationMin": 45, "priceCents": 5300 },
+        { "name": "Haircut", "durationMin": 30, "priceCents": 6000 },
         { "name": "Hair + beard", "durationMin": 60, "priceCents": 6200 }
       ],
-      "notes": "From-prices from Booksy directory snapshot; durations estimated. Appointment only per Booksy. Above Good Company cafe."
+      "notes": "Corrected 2026-11-04 (search-derived): Booksy now lists the haircut at $60/30min (was $53/45min from an older snapshot); hair+beard $62 kept from the original sourcing. Appointment only. The chair operates inside Good Company's 2nd-floor barbershop (cafe below; the shop itself books at goodcompany.setmore.com, where no shop-level prices are published). One listing per the one-shop rule; Cheech Cesario's Booksy profile at this address is another chair in the same shop, not a separate shop."
     },
     {
       "name": "Cornerstone Barber Shop",
@@ -458,7 +468,241 @@
         { "name": "Beard trim", "durationMin": 30, "priceCents": 4000 },
         { "name": "Straight razor shave", "durationMin": 30, "priceCents": 4000 }
       ],
-      "notes": "Flat $40 per service per the shop's own FAQ; durations estimated. The Junction."
+      "notes": "Flat $40 per service per the shop's own FAQ; durations estimated. The Junction. Re-verified 2026-11-04: the site presents the shop as reopened in 2023 under this name; stale 'Mr. Barber' listings at the same address are the prior tenant's and were ignored."
+    },
+    {
+      "name": "Stil Cultur",
+      "address": "982 Dundas St W, Toronto, ON",
+      "phone": "(647) 327-0982",
+      "bookingUrl": "https://www.fresha.com/a/stil-cultur-toronto-982-dundas-street-west-gfdu85l1",
+      "priceTier": 3,
+      "fallbackLat": 43.6512,
+      "fallbackLng": -79.4184,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 5500 },
+        { "name": "Scissor cut (long hair)", "durationMin": 45, "priceCents": 6500 },
+        { "name": "Kids cut (12 and under)", "durationMin": 30, "priceCents": 3500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's claimed Fresha profile: haircut from $55 (Fresha shows 30-45min), scissor cut from $65, kids $35 (duration estimated). Fresha lists more services (a cut+beard combo was left out because snapshots conflict on its price). Previously excluded for lack of a confirmed booking URL; the claimed /a/ profile resolves that. Dundas West / Trinity Bellwoods."
+    },
+    {
+      "name": "Twentitu Hair",
+      "address": "642 Queen St W, Toronto, ON",
+      "phone": "(416) 361-1022",
+      "website": "https://www.22hair.ca/",
+      "bookingUrl": "https://www.22hair.ca/",
+      "priceTier": 4,
+      "fallbackLat": 43.6467,
+      "fallbackLng": -79.405,
+      "services": [
+        { "name": "Men's cut (barber)", "durationMin": 45, "priceCents": 7500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived). Unisex salon with a dedicated barber for men's cuts and beard work (per its own FAQ). From-price $75 from the salon's own 22hair.ca service page, which shows a 75|85 tier split; duration estimated. Books online via its own site. Weakest-sourced new entry - re-check against the live site. Queen West."
+    },
+    {
+      "name": "802 Barbershop",
+      "address": "802 Dundas St W, Lower Level, Toronto, ON",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/802-barbershop-toronto",
+      "priceTier": 2,
+      "fallbackLat": 43.6527,
+      "fallbackLng": -79.4115,
+      "services": [
+        { "name": "Haircut (incl. straight razor line-up)", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Haircut + beard", "durationMin": 60, "priceCents": 6500 },
+        { "name": "Full service haircut", "durationMin": 90, "priceCents": 8000 },
+        { "name": "Line-up / beard trim", "durationMin": 30, "priceCents": 3000 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire page: haircut $40/45min (a $50/1h tier also exists), cut+beard $65/1h, full service (mask, hot towel, styling) $80/1h30, line-up or beard $30/30min. A Fresha directory also lists 'La Section Barbershop' at this address - treated as an older or alternate name, one listing kept. Dundas W at Bathurst."
+    },
+    {
+      "name": "Vidal Barber Studio",
+      "address": "2988 Dundas St W, Toronto, ON",
+      "phone": "(647) 368-8080",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/vidal-barber-studio-toronto",
+      "priceTier": 2,
+      "fallbackLat": 43.6656,
+      "fallbackLng": -79.47,
+      "services": [
+        { "name": "Haircut (apprentice)", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Kids haircut (13 and under)", "durationMin": 30, "priceCents": 3000 },
+        { "name": "Premium package (cut, beard sculpt, hot foam shave, hot towel)", "durationMin": 75, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire pages: apprentice haircut from $40 (range $40-50), kids from $30, $70 premium package from a senior barber's profile. All durations estimated. Senior-barber standard cut price not yet published in snapshots. Several per-barber Squire profiles here are one shop. The Junction."
+    },
+    {
+      "name": "Gents of Verona",
+      "address": "742 King St W, Toronto, ON",
+      "phone": "(437) 880-7917",
+      "bookingUrl": "https://booksy.com/en-ca/18384_gents-of-verona_barbershop_944431_toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6443,
+      "fallbackLng": -79.404,
+      "services": [
+        { "name": "Skin fade", "durationMin": 45, "priceCents": 4500 },
+        { "name": "Short haircut (clipper back & sides)", "durationMin": 30, "priceCents": 4500 },
+        { "name": "Long hair scissor cut", "durationMin": 45, "priceCents": 5500 },
+        { "name": "Skin fade + beard trim", "durationMin": 70, "priceCents": 7500 },
+        { "name": "Beard trim", "durationMin": 30, "priceCents": 3500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's active Booksy profile; all prices and durations are Booksy-published (none estimated). King West."
+    },
+    {
+      "name": "ColdKutz Barbershop",
+      "address": "797 King St W, Toronto, ON",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/coldkutz-barbershop-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6439,
+      "fallbackLng": -79.4055,
+      "services": [
+        { "name": "Haircut (incl. straight razor line-up)", "durationMin": 45, "priceCents": 5500 },
+        { "name": "Haircut + beard trim", "durationMin": 60, "priceCents": 6500 },
+        { "name": "Line-up / beard trim", "durationMin": 20, "priceCents": 3500 },
+        { "name": "Full head scissor cut", "durationMin": 75, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from barbers' Squire profiles at the shop (prices are per-barber; scissor cut runs $70-75, lower figure used). Cut+beard and line-up durations estimated. The shop left Fresha; Squire is its current booking page. King West."
+    },
+    {
+      "name": "RendezVous (King & Bathurst)",
+      "address": "720 King St W, Unit 135, Toronto, ON",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/rendezvous-king-and-bathurst-toronto-1",
+      "priceTier": 3,
+      "fallbackLat": 43.6444,
+      "fallbackLng": -79.403,
+      "services": [
+        { "name": "Buzz cut (one level all over)", "durationMin": 25, "priceCents": 3500 },
+        { "name": "Buzz cut + beard trim", "durationMin": 45, "priceCents": 5000 },
+        { "name": "Beard hot towel shave / razor line-up", "durationMin": 30, "priceCents": 4500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived). Second location of the RendezVous at 309 Queen W. Buzz prices and durations from a barber's Squire profile; the $45 shave/line-up is the Squire page's featured service (duration estimated). A standard haircut price has not been published in snapshots yet - expect pricing similar to the Queen St location. King West."
+    },
+    {
+      "name": "Axe & Hatchet (Liberty Village)",
+      "address": "120 Lynn Williams St, Toronto, ON",
+      "phone": "(416) 519-8882",
+      "website": "https://axeandhatchet.com/",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/axe-and-hatchet-liberty-village-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6383,
+      "fallbackLng": -79.4197,
+      "services": [
+        { "name": "Cut and style", "durationMin": 45, "priceCents": 6000 },
+        { "name": "Military cut", "durationMin": 30, "priceCents": 4000 },
+        { "name": "Cut + beard", "durationMin": 60, "priceCents": 7500 },
+        { "name": "Kids cut", "durationMin": 30, "priceCents": 4000 },
+        { "name": "The Works", "durationMin": 75, "priceCents": 8500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire listing (newer than its own site): cut and style from $60, military cut from $40 (Squire shows $60-65 / $40-45 ranges, lower figures used). All durations estimated. Beard trim left out (conflicting $25/$35 snapshots). Liberty Village branch of a Yorkville brand."
+    },
+    {
+      "name": "Glassbox Barbershop (Harbord)",
+      "address": "338 Harbord St, Toronto, ON",
+      "phone": "(416) 516-6237",
+      "website": "https://glassboxbarbershop.com/pages/toronto-harbord",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/glassbox-harbord-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6617,
+      "fallbackLng": -79.417,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 5500 },
+        { "name": "Maintenance cut (repeat clients)", "durationMin": 30, "priceCents": 3000 },
+        { "name": "Haircut + beard trim", "durationMin": 45, "priceCents": 7000 },
+        { "name": "Beard clean-up & reshape", "durationMin": 30, "priceCents": 3000 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire pages. Prices are per-barber ranges on Squire (haircut $45-90); the listed figures come from specific barbers' profiles ($55 haircut, $70 cut+beard) and the low end of the maintenance-cut range. Maintenance and beard durations estimated. Harbord near Little Italy; active Glassbox location (the Roncesvalles one became MDRN)."
+    },
+    {
+      "name": "Mi Hermano Barbershop",
+      "address": "293A Harbord St, Toronto, ON",
+      "phone": "(647) 748-6266",
+      "website": "https://mihermanobarbershop.squarespace.com/",
+      "bookingUrl": "https://www.fresha.com/a/mi-hermano-toronto-toronto-293a-harbord-street-lkji9a1r",
+      "priceTier": 3,
+      "fallbackLat": 43.6621,
+      "fallbackLng": -79.4138,
+      "services": [
+        { "name": "Mi Haircut", "durationMin": 45, "priceCents": 5000 },
+        { "name": "Scissor cut", "durationMin": 60, "priceCents": 6500 },
+        { "name": "The Youngster (kids)", "durationMin": 30, "priceCents": 3500 },
+        { "name": "El Patron (cut + beard trim)", "durationMin": 60, "priceCents": 7000 },
+        { "name": "Buzz cut", "durationMin": 20, "priceCents": 2500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's claimed Fresha profile. Fresha snapshots conflict on the haircut from-price ($35 on one newer page vs $50 on others; $50 used - verify on the live page). Scissor $65, kids $35, buzz $25 are consistent; El Patron appears as $70 and 'from $60'. Shop site says prices include HST. Two Fresha venue IDs exist at this address; the one here had the fuller menu. Harbord near Little Italy."
+    },
+    {
+      "name": "Hagen Hair and Barber",
+      "address": "275 Dundas St W, Unit 13, Toronto, ON",
+      "phone": "(416) 977-5774",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/hagen-hair-and-barber-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6547,
+      "fallbackLng": -79.392,
+      "services": [
+        { "name": "Beard trim (shaping, no line-up)", "durationMin": 15, "priceCents": 1200 },
+        { "name": "Beard trim + blade line-up", "durationMin": 30, "priceCents": 3000 },
+        { "name": "Full beard hot towel shave", "durationMin": 30, "priceCents": 3000 },
+        { "name": "Hair + beard package", "durationMin": 45, "priceCents": 5600 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire shop and barber pages. Squire lists a 30min men's haircut whose price has not surfaced in snapshots - add it once confirmed; package duration estimated. Eastern edge of Chinatown (Dundas near Beverley). Barber-focused despite the name."
+    },
+    {
+      "name": "Glassbox Barbershop (Ossington)",
+      "address": "89 Ossington Ave, Toronto, ON",
+      "website": "https://glassboxbarbershop.com/pages/toronto-ossington",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/glassbox-ossington-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.6468,
+      "fallbackLng": -79.4195,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Maintenance cut (repeat clients)", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Haircut + shave", "durationMin": 75, "priceCents": 8500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire page. Prices are per-barber from-prices at the low end of Squire's published ranges (haircut $40-75, maintenance $25-40, cut+shave $85-105); the brand site says haircuts start at $50+, so expect most barbers above the minimum. Haircut 45-60min per Squire; shave-combo duration from Squire's 75-90min range. Ossington strip."
+    },
+    {
+      "name": "Rod, Gun & Barbers",
+      "address": "2877 Dundas St W, Toronto, ON",
+      "phone": "(647) 350-6446",
+      "website": "https://www.rodgunandbarbers.com/",
+      "bookingUrl": "https://www.rodgunandbarbers.com/",
+      "priceTier": 2,
+      "fallbackLat": 43.6648,
+      "fallbackLng": -79.468,
+      "services": [
+        { "name": "Haircut", "durationMin": 30, "priceCents": 3500 },
+        { "name": "Wet shave", "durationMin": 40, "priceCents": 4200 },
+        { "name": "Beard trim", "durationMin": 15, "priceCents": 1800 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's own price page: haircut $35, wet shave $42, beard trim $18, taxes included per the site. All durations estimated. Corrected 2026-11-05: booking/website moved from the legacy rod-and-gun.com (which fails HTTPS and was refused by deploy verification) to the current rodgunandbarbers.com, which carries the booking flow; phone added. Barbershop with a bar/venue side, clearly barber-focused. The Junction; ignore the stale Yelp listing at 1612 Queen W (that address is Kolors)."
+    },
+    {
+      "name": "The Village Barbershop",
+      "address": "107 Jefferson Ave, Toronto, ON",
+      "bookingUrl": "https://getsquire.com/discover/barbershop/the-village-barbershop-toronto",
+      "priceTier": 3,
+      "fallbackLat": 43.638,
+      "fallbackLng": -79.4235,
+      "services": [
+        { "name": "Haircut", "durationMin": 45, "priceCents": 5000 },
+        { "name": "Haircut + beard groom", "durationMin": 60, "priceCents": 7300 },
+        { "name": "Kids haircut (12 and under)", "durationMin": 30, "priceCents": 3500 },
+        { "name": "Beard groom", "durationMin": 20, "priceCents": 2800 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's Squire listing: haircut $50/45min, cut+beard $73/1h (durations published); kids and beard-groom durations estimated. Mostly appointment-based with limited walk-ins. Liberty Village."
+    },
+    {
+      "name": "MR.FADES",
+      "address": "1399 Queen St W, Toronto, ON",
+      "phone": "(416) 536-0820",
+      "bookingUrl": "https://mrfades.setmore.com/",
+      "priceTier": 2,
+      "fallbackLat": 43.6394,
+      "fallbackLng": -79.4352,
+      "services": [
+        { "name": "Skin / zero / 0.5 fade", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Kids fade", "durationMin": 30, "priceCents": 3500 }
+      ],
+      "notes": "Added 2026-11-04 (search-derived) from the shop's own Setmore booking page: fades $40 (wash & styling +$10), kids fades $35. Durations estimated; the Setmore menu is partial, so more services exist than are listed here. Fresha only has a call-to-book stub. Parkdale."
     }
   ]
 }

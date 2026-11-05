@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { z } from "zod/v4";
 import { prisma } from "@/lib/db";
 import { regenerateSlotsForProvider } from "@/lib/slots";
+import { slugify } from "@/lib/slug";
 
 const dayHoursSchema = z.object({
   open: z.string().regex(/^\d{2}:\d{2}$/),
@@ -71,9 +72,15 @@ export async function POST(req: NextRequest) {
 
     const isListed = data.listingType === "listed";
 
+    let slug: string | null = slugify(data.name) || null;
+    if (slug && (await prisma.provider.findUnique({ where: { slug } }))) {
+      slug = `${slug}-${Date.now().toString(36)}`;
+    }
+
     const provider = await prisma.provider.create({
       data: {
         name: data.name,
+        slug,
         address: data.address,
         lat: data.lat,
         lng: data.lng,

@@ -43,6 +43,13 @@ export default function Home() {
   } | null>(null);
 
   useEffect(() => {
+    // Legacy deep link: /?p=<providerId> predates the /p/[id] route and may
+    // exist in the wild (shop permalinks shipped with it briefly).
+    const pid = new URLSearchParams(window.location.search).get("p");
+    if (pid) {
+      router.replace(`/p/${pid}`);
+      return;
+    }
     fetch("/api/categories")
       .then((r) => r.json())
       .then((d) => setCategories(d.categories || []))
@@ -51,7 +58,7 @@ export default function Home() {
       .then((r) => r.json())
       .then((d) => setStats(d))
       .catch(() => {});
-  }, []);
+  }, [router]);
 
   const handleSearch = (params: SearchQuery) => {
     startTransition(() => {
@@ -139,6 +146,8 @@ export default function Home() {
 
             <div className="flex items-center justify-center gap-5 text-xs text-stone-400">
               <Link href="/toronto/barbers" className="hover:text-primary">Toronto barbershops</Link>
+              <Link href="/toronto/nails" className="hover:text-primary">Toronto nail salons</Link>
+              <Link href="/toronto/massage" className="hover:text-primary">Toronto massage</Link>
               <Link href="/providers" className="hover:text-primary">List your business</Link>
               <Link href="/contact" className="hover:text-primary">Contact</Link>
               <Link href="/privacy" className="hover:text-primary">Privacy</Link>

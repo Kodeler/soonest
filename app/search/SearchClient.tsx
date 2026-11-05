@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { RankedResult } from "@/lib/types";
 import SearchBar from "@/app/components/SearchBar";
 import ResultsList from "@/app/components/ResultsList";
+import ConciergeCard from "@/app/components/ConciergeCard";
 import MapView from "@/app/components/MapView";
 import Logo from "@/app/components/Logo";
 import { BoltIcon, ListIcon, MapIcon, SearchIcon } from "@/app/components/icons";
@@ -204,8 +205,8 @@ export default function SearchClient() {
           </div>
         </div>
       ) : !loading && results.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center text-center px-4">
-          <div className="space-y-3 animate-fade-up">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-10">
+          <div className="space-y-3 animate-fade-up text-center">
             <div className="mx-auto w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center text-primary">
               <SearchIcon size={28} strokeWidth={1.8} />
             </div>
@@ -213,6 +214,14 @@ export default function SearchClient() {
             <p className="text-stone-400 text-sm max-w-xs mx-auto">
               Try expanding your search radius or picking a different category
             </p>
+          </div>
+          <div className="w-full max-w-md mt-6">
+            <ConciergeCard
+              categoryName={
+                categories.find((c) => c.slug === query.categorySlug)?.name
+              }
+              keyword={query.keyword || undefined}
+            />
           </div>
         </div>
       ) : (
@@ -229,10 +238,18 @@ export default function SearchClient() {
                 ))}
               </div>
             ) : (
-              <ResultsList
-                results={sortedResults}
-                onSelect={(id) => router.push(`/p/${id}`)}
-              />
+              <>
+                <ResultsList
+                  results={sortedResults}
+                  onSelect={(id) => router.push(`/p/${id}`)}
+                />
+                <ConciergeCard
+                  categoryName={
+                    categories.find((c) => c.slug === query.categorySlug)?.name
+                  }
+                  keyword={query.keyword || undefined}
+                />
+              </>
             )}
           </div>
           <div className={`flex-1 ${showMap ? "" : "hidden md:block"}`}>
