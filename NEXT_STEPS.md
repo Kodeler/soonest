@@ -1,117 +1,98 @@
-# Soonest — Next Steps
+# Soonest — Operating Playbook
 
-## Per-Provider OAuth Reality
+Updated 2026-11-05. The July version of this document described a plan; this
+one describes a running system and what feeds it.
 
-Most personal-service booking platforms require each seller to individually authorize your app via OAuth. There is no "city-wide search" API — you build coverage by onboarding providers one at a time.
+## Where things stand
 
-### Square (ready now)
-- OAuth connect flow is built (`/api/connect/square`)
-- Each Square seller authorizes your app, granting APPOINTMENTS_READ/WRITE scope
-- You get their bookable catalog and live availability
-- Self-serve: any Square seller can connect in < 2 minutes
-- Production: apply at Square Developer Dashboard, pass app review
+Live at soonest.today:
 
-### Fresha / Booksy / Vagaro / Mindbody
-- Each requires a developer partnership application
-- Fresha: partner API with per-salon OAuth; good coverage in beauty/wellness
-- Booksy: REST API, per-provider authorization; strong in barbershops
-- Vagaro: API available to approved partners; salon/spa/fitness
-- Mindbody: mature API with broad gym/studio coverage; requires commercial agreement
-- **Implementation pattern**: create a new class implementing `BookingProvider`, add to `ProviderRegistry` — zero changes to UI or ranking
+- **44 real barbershops** across the west-downtown corridor (Queen West,
+  Ossington, Dundas West, Kensington, Little Italy, King West/Liberty
+  Village, Parkdale, Roncesvalles, The Junction), all listed-tier:
+  published prices, direct booking links, zero fabricated data.
+- **Listing-fidelity tiers**: `live` (authorized calendar, bookable in-app,
+  ⚡ badge) vs `listed` (directory entry, books on the shop's own site).
+  The UI never claims availability it cannot prove. Sample data is labeled.
+- **Listings as code**: `data/wedge/*.json` is the directory. A build-time
+  sync (`scripts/sync-wedge-listings.ts`) upserts it to production,
+  geocodes addresses, and refuses any listing whose booking URL fails a
+  live check. Migrations also auto-apply at build.
+- **Acquisition surfaces**: nine neighborhood SEO pages
+  (`/toronto/barbers/...`), per-shop permalink pages (`/shop/<slug>`) with
+  structured data, sitemap coverage.
+- **Funnels**: claim-your-listing card on every listed shop (feeds
+  `/admin/leads`, kind `claim`), contact page with the listing policy
+  (kind `contact`), concierge "we'll find you the soonest" request
+  (kind `concierge`, phone-first), founding-provider Stripe signup.
+- **Instrumentation**: first-party event log (searches, provider views,
+  booking confirms/fails, outbound booking clicks, call clicks, lead
+  submissions by kind) plus Vercel Analytics component.
 
-### Jane (osteo/physio/chiro in Canada)
-- No public API exists
-- Dominant platform for manual therapy in Canada
-- Options: (1) partnership inquiry, (2) scraper adapter (fragile, ToS concerns), (3) direct provider integration via iFrame/deep-link
-- The `ScraperBookingProvider` stub exists for this scenario but is disabled
+## The flywheel
 
-### Zocdoc (US health)
-- Developer partnership required (apply at developer.zocdoc.com)
-- Once approved, you get broad multi-provider real-time availability without onboarding individual providers
-- Covers dentists, doctors, dermatologists, therapists across many EHR systems
-- Sandbox with predefined test providers is ready in the codebase
-- **Gate**: Zocdoc adapter is US-only and health-category-only by design
+1. Consumers find Soonest via neighborhood/shop SEO pages and search.
+2. Outbound booking clicks and concierge requests prove demand per shop.
+3. Shops discover their listing (customers mention it, self-googling,
+   referral traffic) and land on the claim card.
+4. Claims convert to Live connections (Square self-serve today; Fresha /
+   Booksy partnerships later) — the ⚡ badge is the status carrot.
+5. Live shops make the "soonest" ranking real, which makes the consumer
+   product better, which restarts the loop.
 
-## Seller Onboarding Strategy
+## Data rules (non-negotiable)
 
-### Phase 1: Self-serve connectors (Square, eventually Fresha)
-- Provider visits `/connect/[platform]`, authorizes in 2 minutes
-- Immediate availability on the platform
-- Works well for 1-location businesses
+- Never fabricate. Every listing: confirmed address, a booking URL that
+  responds, at least one shop-published price. Durations may be estimates,
+  noted per listing.
+- No ratings without an authorized rating source. Unrated shops show the
+  New badge and are never described as "highly rated".
+- No scraping of availability. Live open times come only from authorized
+  calendar connections.
+- Record rejects and the reason in the data file's `_meta` so they are not
+  re-added blindly. Known traps: renamed shops with stale listings at the
+  same address, closed shops with live-looking profiles, per-barber
+  platform profiles that are one shop, conflicting addresses.
+- Corrections or removal on an owner's request, fast, once verified.
 
-### Phase 2: Partnership APIs (Zocdoc, Mindbody)
-- Bulk coverage: one partnership covers thousands of providers
-- No per-provider onboarding needed
-- Higher barrier to entry (commercial agreement, app review)
+## Growth order
 
-### Phase 3: Aggregator deals
-- Partner with booking aggregators (e.g., Treatwell in Europe)
-- Affiliate/meta-search model: show availability, hand off booking
-- Revenue via referral fees or booking margins
+1. **Densify the pocket** (done to 44; keep topping up as shops qualify —
+   the `_meta` exclusions list carries the bench and why each is waiting).
+2. **Second vertical on the same strips**: nails/brows reuse the same
+   neighborhood pages (one entry in `lib/seo-areas.ts` CATEGORY_LANDINGS)
+   and the same data pipeline (`data/wedge/<vertical>.json` with its
+   categorySlug in `_meta`).
+3. **New geography last**, pulled by search-event data, not guesses.
 
-## Recommended Vertical-by-City Rollout
+## Live-tier supply roadmap
 
-### Toronto (seed city)
-1. **Hair / Barber** — high frequency, price-insensitive, Square-heavy → fast to populate
-2. **Massage / Physio / Chiro** — Jane-dominated, needs partnership or scraper
-3. **Nails / Brows** — Fresha/Booksy-heavy, needs those partnerships
-4. **Dental** — harder, mostly legacy PMS systems; consider Zocdoc-like meta-search
+- **Square** (built): self-serve OAuth at `/api/connect/square`. Submit the
+  production app review — it is calendar time, not effort.
+- **Fresha / Booksy / Vagaro / Mindbody**: partner-API applications; one
+  partnership bulk-upgrades every listed shop on that platform. Apply
+  early, they take weeks.
+- **Jane** (health verticals later): no public API; partnership inquiry or
+  direct provider connections only. The scraper stub stays disabled.
+- **Zocdoc** (US health, much later): adapter and sandbox already exist.
 
-### New York (expansion)
-1. **Health** — Zocdoc partnership gives instant breadth across doctors/dentists/therapists
-2. **Hair / Beauty** — Mindbody + Booksy covers most
-3. **Tattoo / Specialty** — Square self-serve likely sufficient
+## Operating cadence (human)
 
-### General pattern
-- Lead with the vertical where you have API coverage
-- Supplement with self-serve OAuth connectors
-- Fill gaps with manual outreach + provider onboarding
+- Check `/admin/leads` daily once traffic starts; answer claims and
+  concierge requests fast — response speed is the product.
+- Watch events for which shops get booking clicks; those are the warm
+  Live-upgrade pitches.
+- Keep `data/wedge/*.json` fresh: prices drift; the deploy log's SKIP
+  lines flag dead booking URLs.
 
-## Consumer Auth & Payments
+## Architecture notes that still hold
 
-### Consumer Authentication
-- Not in MVP — booking is anonymous (name/phone/email only)
-- Next: add email-based magic link auth (no passwords)
-- Enables: booking history, favorites, re-booking, preferences
-- Stack: NextAuth.js or Clerk, with a `User` model in Prisma
-
-### Payments
-- Most personal-service bookings are paid at the provider
-- For prepaid/deposit models: integrate Stripe Connect
-- Marketplace flow: user pays Soonest, Soonest pays provider minus commission
-- Requires: consumer auth, provider payout setup, refund handling
-- Regulatory: may need money transmitter licensing depending on jurisdiction
-
-## Technical Priorities
-
-1. **Real-time availability refresh** — cache strategy for mock slots, polling for live adapters
-2. **Geolocation + geocoding** — Mapbox geocoding for address-to-lat/lng search
-3. **Push notifications** — "slot opening" alerts for high-demand providers
-4. **Provider dashboard** — for sellers to manage their connected accounts
-5. **Analytics** — search patterns, booking conversion, category demand by area
-6. **PWA manifest** — installable web app with offline search cache
-7. **React Native** — API and types are already client-agnostic; mobile client reuses everything
-
-## Adding a New Adapter
-
-Adding a new booking platform (e.g., Fresha) requires exactly one new file:
-
-```typescript
-// lib/providers/fresha.ts
-export class FreshaBookingProvider implements BookingProvider {
-  source = "fresha";
-  async search(query: SearchQuery): Promise<ProviderResult[]> { ... }
-  async getSlots(providerId: string, serviceId: string, range: TimeRange): Promise<SlotResult[]> { ... }
-  async book(slotId: string, contact: ContactInfo): Promise<BookingResult> { ... }
-}
-```
-
-Then add it to `ProviderRegistry`:
-
-```typescript
-if (process.env.FRESHA_API_KEY) {
-  this.providers.push(new FreshaBookingProvider());
-}
-```
-
-No changes to ranking, API routes, or UI. The architecture ensures every adapter is a peer — the system is source-agnostic by design.
+- One `BookingProvider` interface; all adapters are peers; ranking, API
+  and UI never branch on source. Adding a platform is one adapter file
+  plus a registry entry.
+- Ranking: time/distance/rating/price weights with Bayesian-dampened
+  ratings; ASAP mode reweights toward time. Listed shops score zero on
+  time by construction.
+- Consumer auth, payments (Stripe Connect marketplace flow), push
+  notifications, provider dashboard, PWA/native clients: unchanged future
+  items, in roughly that order, gated on demand signal.

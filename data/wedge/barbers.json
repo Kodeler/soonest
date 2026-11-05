@@ -662,8 +662,9 @@
     {
       "name": "Rod, Gun & Barbers",
       "address": "2877 Dundas St W, Toronto, ON",
-      "website": "https://rod-and-gun.com/",
-      "bookingUrl": "https://rod-and-gun.com/",
+      "phone": "(647) 350-6446",
+      "website": "https://www.rodgunandbarbers.com/",
+      "bookingUrl": "https://www.rodgunandbarbers.com/",
       "priceTier": 2,
       "fallbackLat": 43.6648,
       "fallbackLng": -79.468,
@@ -672,7 +673,7 @@
         { "name": "Wet shave", "durationMin": 40, "priceCents": 4200 },
         { "name": "Beard trim", "durationMin": 15, "priceCents": 1800 }
       ],
-      "notes": "Added 2026-11-04 (search-derived) from the shop's own price page (rod-and-gun.com): haircut $35, wet shave $42, beard trim $18, taxes included per the site. All durations estimated. Barbershop with a bar/venue side, clearly barber-focused. The Junction; ignore the stale Yelp listing at 1612 Queen W (that address is Kolors)."
+      "notes": "Added 2026-11-04 (search-derived) from the shop's own price page: haircut $35, wet shave $42, beard trim $18, taxes included per the site. All durations estimated. Corrected 2026-11-05: booking/website moved from the legacy rod-and-gun.com (which fails HTTPS and was refused by deploy verification) to the current rodgunandbarbers.com, which carries the booking flow; phone added. Barbershop with a bar/venue side, clearly barber-focused. The Junction; ignore the stale Yelp listing at 1612 Queen W (that address is Kolors)."
     },
     {
       "name": "The Village Barbershop",
