@@ -1,0 +1,361 @@
+{
+  "_meta": {
+    "pocket": "West-downtown Toronto corridor: Queen West, Ossington, Dundas West, Kensington/Chinatown, Little Italy, King West/Liberty Village, Parkdale, Roncesvalles, The Junction",
+    "categorySlug": "nails",
+    "provenance": "Compiled 2026-11-05 from each shop's own website or public booking platform profile (Fresha, Booksy, Dash Booking, Square Appointments, Setmore). The sandbox for this pass blocked direct fetches of booking platforms and of the shops' own sites (proxy CONNECT 403 / unresolvable hosts), so all sourcing and verification are search-derived (extended web search snapshots of the platforms' and shops' own pages); per-listing notes say which source each menu came from and which durations are estimates. Nail shops skew Fresha-heavy, but several in this pocket actually book on Dash Booking or Square Appointments, with only an unclaimed call-to-book Fresha stub; the live booking platform was preferred in each case. priceTier derives from the classic manicure price (<=$35 tier 2, $36-55 tier 3, >$55 tier 4); where no classic manicure is published, the gel manicure price minus ~$10 was used as a proxy and the notes say so. Only shops where nails are the core offering are listed; full-service spas and hair salons that merely offer manicures were excluded. No ratings are included because we have no authorized rating source. The sync script verifies every bookingUrl responds before a listing goes live and drops entries whose URL fails.",
+    "exclusions": "Excluded on purpose, with reasons, as of 2026-11-05. Closed or possibly closed: Ivy Nails (2957 Dundas W; Yelp marked closed May 2026, Fresha lvp page is stale), Rainbow Nail & Spa (222 Spadina; a Yelp snapshot shows Closed, two conflicting phone numbers, and directories give the address to Rainbow Skin Care Spa). No shop-published price or confirmed booking page: Pretty Star Nails Spa (171 Roncesvalles; Fresha snapshots mix other salons' menus into its page), The Ten Spot Roncesvalles (117 Roncesvalles; only a 2013 blog price, and a multi-service beauty-bar chain), Glamour Nails (2239 Dundas W; Fresha lists services only), Hollywood Nails (2214 Dundas W; a Fresha area-page price could not be attributed; hours and postal code conflict), Lucy Nails (3065 Dundas W; only a 2017 review), High Park Nail Bar (3114 Dundas W; call to book, no prices), DY Nail Studio (149 Augusta; no attributable prices), Healthy Nails (222 Spadina #136), Top Coat Nail Salon (1450 Queen W; no booking URL, three conflicting phones), Pink Nail Bar (123 Ossington; Fresha lvp is call-to-book and its own site's shellac prices conflict $40 vs $55 - relist once its booking page is pinned down), Project Essence (219 Ossington; prices only on a third-party aggregator, mixed nails/brows/lashes), Emi's nails salon (859 Dundas W; Fresha lvp lists services only), Naked Beauty Bar (889 Dundas W; call-to-book lvp, prices only on third-party Beautster, conflicting hours suggest staleness), THEGRACE Nail Art (660 Queen W; call-to-book stub), MS23 Nails Beauty Care (680 Queen W; cryptic Fresha menu items, business name varies between sources), Nails On Queen (606 Queen W; booksalon.ca snippet jumbles prices and services, unclaimed Fresha stub), RE:SET Nail Spa (68 Abell St #9; no full price list, only a ClassPass add-on), Tips & Toes Nail Spa (171 East Liberty; only third-party guide estimates), Cures Studio (171 E Liberty Unit 141; no prices, Yelp files it under skin care so possibly not nail-core), 550 Nail Bar (550 Front W; call-to-book stub, also edge of pocket), Sixth Sense Spa & Nail Lounge (901 King W; ambiguous lvp prices, own site shows no prices for this branch). Price conflicts too risky to list: Queen Nails & Spa (1388 Queen W, Parkdale; two different menus attributed to the address in 1.5-2 year old snapshots, lvp shows no prices), Nail Art Bar (1176 Queen W; its own site and Fresha conflict), Hue Atelier (2005 Dundas W; its spa-menu snapshots came through garbled, classic mani 'from $30' vs 'from $40' - the strongest bench candidate, re-check when its site can be fetched directly). Address or identity conflicts: Fix NailBar (Fresha slug says Keele St but the page shows 100 Ossington Ave Ste 08; its Zenoti prices cannot be tied to a branch), Kuko House (889 vs 1273 Dundas W, the latter being Emily House's address; prices only on Beautster), King West Nails Spa / King Nails & Beauty / L And A Nails (932 King W; four names and three phones at one address, conflicting prices), Tips and Tonic Nail Studio (833 vs 393 King W, Fresha slug references Dundas; call-to-book stub), Organic Nail Bar Queen West (496 vs 438 Queen W with swapped phones across sources - the chain's King West branch is listed instead), AR Studios (2988 Dundas W unconfirmed; appears only as a 'venue nearby' on other Fresha pages). Spas or salons, not nail-core: Blade Beauty Boutique (1650 Queen W; laser/skin/injectables, placeholder 'from $1' Fresha prices and a conflicting second address), GIOIA Beauty Bar & Spa (20 Joe Shuster Way; day spa), Majesty's Pleasure (556 King W; full-service spa). Out of the coverage pocket: Sarang Nails (633A Bloor W; a Fresha category page wrongly shows it at 166 Ossington, which is SOLiS-tokyo's address), Vanity Nail & Beauty Bar (2358 Bloor W), Kuo Qi Nails (2875 Bloor W), Supreme Nail Spa (823 Lansdowne), LeLuxe Nail Studio (1033 Bay; also has duplicate Fresha profiles), Everest Nail Salon (250 Dundas W), GLO Nails Studio (275 Dundas W), Nails For You (109 Dundas W), Cozy nails & spa (386 College), Essential Beauty Bar (225 Queen W), Polish'd Nail Bar (130 King W), Nails Touch (317 King W), Pearl Nail Bar Dundas East (96 Dundas E), Loft Nail Studio (250 Queen W near University; its Roncesvalles branch at 389 Roncesvalles has prices only on third-party Beautster). Unresearched in-pocket lead for the next pass: Yellow Mellow Clawz (1084 Queen W; dismissed as out-of-area during research but actually inside the Ossington radius - nothing verified yet).",
+    "coordsNote": "fallbackLat/fallbackLng are approximate street-address coordinates used only when Mapbox geocoding is unavailable at sync time; the sync prefers a fresh geocode of the address."
+  },
+  "listings": [
+    {
+      "name": "Sekai Nail and Beauty Bar",
+      "address": "968 Queen St W, Toronto, ON",
+      "phone": "(647) 748-5538",
+      "website": "https://sekainailandbeautybar.com/",
+      "bookingUrl": "https://www.fresha.com/a/sekai-nail-and-beauty-bar-toronto-968-queen-street-west-dn3jhu5n",
+      "priceTier": 2,
+      "fallbackLat": 43.6446,
+      "fallbackLng": -79.4182,
+      "services": [
+        { "name": "Manicure", "durationMin": 45, "priceCents": 3500 },
+        { "name": "Shellac/gel manicure", "durationMin": 45, "priceCents": 4800 },
+        { "name": "Pedicure", "durationMin": 45, "priceCents": 4700 },
+        { "name": "Shellac/gel pedicure", "durationMin": 60, "priceCents": 5700 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own women's-services page, which agrees with its Fresha profile. Durations are Fresha-published; gel mani shows 45min-1h and gel pedi 1h-1h15, lower bounds used. Gel removal is a $5 add-on; the shop does not do acrylic/extension removals. A $105 Gel-X item on some Fresha entries is not on the site menu and was left out. Books on Fresha. Queen West at the Trinity Bellwoods end."
+    },
+    {
+      "name": "Jaysee Nails",
+      "address": "890 Queen St W, Toronto, ON",
+      "bookingUrl": "https://www.fresha.com/a/jaysee-nails-toronto-890-queen-street-west-ri6zf0k2",
+      "priceTier": 4,
+      "fallbackLat": 43.6452,
+      "fallbackLng": -79.4151,
+      "services": [
+        { "name": "Gel-X extensions + single gel colour", "durationMin": 60, "priceCents": 9000 },
+        { "name": "Gel-X + French/Aura/Ombre", "durationMin": 60, "priceCents": 10000 },
+        { "name": "Builder gel", "durationMin": 60, "priceCents": 9000 },
+        { "name": "Soak-off removal (own work)", "durationMin": 15, "priceCents": 500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's claimed Fresha profile. Gel-X durations published (1h); builder gel published as 1-2h, lower bound used; removal duration estimated. Russian-manicure and Gel-X specialist; no classic/gel manicure price published, so priceTier 4 is a proxy from the $90 builder gel. Fresha aggregator pages ~700 days old show an 1142 Davenport Rd address; the live profile says 890 Queen W, so Davenport is treated as a former address - spot-check. Queen West."
+    },
+    {
+      "name": "Pearl Nail Bar (Queen West)",
+      "address": "829 Queen St W, Toronto, ON",
+      "phone": "(647) 456-6766",
+      "website": "https://pearlnailbartoronto.com/",
+      "bookingUrl": "https://www.fresha.com/a/pearl-nail-bar-head-spa-on-queen-829-queen-st-w-toronto-829-queen-street-west-i6ft5dx2",
+      "priceTier": 2,
+      "fallbackLat": 43.6457,
+      "fallbackLng": -79.4127,
+      "services": [
+        { "name": "Regular manicure", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Classic manicure with shellac", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Classic pedicure", "durationMin": 40, "priceCents": 3500 },
+        { "name": "Shellac pedicure", "durationMin": 45, "priceCents": 5000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived): prices from the chain's own site services page (marked 'Queen location only') and the Fresha profile, which agree. Shellac mani and classic pedi durations are Fresha-published; the other two estimated. A second Fresha slug exists for this venue with a different service count; the one matching the chain's naming pattern is used. Shellac pedicure snapshots ranged $50-75; the own-site $50 figure is used. Fresha calls it 'Pearl Nail Bar & Head Spa on Queen' - head spa is an add-on, nails are the core menu. One of four Pearl Nail Bar locations (two others listed; Dundas E branch is out of pocket). Queen West across from Trinity Bellwoods Park."
+    },
+    {
+      "name": "Nails Queen",
+      "address": "422 Queen St W, Toronto, ON",
+      "website": "https://www.nailsqueen.ca/",
+      "bookingUrl": "https://www.nailsqueen.ca/booking",
+      "priceTier": 3,
+      "fallbackLat": 43.6486,
+      "fallbackLng": -79.3972,
+      "services": [
+        { "name": "Bio gel full set with shellac", "durationMin": 60, "priceCents": 7500 },
+        { "name": "Spa pedicure", "durationMin": 45, "priceCents": 5500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own service pages, which publish both prices and durations; books on its own site. No manicure price found, so priceTier 3 is a judgment call from the $55 spa pedicure and $75 bio gel set rather than the standard formula - re-grade once a manicure price surfaces. Phone omitted because sources conflict. Operating since 2015; Yelp updated Oct 2026. Not 'Nails On Queen' (606 Queen W) or 'Queen Nails' (Etobicoke). Queen West near Spadina."
+    },
+    {
+      "name": "Organic Nail Bar (King West)",
+      "address": "1005 King St W, Toronto, ON",
+      "phone": "(416) 855-3128",
+      "website": "https://organicnailbar.ca/",
+      "bookingUrl": "https://www.dashbooking.com/salon/organic-nail-bar-1005/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.642,
+      "fallbackLng": -79.415,
+      "services": [
+        { "name": "Regular manicure", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Gel (shellac) manicure", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Dip powder overlay", "durationMin": 60, "priceCents": 5000 },
+        { "name": "Gel-X full set", "durationMin": 90, "priceCents": 8500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Dash Booking profile, where prices and durations are published; that is its online booking route. The chain's own older 'Kings Club' page shows higher prices and says call to book; its Fresha lvp is an unclaimed call-to-book stub, so Dash Booking is used. Multi-location chain; the Queen W branch was excluded over an address conflict (see _meta). Address confirmed by the chain's locations page. King West."
+    },
+    {
+      "name": "Kat Nail Studio",
+      "address": "139 Jefferson Ave, Toronto, ON",
+      "phone": "(416) 539-8988",
+      "website": "https://www.katnailstudio.com/",
+      "bookingUrl": "https://kathyynails.square.site/",
+      "priceTier": 2,
+      "fallbackLat": 43.638,
+      "fallbackLng": -79.421,
+      "services": [
+        { "name": "Essential manicure", "durationMin": 30, "priceCents": 2700 },
+        { "name": "Shellac manicure", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Essential pedicure", "durationMin": 40, "priceCents": 3800 },
+        { "name": "Shellac pedicure", "durationMin": 50, "priceCents": 5000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Square Appointments site, whose header shows the shop name and 139 Jefferson Ave; prices and durations published there (shellac mani is a from-price). The Square subdomain and an old Fresha slug suggest an earlier name/address (Kathy Nails, Dupont St); every current source agrees on 139 Jefferson. Phone from katnailstudio.com; the Square page shows a different number - moderate confidence pairing of site and booking page, spot-check. Liberty Village."
+    },
+    {
+      "name": "Amazing Nails",
+      "address": "162 Spadina Ave, Toronto, ON",
+      "phone": "(416) 867-8866",
+      "website": "https://amazingnails.ca/",
+      "bookingUrl": "https://www.dashbooking.com/salon/amazing-nails-toronto/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.6496,
+      "fallbackLng": -79.3966,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 20, "priceCents": 2500 },
+        { "name": "Classic pedicure", "durationMin": 30, "priceCents": 3500 },
+        { "name": "Gel (shellac) manicure", "durationMin": 45, "priceCents": 3500 },
+        { "name": "Bio gel full set with shellac", "durationMin": 75, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Dash Booking profile; bio gel and set prices also match the shop's own site. Manicure (20min) and pedicure (30min) durations published; gel mani and bio gel durations estimated. Books on Dash Booking; its own site carries a book-now button. Postal code differs between the site and Dash Booking but the street address agrees. Spadina between Queen and Dundas, Chinatown."
+    },
+    {
+      "name": "Oooh Nails",
+      "address": "222 Spadina Ave, Unit 16B, Toronto, ON",
+      "bookingUrl": "https://oooh-nails.square.site/",
+      "priceTier": 2,
+      "fallbackLat": 43.6522,
+      "fallbackLng": -79.398,
+      "services": [
+        { "name": "Gel colour manicure", "durationMin": 60, "priceCents": 4500 },
+        { "name": "Colour gel overlay", "durationMin": 90, "priceCents": 6000 },
+        { "name": "Gel-X full set (extensions)", "durationMin": 90, "priceCents": 8000 },
+        { "name": "Biogel refill", "durationMin": 90, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own Square booking site; all prices are from-prices. Durations published as minimums (1h+ / 1.5h+); biogel refill duration estimated. 1:1 appointment-only studio inside Chinatown Centre; new clients pay a deposit. No classic manicure, so priceTier uses the $45 gel mani minus $10 proxy. No shop-published phone. Weakest recency signals of this pocket - no dated 2025-2026 activity confirmed, re-check. Chinatown."
+    },
+    {
+      "name": "Nail Diary Studio",
+      "address": "403 Spadina Ave, Toronto, ON",
+      "phone": "(437) 435-0660",
+      "bookingUrl": "https://naildiary.square.site/",
+      "priceTier": 2,
+      "fallbackLat": 43.6566,
+      "fallbackLng": -79.3996,
+      "services": [
+        { "name": "Classic manicure (no colour)", "durationMin": 30, "priceCents": 3500 },
+        { "name": "Classic pedicure (no colour)", "durationMin": 30, "priceCents": 4500 },
+        { "name": "Bio gel manicure", "durationMin": 75, "priceCents": 8500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own Square booking site; durations published, the bio gel being a 1h15+ minimum and a starting-at price. Shellac, Gel-X and removal are listed as price-varies and were not captured. A Fresha lvp profile exists at the same address but the shop books on Square. Phone from the Square page and Fresha; old directories show a different number. Also offers lashes; nails are the core offering. Spadina north of Dundas, Chinatown."
+    },
+    {
+      "name": "Nailsbyasha",
+      "address": "340 College St, 2nd Floor, Suite 215, Toronto, ON",
+      "bookingUrl": "https://www.fresha.com/a/nailsbyasha-toronto-340-college-street-y9fbny9e",
+      "priceTier": 4,
+      "fallbackLat": 43.6575,
+      "fallbackLng": -79.4022,
+      "services": [
+        { "name": "Gel polish manicure", "durationMin": 60, "priceCents": 7500 },
+        { "name": "Gel polish manicure + removal", "durationMin": 75, "priceCents": 8500 },
+        { "name": "BIAB manicure", "durationMin": 90, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's claimed Fresha profile. Durations published; BIAB uses the bottom of a published 1h30-3h45 range. No classic manicure, so priceTier 4 uses the $75 gel mani minus $10 proxy. Fresha snapshots (175-343 days old) conflict on some items; only figures repeating across pages were kept, and the soak-off removal ($10 vs $20) was left out. Second-floor studio on College at the north edge of Kensington."
+    },
+    {
+      "name": "SOLiS-tokyo-",
+      "address": "166 Ossington Ave, 2nd Floor, Toronto, ON",
+      "bookingUrl": "https://www.fresha.com/a/solis-tokyo-toronto-166-ossington-avenue-sjz87wew/booking",
+      "priceTier": 3,
+      "fallbackLat": 43.6467,
+      "fallbackLng": -79.4199,
+      "services": [
+        { "name": "Gel manicure (one colour)", "durationMin": 45, "priceCents": 6500 },
+        { "name": "Magnetic gel manicure", "durationMin": 45, "priceCents": 7500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Fresha booking page; durations published. The page carried a Halloween 2026 menu, so it is current; removal and extensions cost extra per the page. Gel-X left out over conflicting snapshots ($65 vs $100). Japanese-style gel studio. No classic manicure, so priceTier uses the $65 gel mani minus $10 proxy ($55, tier 3). A Fresha category page wrongly shows Sarang Nails at this address; Sarang is on Bloor W. Books on Fresha. Ossington strip."
+    },
+    {
+      "name": "Emily House Nail (Dundas)",
+      "address": "1273 Dundas St W, Toronto, ON",
+      "phone": "(647) 345-8900",
+      "website": "https://emilyhousenail.com/",
+      "bookingUrl": "https://www.fresha.com/a/emily-house-nail-on-dundas-toronto-1273-dundas-street-west-ctqxtin8/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.6501,
+      "fallbackLng": -79.4278,
+      "services": [
+        { "name": "Gel manicure (shellac, removal included)", "durationMin": 55, "priceCents": 4000 },
+        { "name": "Builder gel (BIAB) + dry manicure", "durationMin": 75, "priceCents": 6000 },
+        { "name": "Signature BIAB + Russian manicure", "durationMin": 90, "priceCents": 7000 },
+        { "name": "Classic manicure + classic pedicure", "durationMin": 60, "priceCents": 6000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Fresha booking page (slug ctqxtin8 - the shop has at least five Fresha slugs at this address, all one studio; this one surfaces with prices most consistently). Shellac duration published as 55min-1h10 (lower bound used) and the mani+pedi combo published at 1h; both BIAB durations estimated; the BIAB+Russian price is a from-price. Second location at 1788 Avenue Rd is out of pocket. No standalone classic mani, so priceTier uses the $40 gel mani minus $10 proxy. Dundas West / Little Portugal."
+    },
+    {
+      "name": "Tram Nail Studio",
+      "address": "1278 Dundas St W, Toronto, ON",
+      "phone": "(416) 516-6868",
+      "website": "https://www.tramnailstoronto.com/",
+      "bookingUrl": "https://www.fresha.com/a/tram-nail-studio-toronto-1278-dundas-street-west-lux8lytd/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.6503,
+      "fallbackLng": -79.428,
+      "services": [
+        { "name": "Gel manicure (shellac)", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Gel extensions (UV gel full set)", "durationMin": 75, "priceCents": 6500 },
+        { "name": "Gel-X full set", "durationMin": 90, "priceCents": 7000 },
+        { "name": "Shellac manicure + shellac pedicure", "durationMin": 90, "priceCents": 8500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own site and its Fresha profile. Shellac mani is a from-price (site says 45-60min) and the combo duration (1h30) is Fresha-published; UV gel and Gel-X durations estimated. One Fresha snapshot shows the gel mani at $50, conflicting with the site's $40; the shop's own site is used. Books on Fresha with instant confirmation. No classic manicure, so priceTier uses the gel mani minus $10 proxy. Dundas West / Little Portugal."
+    },
+    {
+      "name": "Pearl Nail Bar (College St)",
+      "address": "534 College St, Toronto, ON",
+      "bookingUrl": "https://www.fresha.com/a/pearl-nail-bar-college-534-college-st-toronto-534-college-street-q3br04f3/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.6556,
+      "fallbackLng": -79.4115,
+      "services": [
+        { "name": "Gel manicure (shellac, removal included)", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Classic pedicure", "durationMin": 40, "priceCents": 3500 },
+        { "name": "Shellac pedicure", "durationMin": 45, "priceCents": 5000 },
+        { "name": "Bio gel refill + shellac colour", "durationMin": 60, "priceCents": 6000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Fresha booking page. Shellac mani and classic pedi durations published; shellac pedi and bio gel refill estimated. A $25 regular manicure appears only on a Fresha category page, so priceTier uses the $40 gel mani minus $10 proxy instead. One of four Pearl Nail Bar locations (two others listed). Books on Fresha. Little Italy."
+    },
+    {
+      "name": "Aroma Spa & Nail Salon",
+      "address": "605 College St, Toronto, ON",
+      "phone": "(647) 350-9299",
+      "bookingUrl": "https://booksy.com/en-ca/15944_aroma-spa-and-nail-salon_nail-salon_944431_toronto",
+      "priceTier": 2,
+      "fallbackLat": 43.6553,
+      "fallbackLng": -79.4155,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 25, "priceCents": 2000 },
+        { "name": "Pedicure", "durationMin": 35, "priceCents": 3500 },
+        { "name": "Manicure + pedicure", "durationMin": 60, "priceCents": 5000 },
+        { "name": "Gel extensions (new set)", "durationMin": 75, "priceCents": 7000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Booksy profile; durations published except the gel new set, which is estimated. Its Fresha lvp page says call to book, so Booksy is the booking link. Also offers lashes and waxing, but Booksy categorizes it as a nail salon and nails dominate the menu. Yelp updated Oct 2026. Little Italy."
+    },
+    {
+      "name": "Chic Nail Salon Spa",
+      "address": "715 College St, Toronto, ON",
+      "phone": "(416) 533-0652",
+      "bookingUrl": "https://www.dashbooking.com/salon/chic-nail-salon-spa-toronto/booking",
+      "priceTier": 2,
+      "fallbackLat": 43.6547,
+      "fallbackLng": -79.4195,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Gel manicure (shellac)", "durationMin": 30, "priceCents": 4000 },
+        { "name": "Pedicure with shellac", "durationMin": 75, "priceCents": 7000 },
+        { "name": "Artificial nail removal", "durationMin": 15, "priceCents": 2000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Dash Booking profile; prices and durations published (shellac mani is 30min fixed). Books on Dash Booking; Fresha reports the venue is no longer listed there. Yelp updated Nov 2026. Hours conflict between directories. Little Italy, College at Crawford."
+    },
+    {
+      "name": "Pearl Nail Bar (Little Portugal)",
+      "address": "861 College St, Toronto, ON",
+      "bookingUrl": "https://www.fresha.com/a/pearl-nail-bar-little-portugal-861-college-st-toronto-861-college-street-b214l8ri",
+      "priceTier": 2,
+      "fallbackLat": 43.6541,
+      "fallbackLng": -79.4235,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Classic pedicure", "durationMin": 40, "priceCents": 3500 },
+        { "name": "Gel manicure (shellac)", "durationMin": 40, "priceCents": 4000 },
+        { "name": "Shellac pedicure", "durationMin": 45, "priceCents": 5000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own Fresha profile ('Pearl Nail Bar Little Portugal'); all four durations published, none estimated. Fresha category pages disagree on the mani+pedi bundle ($55 vs $60), so it was left out. Books on Fresha with instant confirmation. One of four Pearl Nail Bar locations (two others listed). College St just west of Ossington; inside both the Little Italy and Dundas West page radii."
+    },
+    {
+      "name": "Kim Nails and Spa",
+      "address": "1205 Queen St W, Unit 6, Toronto, ON",
+      "phone": "(416) 588-3386",
+      "website": "https://www.kimnailsspa.ca/",
+      "bookingUrl": "https://www.kimnailsspa.ca/",
+      "priceTier": 2,
+      "fallbackLat": 43.6427,
+      "fallbackLng": -79.4279,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 30, "priceCents": 2200 },
+        { "name": "Classic pedicure", "durationMin": 45, "priceCents": 3800 },
+        { "name": "Shellac manicure", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Shellac pedicure", "durationMin": 60, "priceCents": 5500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own site's hand-and-foot-care menu; durations estimated. The shop's Fresha lvp profile confirms the address but is call-to-book with no online booking, so the shop's own site is the booking link (booking is effectively by phone - same handling as barber listings whose sites carry the menu). An older (~2022) directory showed lower prices and was ignored. Fresha also lists threading and facials, but the name and menu are nail-led. Postal code differs between Fresha and Yelp; street address agrees. Yelp updated July 2026. At Dufferin, the east end of Parkdale (same block as Parkdale Barbers)."
+    },
+    {
+      "name": "Savage Nails Lounge",
+      "address": "24 Roncesvalles Ave, Toronto, ON",
+      "phone": "(647) 368-6876",
+      "website": "https://savagenailsloungetoronto.com/",
+      "bookingUrl": "https://savagenailsloungetoronto.com/",
+      "priceTier": 2,
+      "fallbackLat": 43.6402,
+      "fallbackLng": -79.4466,
+      "services": [
+        { "name": "Classic manicure", "durationMin": 30, "priceCents": 3000 },
+        { "name": "Gel polish manicure", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Classic pedicure", "durationMin": 45, "priceCents": 4000 },
+        { "name": "Gel polish pedicure", "durationMin": 60, "priceCents": 5500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own site (homepage and service page); durations estimated. Gel prices are the classic price plus the site's published gel upcharge. The shop's Fresha lvp profile shows the same address but is call-to-book, and a GoCheckin link on Facebook could not be confirmed as current, so the shop's own site is the booking link (booking effectively by phone). The site's two pages disagree on the Signature Pedicure price, so it was left out. TikTok and Birdeye show a live business. South end of Roncesvalles (Sunnyside)."
+    },
+    {
+      "name": "Sway Nails & Spa",
+      "address": "38 Howard Park Ave, Toronto, ON",
+      "phone": "(416) 538-7674",
+      "website": "https://www.swaynails.ca/",
+      "bookingUrl": "https://www.dashbooking.com/salon/sway-nails-spa-toronto/booking",
+      "priceTier": 3,
+      "fallbackLat": 43.6536,
+      "fallbackLng": -79.4503,
+      "services": [
+        { "name": "Basic manicure", "durationMin": 30, "priceCents": 3700 },
+        { "name": "Gel polish manicure", "durationMin": 60, "priceCents": 5200 },
+        { "name": "Basic spa pedicure", "durationMin": 30, "priceCents": 4700 },
+        { "name": "Basic spa gel pedicure", "durationMin": 45, "priceCents": 6200 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's Dash Booking profile, matched by its own site's services page for the manicures; durations Dash-published. Also has Setmore and Fresha lvp pages at the same address; an older brochure PDF with lower prices was treated as stale. Yelp files it under waxing but the name and menu are nails-first. Yelp updated Oct 2026. Howard Park Ave just off Roncesvalles."
+    },
+    {
+      "name": "JinJin's Nails & Spa (Dundas)",
+      "address": "2842 Dundas St W, Toronto, ON",
+      "phone": "(416) 792-8978",
+      "bookingUrl": "https://www.dashbooking.com/salon/jinjins-nails-spa-dundas-location",
+      "priceTier": 2,
+      "fallbackLat": 43.6656,
+      "fallbackLng": -79.4636,
+      "services": [
+        { "name": "Basic manicure", "durationMin": 30, "priceCents": 2500 },
+        { "name": "Shellac (gel) manicure", "durationMin": 45, "priceCents": 3500 },
+        { "name": "Basic pedicure", "durationMin": 45, "priceCents": 3500 },
+        { "name": "Shellac (gel) pedicure", "durationMin": 60, "priceCents": 4500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the Dash Booking profile for this location; durations published, all fixed-price. Gel removal is a published $5 add-on. Two-location chain; the Eglinton W branch has its own profiles and was not used for prices. The Fresha lvp page confirms the address but shows no prices. Dash Booking's header price range is a data error and was ignored. The Junction."
+    },
+    {
+      "name": "La Lavender",
+      "address": "3260 Dundas St W, Toronto, ON",
+      "phone": "(416) 604-2077",
+      "bookingUrl": "https://la-lavender.square.site/",
+      "priceTier": 2,
+      "fallbackLat": 43.6654,
+      "fallbackLng": -79.4808,
+      "services": [
+        { "name": "Manicure", "durationMin": 25, "priceCents": 2000 },
+        { "name": "Shellac manicure", "durationMin": 35, "priceCents": 3500 },
+        { "name": "Deluxe pedicure with shellac", "durationMin": 60, "priceCents": 5500 },
+        { "name": "Shellac removal", "durationMin": 15, "priceCents": 1000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the shop's own Square Appointments site, which has online booking; durations published. The Fresha lvp listing at the same address is call-to-book only. A City of Toronto business licence confirms La Lavender Inc at this address. Bio-Gel ('from $45', no duration) and the plain shellac pedicure (conflicting snapshots) were left out. Far west end of the Junction stretch, near Runnymede."
+    }
+  ]
+}
