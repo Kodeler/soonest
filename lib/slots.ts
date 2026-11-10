@@ -1,4 +1,5 @@
 import { prisma } from "./db";
+import { atTorontoTime } from "./tz";
 
 export interface DayHours {
   open: string; // "09:00"
@@ -37,19 +38,23 @@ export async function regenerateSlotsForProvider(
     const stepMs = Math.max(30, svc.durationMin) * 60000;
 
     for (let d = 0; d < 7; d++) {
-      const day = new Date(now);
-      day.setDate(day.getDate() + d);
-      const dh = hours[day.getDay()];
+      // Stored weekly hours are Toronto wall-clock times; build the open and
+      // close instants in that zone (the server runs in UTC).
+      const probe = atTorontoTime(now, d, 12, 0);
+      const dh =
+        hours[
+          new Date(
+            probe.toLocaleString("en-US", { timeZone: "America/Toronto" })
+          ).getDay()
+        ];
       if (!dh || dh.closed) continue;
 
       const [oh, om] = dh.open.split(":").map(Number);
       const [ch, cm] = dh.close.split(":").map(Number);
       if ([oh, om, ch, cm].some((n) => Number.isNaN(n))) continue;
 
-      const open = new Date(day);
-      open.setHours(oh, om, 0, 0);
-      const close = new Date(day);
-      close.setHours(ch, cm, 0, 0);
+      const open = atTorontoTime(now, d, oh, om);
+      const close = atTorontoTime(now, d, ch, cm);
 
       for (
         let t = open.getTime();

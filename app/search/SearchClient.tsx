@@ -251,6 +251,20 @@ export default function SearchClient() {
               </div>
             ) : (
               <>
+                {sortBy === "time" &&
+                  results.length > 0 &&
+                  results.every((r) => !r.soonestSlot) && (
+                    <div className="mx-3 mt-3 rounded-2xl border border-violet-100 bg-accent-light/40 px-4 py-3">
+                      <p className="text-xs text-stone-600">
+                        <span className="font-bold text-ink">
+                          None of these places share a live calendar yet,
+                        </span>{" "}
+                        so we can&apos;t rank them by who can take you first.
+                        They all book on their own sites — or tell us below
+                        and we&apos;ll text you the soonest real openings.
+                      </p>
+                    </div>
+                  )}
                 <ResultsList
                   results={sortedResults}
                   onSelect={(id) => router.push(`/p/${id}`)}

@@ -13,22 +13,21 @@ function formatRelativeTime(iso: string): string {
   const min = minutesUntil(iso);
   if (min < 0) return "Now";
   if (min < 60) return `in ${min} min`;
+
+  const d = new Date(iso);
+  const time = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   const hours = Math.floor(min / 60);
-  if (hours < 24) {
-    const time = new Date(iso).toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-    });
-    return hours < 4 ? `in ${hours}h · ${time}` : `Today ${time}`;
-  }
-  const days = Math.floor(hours / 24);
-  if (days === 1) {
-    return `Tomorrow ${new Date(iso).toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-    })}`;
-  }
-  return new Date(iso).toLocaleDateString([], {
+  if (hours < 4) return `in ${hours}h · ${time}`;
+
+  // "Today"/"Tomorrow" by calendar day, not by hours-until — a 4:30 AM slot
+  // tomorrow is 17 hours away but is emphatically not "Today".
+  const now = new Date();
+  if (d.toDateString() === now.toDateString()) return `Today ${time}`;
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  if (d.toDateString() === tomorrow.toDateString()) return `Tomorrow ${time}`;
+
+  return d.toLocaleDateString([], {
     weekday: "short",
     month: "short",
     day: "numeric",
