@@ -1,0 +1,326 @@
+{
+  "_meta": {
+    "pocket": "West-downtown Toronto corridor: Queen West, Ossington, Dundas West, Kensington/Chinatown, Little Italy, King West/Liberty Village, Parkdale, Roncesvalles, The Junction",
+    "categorySlug": "massage",
+    "provenance": "Compiled 2026-11-05 from each clinic's own website, fee page, or public booking platform profile (Jane, Noterro, Mangomint, Booker, ClinicSense, Setmore). The sandbox for this pass blocked direct fetches of booking platforms and clinic sites (proxy CONNECT 403 on fresha.com and janeapp.com, same as the nails pass), so all sourcing and verification are search-derived (extended web search snapshots of the platforms' and clinics' own pages); per-listing notes say which source each menu came from. Toronto massage booking is Jane-dominated: 13 of 19 listings book on Jane clinic pages, which are public, deep-linkable, and were only used where the URL itself appeared in a search result (never constructed from a guessed slug). Durations for massage are almost always published (30/45/60/90min ladder) and are published figures unless a note says otherwise. Massage prices are frequently quoted plus HST; where a source said '+HST' the pre-HST published number is recorded and the note says so, and where prices are stated HST-inclusive the inclusive number is recorded as published. priceTier derives from the 60min massage price (<=$110 tier 2, $111-140 tier 3, >$140 tier 4), applied to the published figure; proxies (55min or 50min prices where no 60min exists) are flagged per listing. Scope: RMT clinics and massage studios; multidisciplinary physio/chiro/acupuncture clinics only where massage is a core advertised offering with its own service page and published prices; one non-RMT massage studio (TOKI) is included because massage is its core offering with published prices, and its note says it is not RMT. One listing per clinic: Jane books per practitioner, and individual RMTs working inside a listed clinic are covered by the clinic's listing. No ratings are included because we have no authorized rating source. The sync script verifies every bookingUrl responds before a listing goes live and drops entries whose URL fails.",
+    "exclusions": "Excluded on purpose, with reasons, as of 2026-11-05. Closed or possibly closed: Queen Street Holistic Massage (890 Queen W; Yelp shows CLOSED, updated Sept 2026). Published prices but no confirmed online booking URL: Roncesvalles Chiropractic & Massage (264 Roncesvalles; own site says book by phone/email; 30/45/60/90 = $90/$110/$130/$180), Roncesvalles Physiotherapy (458 Roncesvalles; BOOK NOW button with no visible target; 30/45/60/90 = $70/$100/$120/$200 +HST), Nicki Iskander RMT (209 Dunn Ave, Parkdale; own rates 60/90/120 = $195/$225/$300 +HST effective Sept 2026, but no booking platform URL surfaced even in a targeted second pass - Fresha is a stale call-to-book stub; women and genderqueer new clients only; relist once her booking platform surfaces), Bellwoods Massage Therapy (Clinton & Mansfield; own-site ladder $85/$103/$120/$143/$165 +HST but no booking platform seen, address given only as an intersection, and contact details conflict). No published prices: Heal Space (1286 Dundas W; healspace.janeapp.com confirmed but two passes found no massage prices anywhere - its site prices only osteopathy; a 'Harmony Massage and Wellness' sighting at this address is a red herring, Harmony is at 350 Queen W, out of area; re-check when direct fetches work), Mackenzie Brydon RMT (194 Garden Ave; Jane page confirmed across two passes, no treatment prices captured; Sun Life shows only 'more than $125'), The Well of Alternative Medicine (1344 Queen W, Parkdale; its Jane page is confirmed - thewellness.janeapp.com location 'The Well - Parkdale' at this address - but no massage prices in any snapshot; the strongest Parkdale bench candidate, list once prices surface), Platinum Health & Wellness (955 Queen W; Jane page with RMTs, no prices), For Health's Sake (465 Queen W; 'Ask For Price', three conflicting phones), Lite Mind Body (34 Sudbury St), A Vital Touch Massage Therapy (240 Roncesvalles lower level; only children's rates seen), The Calm on Dundas (3148 Dundas W; Jane page notes an Oct 2026 fee adjustment without amounts; the only figure is from a Yelp review; two conflicting website domains), Dora Jackson RMT (home practice; sources also conflict on her address, 246 Garden Ave vs 18 Dovercourt), City RMT (2350 Dundas W; by appointment only, no prices, edge of pocket), Village Rehab Team (171 East Liberty #102; physio-led, no massage prices), TongTong Health Center and Zhen Zhen (271 and 326 Spadina; only Yelp reviewer-reported prices), Blue Sky Health Centre (421 Dundas W; ~1,200-day-old conflicting prices, no booking URL), Sutherland-Chan Clinic Spadina (742 Spadina; also out of pocket, no prices), Joe Ryan RMT (155 Lansdowne; the only published price is for mobile at-home treatments, in-studio books by phone/email, and his ClinicSense URL was only reported second-hand), Liberty Dance massage (150 East Liberty #715; phone booking only, mailing address in a residential building), and Body Mechanic/Linda Brown, Fae Rose Massage, Matthew Chu RMT (Kensington; directory-only entries ~820 days old, operation unconfirmed). Price conflicts too risky to list: Laneway Wellness (307 Roncesvalles; the tier-determining 60min price is $140 on its Noterro service page, $145 on another of its pages and $150 on Fresha, straddling the tier 3/4 line; its 30/45/90 prices are consistent, so this is the strongest bench candidate - re-check when Noterro can be fetched directly), King West Massage (725 King W; Square shows $87/$130 vs a ~2,300-day-old site page $85/$125 incl HST), Evolve Chiropractic & Physiotherapy (437 Roncesvalles #105; site says $140+HST/60 while its Jane page announces new Nov 15 2026 prices $110/$130/$155/$175 with unclear HST - re-check after Nov 15), Hand & Stone College Street (578 College; brand pages conflict on intro/member/standard pricing with no clean 60min rate and no platform URL), Myodetox Liberty Village (99 Atlantic #102; per-therapist Jane prices $145-160 conflict with site's hybrid 'Myo Session' $110/30 $185/60, plus a conflicting directory address). Address or identity conflicts: Becca Lemire RMT (Brock Ave, Parkdale; her own site withholds the street address until booking - the '222 Brock' number is Yelp/Facebook-only - and her Acuity URL was never confirmed as her site's link target; prices $99.75/$133/$199.50 +HST are otherwise usable, relist once address and booking link are confirmable), TO Kinesiology / Mettaphysica (115 Wolseley; training studio renting treatment rooms to multiple massage businesses, one not accepting new clients - identity too ambiguous, and 115 Wolseley is also Art of Mobility's former address), Shyni RMT (100A Ossington; suite number varies 13/24/113, two booking platforms, prices only on a lymphatic-drainage page), Aman Spa (one snapshot put its Jane RMTs at 100 Ossington but its own site, Facebook and Yelp all say 47 Colborne St downtown), Queen Street Remedial Massage (qsrm.setmore.com; only matching business is in Gympie, Australia), The Suite House (100 Ossington; a suite-rental building of independent practitioners, not a clinic). Not massage-core: Tight Clinic King West (628 Wellington W; aesthetics clinic, lymphatic focus, prices from its Yorkville URL path), Crafted Balance Naturopathic (1271 Dundas W #300; one RMT, no prices), Tala Beauty Bar (Sudbury St; beauty bar, aged Fresha category-page price). Covered by another listing (one listing per clinic): Kin Sze RMT practises at b-Stretched Queen West (761 Queen W). Out of the coverage pocket: The Clinic at Ossington (727 Dovercourt at Bloor; Jane shows $130/60 - good candidate if coverage expands north), Myotherapy Toronto (Bathurst/Bloor, conflicting addresses), Primal Motion (1153 Queen W #205, beyond the Queen West radius; no prices), WSB Massage & Wellness (2333 Dundas W #505), Wildflower Healing Arts (conflicting addresses, out of area), Elysium Massage Therapy (4 Prince Rupert Ave), HyperTherapy (mobile-only, no storefront), King West Centre (Richmond Hill; name collision), Parkdale Massage Therapy and Wellness (Hamilton), Align Massage Therapy Parkdale (Ottawa), Harmony U Spa (788 Dundas W; east of Bathurst), WSB Massage & Wellness also has a Jane page and a published $143-incl-HST hour - a relist candidate if coverage ever extends to Dundas West station. Mobile/home practices without storefronts were excluded throughout. Coverage note: Dundas West's one in-pocket listing (Seraphic) is on College at Brock rather than the Dundas strip itself - Heal Space is the strip's bench candidate; no listing sits in Parkdale proper (Becca Lemire and The Well are the bench), but the area pages are radius-based and the Parkdale radius captures King Liberty Health Centre and Beauty Room, as the Dundas West radius captures OCR and TOKI.",
+    "coordsNote": "fallbackLat/fallbackLng are approximate street-address coordinates used only when Mapbox geocoding is unavailable at sync time; the sync prefers a fresh geocode of the address."
+  },
+  "listings": [
+    {
+      "name": "Atinama Massage & Wellness Clinic",
+      "address": "174 Spadina Ave, Suite 103, Toronto, ON",
+      "phone": "(416) 214-9090",
+      "website": "https://atinama.com",
+      "bookingUrl": "https://atinama.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6482,
+      "fallbackLng": -79.396,
+      "services": [
+        { "name": "Registered massage therapy 30min", "durationMin": 30, "priceCents": 9500 },
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 11500 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 13500 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 18500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own rates page (atinama.com/rates); prices are listed +HST and the pre-HST figures are recorded. The page also lists 75min $165 and 120min $285. Books on Jane (atinama.janeapp.com, whose location page confirms 174 Spadina Suite 103). Phone matches across the clinic site and directories; postal code conflicts between sources so it is left off. Yelp updated Nov 2026. Spadina just south of Queen, inside the Queen West radius."
+    },
+    {
+      "name": "b-Stretched Queen West",
+      "address": "761 Queen St W, Toronto, ON",
+      "phone": "(416) 901-0106",
+      "website": "https://www.bstretched.com/queen-west",
+      "bookingUrl": "https://bstretchedqueenwest.janeapp.com/",
+      "priceTier": 4,
+      "fallbackLat": 43.6455,
+      "fallbackLng": -79.41,
+      "services": [
+        { "name": "Massage therapy 30min", "durationMin": 30, "priceCents": 9153 },
+        { "name": "Massage therapy 45min", "durationMin": 45, "priceCents": 11639 },
+        { "name": "Massage therapy 60min", "durationMin": 60, "priceCents": 14012 },
+        { "name": "Massage therapy 75min", "durationMin": 75, "priceCents": 16950 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the company-wide rates page (bstretched.com/rates), which states prices INCLUDING HST, hence the odd cents; no 90min price is published. Stretch/physio/massage clinic with RMTs on the Jane roster; massage is core. priceTier 4 is literal ($140.12 > $140) though pre-HST it would be ~$124 (tier 3) - the published inclusive figure is used for consistency. Books on Jane (location page shows 761 Queen St West; do not confuse with the separate b-Stretched MOBILE location). Yelp updated Oct 2026. Queen West near Trinity Bellwoods."
+    },
+    {
+      "name": "Art of Mobility (Trinity Bellwoods)",
+      "address": "822 Richmond St W, Unit 200, Toronto, ON",
+      "website": "https://artofmobility.com/toronto/",
+      "bookingUrl": "https://artofmobility.janeapp.com/locations/art-of-mobility-toronto/book",
+      "priceTier": 3,
+      "fallbackLat": 43.645,
+      "fallbackLng": -79.4115,
+      "services": [
+        { "name": "Registered massage therapy 30min", "durationMin": 30, "priceCents": 8400 },
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 11000 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 13600 },
+        { "name": "Registered massage therapy 75min", "durationMin": 75, "priceCents": 16300 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own Trinity Bellwoods massage page (artofmobility.com/toronto/massage-therapy/), marked current as of Oct 2026; no 90min price published; a $124 60min initial assessment for new clients exists. Multidisciplinary (physio/chiro/psychotherapy) but massage has its own location page with full pricing. Books on Jane (location /book URL seen in results). Older pages, including the clinic's own chiro page, show its former 115 Wolseley St address; the Jane location page and massage page both give 822 Richmond W Unit 200 (enter beside F45, second floor). Phone omitted, single source. South of Queen W inside the Queen West radius."
+    },
+    {
+      "name": "Ossington Chiropractic and Rehabilitation",
+      "address": "145 Ossington Ave, Toronto, ON",
+      "phone": "(647) 972-4476",
+      "website": "https://www.ossingtonchiro.ca",
+      "bookingUrl": "https://ossingtonchiro.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6469,
+      "fallbackLng": -79.4201,
+      "services": [
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 10500 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 14000 },
+        { "name": "Registered massage therapy 75min", "durationMin": 75, "priceCents": 16500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own fees page (ossingtonchiro.ca/fees-for-service), undated, prices +HST with pre-HST figures recorded; no 30 or 90min price published. Chiro-led but massage is core: dedicated RMT page (Swedish, deep tissue, tuina, hot stone, Thai), all practitioners RMTs. Two independent research passes converged on this clinic and its prices. Its contact page mentions Mindbody, but a live Jane page (root and /locations/ocr-ossington-ave both seen) lists RMT with practitioner choice, so Jane is used; Fresha is an lvp stub. A third-party $90-130 range was ignored in favour of the clinic's own page. Ossington just north of Queen; also inside the Dundas West radius."
+    },
+    {
+      "name": "TOKI Japanese Wellness Studio",
+      "address": "100 Ossington Ave, Suite 3, Toronto, ON",
+      "bookingUrl": "https://toki-wellness.setmore.com/",
+      "priceTier": 2,
+      "fallbackLat": 43.6452,
+      "fallbackLng": -79.4196,
+      "services": [
+        { "name": "Signature dry head massage, basic (50min)", "durationMin": 50, "priceCents": 11000 },
+        { "name": "Signature dry head massage, ultimate with full-body aromatic oil treatment (110min)", "durationMin": 110, "priceCents": 20000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the studio's own Setmore booking page; prices are +13% HST and the pre-HST figures are recorded. NON-RMT: Japanese dry head and body massage; in scope as a massage-core studio with published prices, but no insurance receipts. priceTier 2 uses the 50min $110 as the 60min proxy. A Signature Bodywork item ($100, no stated duration) and a conflicting TikTok-quoted price were left out; the 30min face massage is add-on-only. Address from the studio's booking info (Suite House building). Phone appears only in TikTok posts, so omitted. Ossington just north of Queen; also inside the Dundas West radius."
+    },
+    {
+      "name": "Seraphic Massage Therapy",
+      "address": "1209 College St, Toronto, ON",
+      "phone": "(416) 537-5556",
+      "website": "https://seraphicmassage.com/",
+      "bookingUrl": "https://seraphicmassagetherapy.clinicsense.com/",
+      "priceTier": 2,
+      "fallbackLat": 43.6533,
+      "fallbackLng": -79.4365,
+      "services": [
+        { "name": "Massage therapy 30min", "durationMin": 30, "priceCents": 7000 },
+        { "name": "Massage therapy 45min", "durationMin": 45, "priceCents": 8500 },
+        { "name": "Massage therapy 60min", "durationMin": 60, "priceCents": 10500 },
+        { "name": "Massage therapy 90min", "durationMin": 90, "priceCents": 14000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own homepage menu (seraphicmassage.com: 30/45/60/75/90/120min at $70/$85/$105/$130/$140/$220, plus hot stone, prenatal, lymphatic and cupping rates). The page is undated and does not state HST treatment, and one directory says call for pricing, so price confidence is moderate - spot-check. Dedicated RMT clinic, established 1999, seven RMTs. Books on ClinicSense (URL seen in results titled for the clinic); Fresha is a call-to-book stub. Phone agrees across Yelp and Chamber of Commerce listings. One directory sighting put the name at 986 Queen W with no prices; the clinic's own materials put it at College and Brock (entrance on Brock), so Queen W is treated as stale. College at Brock, inside the Dundas West radius."
+    },
+    {
+      "name": "Osteo Tuina (Downtown)",
+      "address": "403 Dundas St W, Toronto, ON",
+      "phone": "(416) 939-8888",
+      "website": "https://osteotuina.com",
+      "bookingUrl": "https://go.booker.com/location/Tuina1/service/3899059/Chinese%20Medicine%20Diagnosis/select-staff",
+      "priceTier": 3,
+      "fallbackLat": 43.6532,
+      "fallbackLng": -79.397,
+      "services": [
+        { "name": "RMT tuina massage 30min", "durationMin": 30, "priceCents": 9500 },
+        { "name": "RMT tuina massage 45min", "durationMin": 45, "priceCents": 12000 },
+        { "name": "RMT tuina massage 60min", "durationMin": 60, "priceCents": 14000 },
+        { "name": "RMT tuina massage 90min", "durationMin": 90, "priceCents": 21000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own price menu (osteotuina.com/price-menu, updated ~2 months before compilation), which also lists 75min $175, 105min $245, 120min $280 and a $240 signature RMT/osteopath hour; HST treatment not stated. Books on Booker: location 'Tuina1' is this Downtown branch ('Tuina2' is the North York branch - do not mix up). Only a service-level Booker deep link was seen in results, labelled for this clinic and listing massage practitioners, so that URL is used rather than an unseen location root. Phone agrees between the clinic's location page and directories. A Yelp reviewer's recalled $95/45min conflicts with the current grid and was ignored. Dundas at Spadina, Chinatown."
+    },
+    {
+      "name": "AIM Wellness Clinic",
+      "address": "455 Spadina Ave, Suite 300, Toronto, ON",
+      "website": "https://www.aimwellnessclinic.ca",
+      "bookingUrl": "https://aimwellness.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6577,
+      "fallbackLng": -79.4003,
+      "services": [
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 9500 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 12000 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 16000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own RMT page (aimwellnessclinic.ca/registered-massage-therapy); prices +HST with pre-HST figures recorded; no 30min option published. Acupuncture/integrative clinic, but RMT has its own service page with full pricing. Books on Jane (aimwellness.janeapp.com, which lists registered massage therapy). Phone omitted because the site gives a main line plus extension. Spadina near College, north edge of the Kensington/Chinatown radius."
+    },
+    {
+      "name": "Soulace Massage Studio",
+      "address": "565 King St W, Floor 3, Toronto, ON",
+      "phone": "(437) 455-0485",
+      "website": "https://www.soulacemassagestudio.com",
+      "bookingUrl": "https://soulacemassagestudio.noterro.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6446,
+      "fallbackLng": -79.4001,
+      "services": [
+        { "name": "RMT massage 30min (The Refresh)", "durationMin": 30, "priceCents": 9500 },
+        { "name": "RMT massage 45min (The Reset)", "durationMin": 45, "priceCents": 11000 },
+        { "name": "RMT massage 60min (The Soulace Signature)", "durationMin": 60, "priceCents": 13500 },
+        { "name": "RMT massage 75min (The Deep Release)", "durationMin": 75, "priceCents": 16000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the studio's own services page (soulacemassagestudio.com/services); prices +HST with pre-HST figures recorded. The 90min and 120min sessions showed no price and were left out. Solo RMT studio at King & Portland, stairs only. Books on Noterro (URL seen in results for the studio). Phone agrees between the contact page and a directory. King West."
+    },
+    {
+      "name": "RMT Studio",
+      "address": "573 Wellington St W, Toronto, ON",
+      "website": "https://www.rmtstudio.com",
+      "bookingUrl": "https://rmtstudio.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6417,
+      "fallbackLng": -79.4033,
+      "services": [
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 14000 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 20000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own rates page (rmtstudio.com/rates-and-forms), undated, which says rates are subject to 13% HST; pre-HST figures recorded. Books on Jane. A Fresha lymphatic-drainage menu at the same address was excluded because its header named a different business (416 Skin Aesthetics & Academy), and an undated '45min $145' promo was ignored. Phone and hours conflict across directories, so phone omitted. Yelp updated Aug 2026. King West / Niagara."
+    },
+    {
+      "name": "King Liberty Health Centre",
+      "address": "131 Jefferson Ave, Toronto, ON",
+      "website": "https://www.kinglibertyhealthcentre.com",
+      "bookingUrl": "https://kinglibertyhealthcentre.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6377,
+      "fallbackLng": -79.4207,
+      "services": [
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 10500 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 12000 },
+        { "name": "Registered massage therapy 75min", "durationMin": 75, "priceCents": 14000 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 16000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own undated rates page (kinglibertyhealthcentre.com/rates); prices +HST with pre-HST figures recorded. Massage is core (dedicated Liberty Village Massage page) and RMT is first among the Jane page's appointment types. The Jane page and rates page disagree on direct billing, which does not affect the listing. Phone appeared only on Yelp, so omitted; Yelp updated Oct 2026. Liberty Village; also inside the Parkdale radius."
+    },
+    {
+      "name": "Beauty Room Liberty Village",
+      "address": "17 Atlantic Ave, Unit 2, Toronto, ON",
+      "phone": "(416) 889-9948",
+      "website": "https://beautyroom.ca",
+      "bookingUrl": "https://booking.mangomint.com/beautyroomto",
+      "priceTier": 3,
+      "fallbackLat": 43.6389,
+      "fallbackLng": -79.4192,
+      "services": [
+        { "name": "Registered massage 45min", "durationMin": 45, "priceCents": 10000 },
+        { "name": "Registered massage 60min", "durationMin": 60, "priceCents": 12000 },
+        { "name": "Registered massage 75min", "durationMin": 75, "priceCents": 16000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the business's own page (beautyroom.ca/pages/registered-massage), which offers RMT receipts; the 90min $240 item is lymphatic drainage, not a standard massage, and was left out. Beauty/skin spa, but RMT massage has its own page and booking button, qualifying it as massage-core for this file. Books on Mangomint (URL seen in results). An older directory's 39 Mowat Ave address was resolved to 17 Atlantic Ave (2nd floor), which the official site and Yelp (updated Oct 2026) both use. Phone from the official homepage, corroborated by a directory. Liberty Village; also inside the Parkdale radius."
+    },
+    {
+      "name": "Body in Tune Liberty Village",
+      "address": "171 East Liberty St, Unit 133, Toronto, ON",
+      "website": "https://bodyintune.ca/locations/liberty-village/",
+      "bookingUrl": "https://bodyintune.janeapp.com/locations/liberty-village-body-in-tune/book",
+      "priceTier": 3,
+      "fallbackLat": 43.6383,
+      "fallbackLng": -79.4152,
+      "services": [
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 12500 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 18000 },
+        { "name": "Registered massage therapy 120min", "durationMin": 120, "priceCents": 24000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's Jane page snapshot. The 60min $125 is the standard rate offered by 15 RMTs; the 90 and 120min figures come from a rate-increase notice on the Jane page effective Aug 2025, and the snapshot did not say whether the 60min rate changed then, so $125 may be slightly stale - spot-check. One therapist's $190/60min is a per-practitioner premium and was not used; a sister St. Clair location's $115 is a different clinic. Multidisciplinary (chiro/physio/RMT) but massage is clearly core with 15 RMTs. Unit number from a Fresha listing. Liberty Village."
+    },
+    {
+      "name": "Toronto Community Massage and Wellness",
+      "address": "489 College St, Suite 304, Toronto, ON",
+      "phone": "(416) 884-7433",
+      "website": "https://www.torontocommunitymassage.com",
+      "bookingUrl": "https://kindredtherapy.janeapp.com/locations/toronto-community-massage-and-wellness",
+      "priceTier": 3,
+      "fallbackLat": 43.6563,
+      "fallbackLng": -79.4087,
+      "services": [
+        { "name": "Maintenance massage (RMT) 60min", "durationMin": 60, "priceCents": 13000 },
+        { "name": "Advanced maintenance massage (RMT) 60min", "durationMin": 60, "priceCents": 14000 },
+        { "name": "Hot stone massage (RMT) 60min", "durationMin": 60, "priceCents": 17000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own site, which states all prices exclude HST (pre-HST figures recorded); its intro-offer page corroborates the $130+HST retail price. Jane shows 30 and 90min appointments but no prices for them, so they are omitted. The clinic has two Jane subdomains (tcmw and kindredtherapy), both titled for this clinic at this address; kindredtherapy is used because its calendar snapshot was current while tcmw showed stale dates. One directory's 498 College address and different phone were resolved in favour of the clinic's own site and Jane page. Little Italy."
+    },
+    {
+      "name": "Katy Nguyen RMT",
+      "address": "533 College St, Toronto, ON",
+      "website": "https://www.katyrmt.com",
+      "bookingUrl": "https://katynguyenrmt2.clinicsense.com/",
+      "priceTier": 4,
+      "fallbackLat": 43.656,
+      "fallbackLng": -79.4107,
+      "services": [
+        { "name": "Registered massage therapy 25min", "durationMin": 25, "priceCents": 8500 },
+        { "name": "Registered massage therapy 55min", "durationMin": 55, "priceCents": 16000 },
+        { "name": "Registered massage therapy 80min", "durationMin": 80, "priceCents": 21000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the practitioner's own site (katyrmt.com): 25/55/80min ladder, +HST with pre-HST figures recorded, effective Mar 2026. priceTier 4 uses the 55min $160 as the 60min proxy. Solo RMT inside Strong Pilates at 533 College (entrance on Euclid) per her own contact page; older listings showing 31 Emerson Ave are her previous location. The ClinicSense booking URL appeared in search results titled for her practice but no snapshot of its contents was captured - spot-check before relying on it (the sync's URL check covers liveness). Little Italy, College at Euclid."
+    },
+    {
+      "name": "Regeneration Station",
+      "address": "149 Roncesvalles Ave, #201, Toronto, ON",
+      "bookingUrl": "https://regenerationstation.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6425,
+      "fallbackLng": -79.4472,
+      "services": [
+        { "name": "Registered massage therapy 30min", "durationMin": 30, "priceCents": 10000 },
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 12000 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 14000 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 18000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own Jane page (regenerationstation.janeapp.com), which publishes the full RMT ladder ($100/$120/$140/$160/$180 for 30/45/60/75/90) plus prenatal rates, the address (#201, M6R 2L2) and the practitioner roster. HST treatment not stated. Fresha area pages showing 'from $50' do not name this clinic and were ignored. Books on Jane. Roncesvalles."
+    },
+    {
+      "name": "Bloom Health Clinic",
+      "address": "388 Roncesvalles Ave, Toronto, ON",
+      "website": "https://www.bloomhealthclinic.ca",
+      "bookingUrl": "https://bloomhealthclinic.janeapp.com/",
+      "priceTier": 4,
+      "fallbackLat": 43.648,
+      "fallbackLng": -79.4493,
+      "services": [
+        { "name": "Registered massage therapy 30min", "durationMin": 30, "priceCents": 11000 },
+        { "name": "Registered massage therapy 45min", "durationMin": 45, "priceCents": 13500 },
+        { "name": "Registered massage therapy 60min", "durationMin": 60, "priceCents": 16000 },
+        { "name": "Registered massage therapy 90min", "durationMin": 90, "priceCents": 21000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own fee page (bloomhealthclinic.ca/fee-structure), using the new rates in effect since Oct 1 2026 (the prior ladder was $105/$125/$145/$190); the 75min new price was cut off in the snapshot and is omitted. Books on Jane (bloomhealthclinic.janeapp.com seen in results naming its RMTs). A Fresha listing with different prices sits at a different address (27 Roncesvalles) and was rejected as a mismatch; Bloom Massage and Bloom Wellness Centre are different businesses. Phone seen in one source only, so omitted. Roncesvalles."
+    },
+    {
+      "name": "Kristyn Kowalewski RMT",
+      "address": "240 Roncesvalles Ave, 2nd Floor, Toronto, ON",
+      "website": "https://www.kristynrmt.ca/",
+      "bookingUrl": "https://kristynrmt.noterro.com/book-online/practitioner/786916/Kristyn-Kowalewski",
+      "priceTier": 3,
+      "fallbackLat": 43.6445,
+      "fallbackLng": -79.448,
+      "services": [
+        { "name": "Massage therapy 45min", "durationMin": 45, "priceCents": 11000 },
+        { "name": "Massage therapy 60min", "durationMin": 60, "priceCents": 13000 },
+        { "name": "Massage therapy 90min", "durationMin": 90, "priceCents": 17000 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the practitioner's own site (kristynrmt.ca): 45/60/75/90min at $110/$130/$150/$170, all +HST with pre-HST figures recorded; the Noterro booking page agrees ('from $110'). No adult 30min session (30min is for children under 12). Solo RMT practice upstairs at the Village Healing Centre building. Fresha listings at the same address show older conflicting prices and look like a stale call-to-book stub, so Noterro is used. Phone seen in one source only, so omitted. Roncesvalles."
+    },
+    {
+      "name": "Kingsway Chiropractic In The Junction",
+      "address": "3021 Dundas St W, Toronto, ON",
+      "website": "https://www.kingswayjunctionchiropractic.com/",
+      "bookingUrl": "https://kingswayjunctionchiropractic.janeapp.com/",
+      "priceTier": 3,
+      "fallbackLat": 43.6655,
+      "fallbackLng": -79.468,
+      "services": [
+        { "name": "Massage therapy 30min", "durationMin": 30, "priceCents": 8500 },
+        { "name": "Massage therapy 45min", "durationMin": 45, "priceCents": 11000 },
+        { "name": "Massage therapy 60min", "durationMin": 60, "priceCents": 13200 },
+        { "name": "Massage therapy 90min", "durationMin": 90, "priceCents": 16500 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own massage page (kingswayjunctionchiropractic.com/massage-therapy), with prices stated as including HST. Chiro-led but massage is core: dedicated page, and the Jane calendar shows a current November RMT schedule. Jane URL seen in results and linked from the clinic's book-online page. Its RMT also practises at Regeneration Station on Roncesvalles - different clinics, not a duplicate. Phone seen in one source only, so omitted. The Junction."
+    },
+    {
+      "name": "Junction Massage Therapy",
+      "address": "2826 Dundas St W, Toronto, ON",
+      "phone": "(416) 525-5210",
+      "website": "https://junctionmassagetherapy.ca/",
+      "bookingUrl": "https://junctionmassagetherapy.janeapp.com/",
+      "priceTier": 4,
+      "fallbackLat": 43.6656,
+      "fallbackLng": -79.4605,
+      "services": [
+        { "name": "Massage session 30min", "durationMin": 30, "priceCents": 8300 },
+        { "name": "Massage session 45min", "durationMin": 45, "priceCents": 10600 },
+        { "name": "Massage session 60min", "durationMin": 60, "priceCents": 14200 }
+      ],
+      "notes": "Added 2026-11-05 (search-derived) from the clinic's own site (30/45/60/75min at $83/$106/$142/$171, HST included - hence tier 4 at $142). Recency caution: the price page read as somewhat dated and one directory last updated Feb 2026 - spot-check prices. Books on Jane (root and location URLs seen, with its RMT named); a separate Fresha call-to-book profile at the same address was passed over for Jane. Phone matched across the Jane listing and Fresha. Inside the West End Holistic Health Centre, just east of Keele at the east edge of the Junction radius."
+    }
+  ]
+}

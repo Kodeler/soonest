@@ -12,22 +12,24 @@ const adapter =
 
 const prisma = new PrismaClient({ adapter });
 
+// icon values are keys into the stroke icon set in app/components/CategoryIcon.tsx
+// (legacy emoji values from earlier seeds also resolve there).
 const CATEGORIES = [
-  { name: "Massage Therapy", slug: "massage", icon: "💆", vertical: "health" },
-  { name: "Physiotherapy", slug: "physiotherapy", icon: "🏃", vertical: "health" },
-  { name: "Osteopath", slug: "osteopath", icon: "🦴", vertical: "health" },
-  { name: "Dentist", slug: "dentist", icon: "🦷", vertical: "health" },
-  { name: "Haircut", slug: "haircut", icon: "✂️", vertical: "personal" },
-  { name: "Nails", slug: "nails", icon: "💅", vertical: "personal" },
-  { name: "Brows & Lashes", slug: "brows-lashes", icon: "👁️", vertical: "personal" },
-  { name: "Tattoo", slug: "tattoo", icon: "🎨", vertical: "personal" },
-  { name: "Mechanic", slug: "mechanic", icon: "🔧", vertical: "auto" },
-  { name: "Chiropractor", slug: "chiropractor", icon: "🤲", vertical: "health" },
-  { name: "Facials & Spa", slug: "spa", icon: "🧖", vertical: "personal" },
-  { name: "Fitness Classes", slug: "fitness", icon: "💪", vertical: "fitness" },
-  { name: "Yoga & Pilates", slug: "yoga", icon: "🧘", vertical: "fitness" },
-  { name: "Music Lessons", slug: "music-lessons", icon: "🎸", vertical: "education" },
-  { name: "Pet Grooming", slug: "pet-grooming", icon: "🐩", vertical: "pets" },
+  { name: "Massage Therapy", slug: "massage", icon: "hand", vertical: "health" },
+  { name: "Physiotherapy", slug: "physiotherapy", icon: "activity", vertical: "health" },
+  { name: "Osteopath", slug: "osteopath", icon: "bone", vertical: "health" },
+  { name: "Dentist", slug: "dentist", icon: "tooth", vertical: "health" },
+  { name: "Haircut", slug: "haircut", icon: "scissors", vertical: "personal" },
+  { name: "Nails", slug: "nails", icon: "sparkle", vertical: "personal" },
+  { name: "Brows & Lashes", slug: "brows-lashes", icon: "eye", vertical: "personal" },
+  { name: "Tattoo", slug: "tattoo", icon: "pen", vertical: "personal" },
+  { name: "Mechanic", slug: "mechanic", icon: "wrench", vertical: "auto" },
+  { name: "Chiropractor", slug: "chiropractor", icon: "spine", vertical: "health" },
+  { name: "Facials & Spa", slug: "spa", icon: "flower", vertical: "personal" },
+  { name: "Fitness Classes", slug: "fitness", icon: "dumbbell", vertical: "fitness" },
+  { name: "Yoga & Pilates", slug: "yoga", icon: "lotus", vertical: "fitness" },
+  { name: "Music Lessons", slug: "music-lessons", icon: "music", vertical: "education" },
+  { name: "Pet Grooming", slug: "pet-grooming", icon: "paw", vertical: "pets" },
 ];
 
 interface MockProvider {

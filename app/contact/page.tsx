@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "@/app/components/Logo";
 
 const fieldClass =
   "w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-violet-300 text-sm text-ink placeholder:text-stone-400 transition-colors";
@@ -42,10 +43,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-surface">
-      <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="Soonest" className="h-9 w-auto" />
+      <header className="glass sticky top-0 z-20 border-b border-violet-100/80 px-5 py-2.5 flex items-center justify-between">
+        <Link href="/" className="flex items-center" aria-label="Soonest home">
+          <Logo size={30} />
         </Link>
         <Link
           href="/providers"
@@ -57,7 +57,7 @@ export default function ContactPage() {
 
       <main className="max-w-xl mx-auto px-5 py-10 space-y-8">
         <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink">
             Contact us
           </h1>
           <p className="text-stone-500 text-sm">

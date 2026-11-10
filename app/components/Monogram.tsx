@@ -1,17 +1,18 @@
 "use client";
 
-// Deterministic gradient monogram avatar for providers. The mock businesses
-// are fictional, so instead of fake logos every provider gets a stable,
-// polished identity mark derived from its name.
-const PALETTES = [
-  ["#8b5cf6", "#6d28d9"], // violet
-  ["#ec4899", "#be185d"], // pink
-  ["#6366f1", "#4338ca"], // indigo
-  ["#10b981", "#047857"], // emerald
-  ["#f59e0b", "#b45309"], // amber
-  ["#06b6d4", "#0e7490"], // cyan
-  ["#f43f5e", "#be123c"], // rose
-  ["#84cc16", "#4d7c0f"], // lime
+// Deterministic monogram avatar for providers. The mock businesses are
+// fictional, so instead of fake logos every provider gets a stable identity
+// mark derived from its name: a duotone gradient tile with a soft top light,
+// an inset ring, and tracked initials.
+const PALETTES: [string, string][] = [
+  ["#7c3aed", "#4c1d95"], // violet
+  ["#db2777", "#9d174d"], // pink
+  ["#4f46e5", "#312e81"], // indigo
+  ["#0d9488", "#134e4a"], // teal
+  ["#d97706", "#92400e"], // amber
+  ["#0891b2", "#164e63"], // cyan
+  ["#e11d48", "#881337"], // rose
+  ["#65a30d", "#3f6212"], // lime
 ];
 
 function hashName(name: string): number {
@@ -39,17 +40,37 @@ export default function Monogram({ name, size = 40, className = "" }: Props) {
 
   return (
     <div
-      className={`flex items-center justify-center rounded-xl text-white font-bold flex-shrink-0 ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden text-white font-bold flex-shrink-0 select-none ${className}`}
       style={{
         width: size,
         height: size,
-        fontSize: size * 0.38,
-        background: `linear-gradient(135deg, ${from}, ${to})`,
-        boxShadow: `0 2px 8px -2px ${to}66`,
+        borderRadius: size * 0.3,
+        fontSize: size * 0.34,
+        letterSpacing: "0.02em",
+        background: `linear-gradient(140deg, ${from} 0%, ${to} 100%)`,
+        boxShadow: `0 2px 8px -2px ${to}59, inset 0 1px 0 rgba(255,255,255,0.25)`,
       }}
       aria-hidden
     >
-      {initials(name)}
+      {/* soft top light for depth */}
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(120% 65% at 25% 0%, rgba(255,255,255,0.28), transparent 60%)",
+        }}
+      />
+      {/* inset ring */}
+      <span
+        className="absolute inset-0"
+        style={{
+          borderRadius: size * 0.3,
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.18)",
+        }}
+      />
+      <span className="relative" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.18)" }}>
+        {initials(name)}
+      </span>
     </div>
   );
 }

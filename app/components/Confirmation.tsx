@@ -58,7 +58,7 @@ export default function Confirmation({ booking, onFindAnother }: Props) {
         </div>
 
         <div className="space-y-2 animate-fade-up" style={{ animationDelay: "150ms" }}>
-          <h1 className="text-3xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl font-bold tracking-tight text-ink">
             You&apos;re booked
           </h1>
           <p className="text-stone-500 text-sm">

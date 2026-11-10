@@ -7,6 +7,10 @@
   --color-primary-light: #ede9fe;
   --color-accent: #7c3aed;
   --color-accent-light: #f5f3ff;
+  /* Secondary accent: "spark" amber, used ONLY at glyph scale (tiny bolt
+     icons). Never on large surfaces — emerald stays reserved for Live. */
+  --color-spark: #f59e0b;
+  --color-spark-light: #fffbeb;
   --color-ink: #1a1033;
   --color-surface: #faf9fc;
   --font-sans: var(--font-geist);
