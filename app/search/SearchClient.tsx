@@ -114,12 +114,13 @@ export default function SearchClient() {
     router.push(`/search${next}`);
   };
 
-  // Cheapest relevant service a place offers for this search; falls back to
-  // the price tier when no service carries a price.
-  const fromPrice = (r: RankedResult) =>
+  // Value = the best price-per-minute across a place's relevant services,
+  // so a $140 hour outranks a $92 half hour. Falls back to the price tier
+  // when a listing has no priced services.
+  const valueRate = (r: RankedResult) =>
     r.services.length > 0
-      ? Math.min(...r.services.map((s) => s.priceCents))
-      : r.priceTier * 100000;
+      ? Math.min(...r.services.map((s) => s.priceCents / s.durationMin))
+      : r.priceTier * 1000;
 
   const sortedResults = [...results].sort((a, b) => {
     switch (sortBy) {
@@ -135,7 +136,7 @@ export default function SearchClient() {
       case "rating":
         return b.ratingAvg - a.ratingAvg;
       case "price":
-        return fromPrice(a) - fromPrice(b);
+        return valueRate(a) - valueRate(b);
       default:
         return b.score - a.score;
     }
