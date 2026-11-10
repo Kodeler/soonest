@@ -58,7 +58,9 @@ export default function SearchClient() {
   // Results correspond to loadedKey; while it trails queryKey we're loading.
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const loading = loadedKey !== queryKey;
-  const [sortBy, setSortBy] = useState<"score" | "time" | "distance" | "rating">("score");
+  const [sortBy, setSortBy] = useState<
+    "score" | "time" | "distance" | "rating" | "price"
+  >("score");
   const [showMap, setShowMap] = useState(false);
 
   useEffect(() => {
@@ -112,6 +114,13 @@ export default function SearchClient() {
     router.push(`/search${next}`);
   };
 
+  // Cheapest relevant service a place offers for this search; falls back to
+  // the price tier when no service carries a price.
+  const fromPrice = (r: RankedResult) =>
+    r.services.length > 0
+      ? Math.min(...r.services.map((s) => s.priceCents))
+      : r.priceTier * 100000;
+
   const sortedResults = [...results].sort((a, b) => {
     switch (sortBy) {
       case "time":
@@ -125,6 +134,8 @@ export default function SearchClient() {
         return (a.distanceKm ?? 999) - (b.distanceKm ?? 999);
       case "rating":
         return b.ratingAvg - a.ratingAvg;
+      case "price":
+        return fromPrice(a) - fromPrice(b);
       default:
         return b.score - a.score;
     }
@@ -164,7 +175,7 @@ export default function SearchClient() {
         />
         <div className="flex items-center gap-2 pt-2.5 -mb-0.5 overflow-x-auto scrollbar-hide">
           <div className="flex gap-1.5 flex-shrink-0">
-            {(["score", "time", "distance", "rating"] as const).map((s) => (
+            {(["score", "time", "distance", "rating", "price"] as const).map((s) => (
               <button
                 key={s}
                 onClick={() => setSortBy(s)}
@@ -181,7 +192,7 @@ export default function SearchClient() {
                     className={sortBy === s ? "" : "text-spark"}
                   />
                 )}
-                {s === "score" ? "Best match" : s === "time" ? "Soonest" : s === "distance" ? "Nearest" : "Top rated"}
+                {s === "score" ? "Best match" : s === "time" ? "Soonest" : s === "distance" ? "Nearest" : s === "rating" ? "Top rated" : "Best value"}
               </button>
             ))}
           </div>

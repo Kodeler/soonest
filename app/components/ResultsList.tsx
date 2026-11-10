@@ -138,6 +138,11 @@ export default function ResultsList({ results, onSelect }: Props) {
                   </span>
                 )}
                 <PriceTier tier={r.priceTier} />
+                {r.services.length > 0 && (
+                  <span className="text-xs text-stone-500 font-medium">
+                    from ${Math.round(Math.min(...r.services.map((s) => s.priceCents)) / 100)}
+                  </span>
+                )}
                 <TierBadge
                   tier={
                     r.source === "mock"
