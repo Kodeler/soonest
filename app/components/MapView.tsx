@@ -121,15 +121,20 @@ export default function MapView({ results, center, onSelect }: Props) {
         }
 
         results.forEach((r, i) => {
+          // Mapbox positions the marker by writing an inline
+          // `transform: translate(...)` onto the element it is given, so that
+          // element's transform must never be touched — scale a child instead.
           const el = document.createElement("div");
-          el.className = "map-marker";
-          el.style.cssText = `
+          el.style.cursor = "pointer";
+          const pin = document.createElement("div");
+          pin.className = "map-marker";
+          pin.style.cssText = `
             width: ${i === 0 ? "34px" : "28px"}; height: ${i === 0 ? "34px" : "28px"};
             border-radius: 50%;
             background: ${i === 0 ? "linear-gradient(135deg, #8b5cf6, #6d28d9)" : "#4c1d95"};
             color: white; display: flex; align-items: center;
             justify-content: center; font-size: ${i === 0 ? "13px" : "11px"}; font-weight: 700;
-            cursor: pointer; border: 2px solid white;
+            border: 2px solid white;
             box-shadow: ${
               i === 0
                 ? "0 0 0 6px rgba(124,58,237,0.22), 0 4px 12px rgba(76,29,149,0.35)"
@@ -137,10 +142,11 @@ export default function MapView({ results, center, onSelect }: Props) {
             };
             transition: transform 0.15s ease;
           `;
-          el.textContent = String(i + 1);
+          pin.textContent = String(i + 1);
+          el.appendChild(pin);
           el.addEventListener("click", () => onSelect(r.id));
-          el.addEventListener("mouseenter", () => { el.style.transform = "scale(1.15)"; });
-          el.addEventListener("mouseleave", () => { el.style.transform = "scale(1)"; });
+          el.addEventListener("mouseenter", () => { pin.style.transform = "scale(1.15)"; });
+          el.addEventListener("mouseleave", () => { pin.style.transform = "scale(1)"; });
 
           const marker = new mapboxgl.default.Marker(el)
             .setLngLat([r.lng, r.lat])
