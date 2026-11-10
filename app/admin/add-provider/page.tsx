@@ -57,6 +57,7 @@ export default function AddProviderPage() {
   const [listingType, setListingType] = useState<"live" | "listed">("live");
   const [bookingUrl, setBookingUrl] = useState("");
   const [website, setWebsite] = useState("");
+  const [notifyEmail, setNotifyEmail] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -133,6 +134,7 @@ export default function AddProviderPage() {
           hours: listingType === "live" ? hours : undefined,
           bookingUrl: listingType === "listed" ? bookingUrl : undefined,
           website: website || undefined,
+          notifyEmail: listingType === "live" ? notifyEmail : undefined,
         }),
       });
       const data = await res.json();
@@ -220,6 +222,16 @@ export default function AddProviderPage() {
                 value={bookingUrl}
                 onChange={(e) => setBookingUrl(e.target.value)}
                 placeholder="Booking page URL (https://...)"
+                className={fieldClass}
+              />
+            )}
+            {listingType === "live" && (
+              <input
+                type="email"
+                required
+                value={notifyEmail}
+                onChange={(e) => setNotifyEmail(e.target.value)}
+                placeholder="Booking notification email (where new bookings are sent)"
                 className={fieldClass}
               />
             )}

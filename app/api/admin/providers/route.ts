@@ -36,10 +36,16 @@ const adminProviderSchema = z
     hours: z.array(dayHoursSchema).length(7).optional(),
     bookingUrl: z.string().url().max(500).optional(),
     website: z.string().url().max(500).optional(),
+    notifyEmail: z.string().email().max(200).optional(),
   })
   .refine((d) => d.listingType !== "live" || !!d.hours, {
     message: "Live listings require weekly hours",
     path: ["hours"],
+  })
+  .refine((d) => d.listingType !== "live" || !!d.notifyEmail, {
+    message:
+      "Live listings require a booking-notification email — bookings must never land silently",
+    path: ["notifyEmail"],
   })
   .refine((d) => d.listingType !== "listed" || !!d.bookingUrl, {
     message: "Listed providers require a bookingUrl",
@@ -92,6 +98,7 @@ export async function POST(req: NextRequest) {
         hoursJson: !isListed && data.hours ? JSON.stringify(data.hours) : null,
         bookingUrl: data.bookingUrl ?? null,
         website: data.website ?? null,
+        notifyEmail: data.notifyEmail ?? null,
       },
     });
 
