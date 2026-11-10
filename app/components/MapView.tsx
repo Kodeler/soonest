@@ -54,6 +54,78 @@ const LANDMARKS: { name: string; lat: number; lng: number; svg: string }[] = [
   },
 ];
 
+function relativeSlotTime(iso: string): string {
+  const min = Math.floor((new Date(iso).getTime() - Date.now()) / 60000);
+  if (min < 0) return "Now";
+  if (min < 60) return `in ${min} min`;
+  const d = new Date(iso);
+  const time = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const isToday = d.toDateString() === new Date().toDateString();
+  return isToday ? `Today ${time}` : `${d.toLocaleDateString([], { weekday: "short" })} ${time}`;
+}
+
+// Preview card shown when a map pin is clicked. Built with DOM APIs (not
+// innerHTML) so listing data is always rendered as text.
+function buildPopupCard(r: RankedResult, onView: () => void): HTMLElement {
+  const card = document.createElement("div");
+  card.style.cssText =
+    "font-family:inherit;min-width:208px;max-width:246px;padding:4px 2px 2px;display:flex;flex-direction:column;gap:7px;";
+
+  const name = document.createElement("div");
+  name.textContent = r.name;
+  name.style.cssText = "font-weight:800;font-size:14px;line-height:1.25;color:#1c1917;";
+  card.appendChild(name);
+
+  const addr = document.createElement("div");
+  addr.textContent = r.address;
+  addr.style.cssText = "font-size:11px;color:#a8a29e;margin-top:-4px;";
+  card.appendChild(addr);
+
+  const meta = document.createElement("div");
+  meta.style.cssText =
+    "display:flex;align-items:center;gap:8px;font-size:11.5px;color:#57534e;flex-wrap:wrap;";
+  const rating = document.createElement("span");
+  rating.textContent =
+    r.ratingCount > 0 ? `★ ${r.ratingAvg.toFixed(1)} (${r.ratingCount})` : "✦ New";
+  meta.appendChild(rating);
+  const price = document.createElement("span");
+  price.textContent =
+    "$".repeat(r.priceTier) +
+    (r.services.length > 0
+      ? ` · from $${Math.round(Math.min(...r.services.map((s) => s.priceCents)) / 100)}`
+      : "");
+  meta.appendChild(price);
+  if (r.distanceKm !== undefined) {
+    const dist = document.createElement("span");
+    dist.textContent =
+      r.distanceKm < 1 ? `${Math.round(r.distanceKm * 1000)}m` : `${r.distanceKm.toFixed(1)} km`;
+    meta.appendChild(dist);
+  }
+  card.appendChild(meta);
+
+  const status = document.createElement("div");
+  if (r.tier === "live" && r.soonestSlot) {
+    status.textContent = `⚡ Next opening ${relativeSlotTime(r.soonestSlot.startsAt)}`;
+    status.style.cssText =
+      "font-size:11.5px;font-weight:700;color:#047857;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:999px;padding:3px 9px;align-self:flex-start;";
+  } else {
+    status.textContent = "Books on their own site";
+    status.style.cssText =
+      "font-size:11px;font-weight:600;color:#78716c;background:#f5f5f4;border-radius:999px;padding:3px 9px;align-self:flex-start;";
+  }
+  card.appendChild(status);
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = r.tier === "live" ? "See times & book" : "View & book";
+  btn.style.cssText =
+    "margin-top:2px;width:100%;padding:9px 12px;border:none;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-weight:700;font-size:12.5px;cursor:pointer;";
+  btn.addEventListener("click", onView);
+  card.appendChild(btn);
+
+  return card;
+}
+
 export default function MapView({ results, center, onSelect }: Props) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -144,12 +216,21 @@ export default function MapView({ results, center, onSelect }: Props) {
           `;
           pin.textContent = String(i + 1);
           el.appendChild(pin);
-          el.addEventListener("click", () => onSelect(r.id));
           el.addEventListener("mouseenter", () => { pin.style.transform = "scale(1.15)"; });
           el.addEventListener("mouseleave", () => { pin.style.transform = "scale(1)"; });
 
+          // Clicking a pin opens a preview card anchored to it (Mapbox
+          // toggles the attached popup); navigation only happens from the
+          // card's button.
           const marker = new mapboxgl.default.Marker(el)
             .setLngLat([r.lng, r.lat])
+            .setPopup(
+              new mapboxgl.default.Popup({
+                offset: 22,
+                closeButton: false,
+                maxWidth: "270px",
+              }).setDOMContent(buildPopupCard(r, () => onSelect(r.id)))
+            )
             .addTo(map);
 
           markersRef.current.push(marker);
