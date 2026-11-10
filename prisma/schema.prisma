@@ -34,6 +34,9 @@ model Provider {
   hoursJson   String?
   bookingUrl  String?
   website     String?
+  // Where booking notifications go for live-tier providers. A provider
+  // must not go live without one — otherwise bookings land silently.
+  notifyEmail String?
   services    Service[]
   reviews     Review[]
   createdAt   DateTime  @default(now())

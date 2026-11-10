@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { haversineKm } from "@/lib/geo";
+import { sendBookingEmails } from "@/lib/notify";
 import type {
   BookingProvider,
   BookingResult,
@@ -167,6 +168,23 @@ export class MockBookingProvider implements BookingProvider {
         },
       });
     });
+
+    // Real bookings notify everyone involved; sample bookings are demos
+    // and must never email anyone. Awaited (not fire-and-forget) because
+    // serverless may freeze the function right after the response.
+    if (slot.service.provider.source !== "mock") {
+      await sendBookingEmails({
+        providerName: slot.service.provider.name,
+        providerNotifyEmail: slot.service.provider.notifyEmail,
+        serviceName: slot.service.name,
+        startsAt: slot.startsAt,
+        durationMin: slot.service.durationMin,
+        customerName: contact.name,
+        customerEmail: contact.email,
+        customerPhone: contact.phone,
+        bookingId: booking.id,
+      });
+    }
 
     return { success: true, bookingId: booking.id };
   }
