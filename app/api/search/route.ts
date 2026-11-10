@@ -4,6 +4,7 @@ import { rankResults } from "@/lib/ranking";
 import { RANKING_WEIGHTS } from "@/lib/config";
 import { searchSchema } from "@/lib/validation";
 import { logEvent } from "@/lib/events";
+import { hideSamplesWhenCovered } from "@/lib/coverage";
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     const query = parsed.data;
     const registry = getRegistry();
-    const results = await registry.search(query);
+    const results = hideSamplesWhenCovered(await registry.search(query));
     const weights = query.asap
       ? RANKING_WEIGHTS.asap
       : RANKING_WEIGHTS.default;

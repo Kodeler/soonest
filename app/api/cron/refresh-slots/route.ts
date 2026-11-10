@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { regenerateSlotsForProvider } from "@/lib/slots";
+import { atTorontoTime, torontoHour } from "@/lib/tz";
 
 // Regenerates the rolling availability window for mock providers.
 // Vercel cron hits this daily; without it, all seeded slots drift into
@@ -32,32 +33,35 @@ export async function GET(req: NextRequest) {
       const svc = services[i];
       const slotStarts: Date[] = [];
 
-      // Near-term slots (next 0-4 hours) so ASAP always returns results
+      // Near-term slots (next 0-4 hours) so ASAP always returns results —
+      // but only when they land inside plausible business hours in Toronto
+      // (the cron fires at night, and 4:30 AM massages destroy trust).
       for (let h = 0; h < 3; h++) {
         const minutesFromNow = 15 + Math.floor((i * 17 + h * 43) % 240);
         const start = new Date(now.getTime() + minutesFromNow * 60000);
         start.setSeconds(0, 0);
         start.setMinutes(Math.round(start.getMinutes() / 15) * 15);
-        slotStarts.push(start);
+        const hr = torontoHour(start);
+        if (hr >= 9 && hr <= 20) slotStarts.push(start);
       }
 
-      // Today through day 3
+      // Today through day 3, at Toronto wall-clock hours
       for (let d = 0; d < 3; d++) {
         for (let s = 0; s < 4; s++) {
-          const day = new Date(now);
-          day.setDate(day.getDate() + d);
-          day.setHours(9 + s * 2 + (i % 3), (i * 15 + s * 30) % 60, 0, 0);
+          const day = atTorontoTime(
+            now,
+            d,
+            9 + s * 2 + (i % 3),
+            (i * 15 + s * 30) % 60
+          );
           if (day > now) slotStarts.push(day);
         }
       }
 
-      // Days 3-7
+      // Days 3-7, at Toronto wall-clock hours
       for (let d = 3; d < 7; d++) {
         for (let s = 0; s < 3; s++) {
-          const day = new Date(now);
-          day.setDate(day.getDate() + d);
-          day.setHours(10 + s * 3, 0, 0, 0);
-          slotStarts.push(day);
+          slotStarts.push(atTorontoTime(now, d, 10 + s * 3, 0));
         }
       }
 
