@@ -7,10 +7,6 @@
     {
       "path": "/api/cron/refresh-square-tokens",
       "schedule": "30 6 * * *"
-    },
-    {
-      "path": "/api/cron/refresh-calendly-tokens",
-      "schedule": "15 * * * *"
     }
   ]
 }

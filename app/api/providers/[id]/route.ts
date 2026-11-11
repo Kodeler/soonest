@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { logEvent } from "@/lib/events";
+import { SquareBookingProvider } from "@/lib/providers/square";
+import type { SlotResult } from "@/lib/types";
 
 export async function GET(
   _req: NextRequest,
@@ -24,15 +26,34 @@ export async function GET(
     const now = new Date();
     const weekFromNow = new Date(now.getTime() + 7 * 86400000);
 
-    const slots = await prisma.slot.findMany({
-      where: {
-        service: { providerId: id },
-        status: "open",
-        startsAt: { gte: now, lte: weekFromNow },
-      },
-      orderBy: { startsAt: "asc" },
-      include: { service: true },
-    });
+    // Square-synced providers hold no Slot rows: their availability is read
+    // live from the merchant's Square calendar (empty on any error).
+    const slotResults: SlotResult[] =
+      provider.source === "square"
+        ? process.env.SQUARE_APPLICATION_ID
+          ? await new SquareBookingProvider().getProviderSlots(id, {
+              start: now,
+              end: weekFromNow,
+            })
+          : []
+        : (
+            await prisma.slot.findMany({
+              where: {
+                service: { providerId: id },
+                status: "open",
+                startsAt: { gte: now, lte: weekFromNow },
+              },
+              orderBy: { startsAt: "asc" },
+              include: { service: true },
+            })
+          ).map((s) => ({
+            id: s.id,
+            serviceId: s.serviceId,
+            serviceName: s.service.name,
+            startsAt: s.startsAt.toISOString(),
+            endsAt: s.endsAt.toISOString(),
+            source: provider.source,
+          }));
 
     logEvent("provider_viewed", {
       providerId: id,
@@ -40,9 +61,13 @@ export async function GET(
       tier: provider.source === "listed" ? "listed" : "live",
     });
 
+    // Internal routing fields stay server-side.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { externalSellerId, notifyEmail, ...publicProvider } = provider;
+
     return Response.json({
       provider: {
-        ...provider,
+        ...publicProvider,
         tier: provider.source === "listed" ? "listed" : "live",
         services: provider.services.map((s) => ({
           id: s.id,
@@ -53,14 +78,7 @@ export async function GET(
           categoryName: s.category.name,
         })),
       },
-      slots: slots.map((s) => ({
-        id: s.id,
-        serviceId: s.serviceId,
-        serviceName: s.service.name,
-        startsAt: s.startsAt.toISOString(),
-        endsAt: s.endsAt.toISOString(),
-        source: provider.source,
-      })),
+      slots: slotResults,
       reviews: provider.reviews,
     });
   } catch (e) {

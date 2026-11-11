@@ -1,6 +1,9 @@
-import { NextRequest } from "next/server";
+import { NextRequest, after } from "next/server";
 import { prisma } from "@/lib/db";
 import { connectPage as page } from "@/lib/connect-pages";
+import { syncSquareMerchants } from "@/lib/square-sync";
+
+export const maxDuration = 60;
 
 // Square redirects here after the seller approves (or denies) access.
 // Verifies the double-submitted state, exchanges the code for tokens, and
@@ -87,6 +90,25 @@ export async function GET(req: NextRequest) {
         expiresAt: data.expires_at ? new Date(data.expires_at) : null,
       },
     });
+
+    // Sync this merchant's locations and services right after the success
+    // page is sent, so they show up within seconds instead of at the next
+    // cron. Runs post-response and swallows every error: a sync failure
+    // must never turn a successful connection into a failure page (the
+    // 4-hourly cron retries it).
+    if (merchantId !== "unknown") {
+      after(async () => {
+        try {
+          const summary = await syncSquareMerchants({ merchantId });
+          const r = summary.results[0];
+          if (r && !r.ok) {
+            console.error(`Square post-connect sync failed for ${merchantId}: ${r.error}`);
+          }
+        } catch (e) {
+          console.error(`Square post-connect sync error for ${merchantId}:`, e);
+        }
+      });
+    }
 
     return page(
       "Connected!",
