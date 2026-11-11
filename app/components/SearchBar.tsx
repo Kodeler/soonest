@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import CategoryIcon from "./CategoryIcon";
-import { BoltIcon } from "./icons";
+import { BoltIcon, PinIcon } from "./icons";
+import { DEFAULT_QUERY } from "@/lib/search-query";
 
 interface Category {
   id: string;
@@ -61,6 +62,43 @@ export default function SearchBar({
     );
   };
 
+  // Compact bar: whether the search origin is somewhere other than the
+  // default downtown point (i.e. the user's real location is in play).
+  const nearMeActive =
+    Math.abs(params.lat - DEFAULT_QUERY.lat) > 1e-6 ||
+    Math.abs(params.lng - DEFAULT_QUERY.lng) > 1e-6;
+
+  // Toggle between "distances from me" and the downtown default. Runs the
+  // search immediately on success so Nearest re-ranks without extra clicks.
+  const toggleNearMe = () => {
+    if (nearMeActive) {
+      const updated = {
+        ...params,
+        lat: DEFAULT_QUERY.lat,
+        lng: DEFAULT_QUERY.lng,
+      };
+      setParams(updated);
+      onSearch(updated);
+      return;
+    }
+    if (!navigator.geolocation) return;
+    setDetectingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setDetectingLocation(false);
+        const updated = {
+          ...params,
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        };
+        setParams(updated);
+        onSearch(updated);
+      },
+      () => setDetectingLocation(false),
+      { timeout: 8000 }
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(params);
@@ -92,6 +130,24 @@ export default function SearchBar({
             </option>
           ))}
         </select>
+        <button
+          type="button"
+          onClick={toggleNearMe}
+          disabled={detectingLocation}
+          title={
+            nearMeActive
+              ? "Using your location — click to switch back to downtown Toronto"
+              : "Measure distances from your current location"
+          }
+          className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all disabled:opacity-60 ${
+            nearMeActive
+              ? "btn-gradient text-white"
+              : "bg-white border border-stone-200 text-stone-500 hover:border-violet-200 hover:text-primary"
+          }`}
+        >
+          <PinIcon size={13} />
+          {detectingLocation ? "Locating…" : nearMeActive ? "Near you" : "Near me"}
+        </button>
         <button
           type="button"
           onClick={() => {
