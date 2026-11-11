@@ -37,9 +37,15 @@ model Provider {
   // Where booking notifications go for live-tier providers. A provider
   // must not go live without one — otherwise bookings land silently.
   notifyEmail String?
+  // Connected-platform owner id (Square merchant_id for source "square").
+  // Joins to SellerToken.externalSellerId so availability reads use the
+  // owning merchant's own OAuth token. externalId holds the location id.
+  externalSellerId String?
   services    Service[]
   reviews     Review[]
   createdAt   DateTime  @default(now())
+
+  @@index([source, externalSellerId])
 }
 
 model Service {
@@ -49,7 +55,10 @@ model Service {
   name       String
   durationMin Int
   priceCents  Int
-  provider   Provider        @relation(fields: [providerId], references: [id])
+  // Connected-platform id of this exact bookable service (Square catalog
+  // item variation id). Availability reads on synced providers need it.
+  externalId  String?
+  provider  Provider        @relation(fields: [providerId], references: [id])
   category   ServiceCategory @relation(fields: [categoryId], references: [id])
   slots      Slot[]
 }

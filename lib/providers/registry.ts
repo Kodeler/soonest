@@ -1,4 +1,4 @@
-import { haversineKm } from "@/lib/geo";
+import { prisma } from "@/lib/db";
 import type {
   BookingProvider,
   BookingResult,
@@ -18,10 +18,9 @@ export class ProviderRegistry {
   constructor() {
     this.providers.push(new MockBookingProvider());
 
-    if (
-      process.env.SQUARE_ACCESS_TOKEN &&
-      process.env.SQUARE_APPLICATION_ID
-    ) {
+    // Square seller tokens come from the DB (OAuth), so the app id alone
+    // enables the adapter. With zero connected sellers it returns nothing.
+    if (process.env.SQUARE_APPLICATION_ID) {
       this.providers.push(new SquareBookingProvider());
     }
 
@@ -47,7 +46,7 @@ export class ProviderRegistry {
     serviceId: string,
     range: TimeRange
   ): Promise<SlotResult[]> {
-    const source = detectSource(providerId);
+    const source = await resolveSource(providerId);
     const provider = this.providers.find((p) => p.source === source);
     if (!provider) return [];
     return provider.getSlots(providerId, serviceId, range);
@@ -74,6 +73,18 @@ function detectSource(providerId: string): string {
   if (providerId.startsWith("square-")) return "square";
   if (providerId.startsWith("zocdoc-")) return "zocdoc";
   return "mock";
+}
+
+// Synced platform providers (e.g. Square) are DB rows with plain cuid ids,
+// so an unprefixed id is resolved by the row's source.
+async function resolveSource(providerId: string): Promise<string> {
+  const prefixed = detectSource(providerId);
+  if (prefixed !== "mock") return prefixed;
+  const row = await prisma.provider.findUnique({
+    where: { id: providerId },
+    select: { source: true },
+  });
+  return row?.source === "square" ? "square" : "mock";
 }
 
 function detectSlotSource(slotId: string): string {
