@@ -1,5 +1,8 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
+import { syncSquareMerchants } from "@/lib/square-sync";
+
+export const maxDuration = 120;
 
 // Square OAuth access tokens expire every 30 days; Square recommends
 // refreshing them at least weekly. This runs daily and rotates every stored
@@ -69,5 +72,14 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return Response.json({ ok: true, refreshed, failed, total: tokens.length });
+  // Sync merchant catalogs right after the refresh, so the daily job uses
+  // the freshest tokens and we stay inside Vercel Hobby's two-cron limit.
+  let sync: unknown = null;
+  try {
+    sync = await syncSquareMerchants();
+  } catch (e) {
+    console.error("Square merchant sync error:", e);
+  }
+
+  return Response.json({ ok: true, refreshed, failed, total: tokens.length, sync });
 }

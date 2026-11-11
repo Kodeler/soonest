@@ -119,6 +119,10 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
 
   const soonest = filteredSlots[0];
 
+  // Square-synced providers show real availability, but in-app booking stays
+  // off until production booking writes ship — their slots are view-only.
+  const inAppBooking = provider.source !== "square";
+
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-8">
@@ -171,7 +175,7 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                 <span className="text-sm text-stone-400">{provider.phone}</span>
               )}
             </div>
-            {provider.tier === "live" && soonest && (
+            {provider.tier === "live" && soonest && inAppBooking && (
               <div className="pt-1.5">
                 <button
                   onClick={() => onBook(soonest.id)}
@@ -180,6 +184,19 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
                   <BoltIcon size={14} fill="currentColor" />
                   Book soonest — {formatSlotTime(soonest.startsAt)}
                 </button>
+              </div>
+            )}
+            {provider.tier === "live" && !inAppBooking && provider.phone && (
+              <div className="pt-1.5">
+                <a
+                  href={`tel:${provider.phone.replace(/[^+\d]/g, "")}`}
+                  onClick={() =>
+                    track("provider_call_click", { providerId: provider.id })
+                  }
+                  className="btn-gradient inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-white text-sm font-bold"
+                >
+                  Call to book{soonest ? ` — next ${formatSlotTime(soonest.startsAt)}` : ""}
+                </a>
               </div>
             )}
             {provider.tier === "listed" && (provider.bookingUrl || provider.phone) && (
@@ -267,27 +284,55 @@ export default function ProviderDetail({ providerId, onBack, onBook }: Props) {
           ) : filteredSlots.length === 0 ? (
             <p className="text-stone-400 text-sm">No available slots this week</p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {filteredSlots.slice(0, 18).map((slot, i) => (
-                <button
-                  key={slot.id}
-                  onClick={() => onBook(slot.id)}
-                  className={`group px-3 py-3 rounded-xl text-sm font-semibold transition-all text-left ${
-                    i === 0
-                      ? "bg-accent-light border-2 border-violet-300 text-primary-dark hover:border-primary"
-                      : "bg-white border border-stone-200 text-ink hover:border-violet-300 hover:bg-accent-light"
-                  }`}
-                >
-                  {i === 0 && (
-                    <span className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-0.5">
-                      <BoltIcon size={10} fill="currentColor" className="text-spark" />
-                      Next up
-                    </span>
-                  )}
-                  {formatSlotTime(slot.startsAt)}
-                </button>
-              ))}
-            </div>
+            <>
+              {!inAppBooking && (
+                <p className="text-xs text-stone-400">
+                  Live openings straight from this provider&apos;s calendar.
+                  Booking through Soonest is coming — for now,
+                  {provider.phone ? " call to grab one." : " contact them to grab one."}
+                </p>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {filteredSlots.slice(0, 18).map((slot, i) =>
+                  inAppBooking ? (
+                    <button
+                      key={slot.id}
+                      onClick={() => onBook(slot.id)}
+                      className={`group px-3 py-3 rounded-xl text-sm font-semibold transition-all text-left ${
+                        i === 0
+                          ? "bg-accent-light border-2 border-violet-300 text-primary-dark hover:border-primary"
+                          : "bg-white border border-stone-200 text-ink hover:border-violet-300 hover:bg-accent-light"
+                      }`}
+                    >
+                      {i === 0 && (
+                        <span className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-0.5">
+                          <BoltIcon size={10} fill="currentColor" className="text-spark" />
+                          Next up
+                        </span>
+                      )}
+                      {formatSlotTime(slot.startsAt)}
+                    </button>
+                  ) : (
+                    <div
+                      key={slot.id}
+                      className={`px-3 py-3 rounded-xl text-sm font-semibold text-left ${
+                        i === 0
+                          ? "bg-accent-light border-2 border-violet-300 text-primary-dark"
+                          : "bg-white border border-stone-200 text-ink"
+                      }`}
+                    >
+                      {i === 0 && (
+                        <span className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-primary/70 mb-0.5">
+                          <BoltIcon size={10} fill="currentColor" className="text-spark" />
+                          Next up
+                        </span>
+                      )}
+                      {formatSlotTime(slot.startsAt)}
+                    </div>
+                  )
+                )}
+              </div>
+            </>
           )}
         </div>
 

@@ -47,3 +47,6 @@ next-env.d.ts
 # database
 *.db
 *.db-journal
+
+# Claude agent worktrees (session-local scratch)
+/.claude/
