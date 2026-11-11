@@ -128,7 +128,7 @@ async function syncListing(
     return "skipped";
   }
 
-  let coords =
+  const coords =
     (await geocode(listing.address)) ??
     (listing.fallbackLat !== undefined && listing.fallbackLng !== undefined
       ? { lat: listing.fallbackLat, lng: listing.fallbackLng }

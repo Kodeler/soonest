@@ -120,4 +120,6 @@ model SellerToken {
   refreshToken     String?
   expiresAt        DateTime?
   createdAt        DateTime @default(now())
+
+  @@unique([source, externalSellerId])
 }

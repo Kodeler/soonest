@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/refresh-slots",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/refresh-square-tokens",
+      "schedule": "30 6 * * *"
     }
   ]
 }

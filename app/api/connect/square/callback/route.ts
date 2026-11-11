@@ -1,25 +1,67 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 
+function page(title: string, body: string, ok: boolean): Response {
+  return new Response(
+    `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title} — Soonest</title>
+<style>
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#faf9f7;color:#1c1917;display:flex;align-items:center;
+    justify-content:center;min-height:100vh;margin:0;padding:24px}
+  .card{background:#fff;border:1px solid #e7e5e4;border-radius:20px;
+    padding:36px 40px;max-width:420px;text-align:center;
+    box-shadow:0 4px 24px rgba(109,40,217,.07)}
+  h1{font-size:20px;margin:0 0 10px;color:${ok ? "#047857" : "#b91c1c"}}
+  p{font-size:14px;color:#57534e;line-height:1.5;margin:0}
+  .mark{font-weight:800;color:#6d28d9;font-size:15px;margin-bottom:14px}
+</style></head><body><div class="card">
+<div class="mark">⚡ soonest</div><h1>${title}</h1><p>${body}</p>
+</div></body></html>`,
+    { status: ok ? 200 : 400, headers: { "Content-Type": "text/html" } }
+  );
+}
+
+// Square redirects here after the seller approves (or denies) access.
+// Verifies the double-submitted state, exchanges the code for tokens, and
+// stores them keyed by merchant so re-connecting refreshes instead of
+// duplicating.
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
+  const state = req.nextUrl.searchParams.get("state");
+  const denied = req.nextUrl.searchParams.get("error");
 
-  if (!code) {
-    return Response.json({ error: "No authorization code" }, { status: 400 });
-  }
-
-  const env = process.env.SQUARE_ENVIRONMENT || "sandbox";
-  if (env === "production") {
-    return Response.json(
-      { error: "Production not allowed" },
-      { status: 403 }
+  if (denied) {
+    return page(
+      "Connection cancelled",
+      "No problem — your Square account was not connected. You can close this window.",
+      false
     );
   }
 
+  const cookieState = req.cookies.get("square_oauth_state")?.value;
+  if (!state || !cookieState || state !== cookieState) {
+    return page(
+      "Connection failed",
+      "This link is stale or was opened in a different browser. Please start the connection again from soonest.today.",
+      false
+    );
+  }
+
+  if (!code) {
+    return page(
+      "Connection failed",
+      "Square did not return an authorization code. Please try again.",
+      false
+    );
+  }
+
+  const env = process.env.SQUARE_ENVIRONMENT || "sandbox";
   const baseUrl =
-    env === "sandbox"
-      ? "https://connect.squareupsandbox.com"
-      : "https://connect.squareup.com";
+    env === "production"
+      ? "https://connect.squareup.com"
+      : "https://connect.squareupsandbox.com";
 
   try {
     const tokenRes = await fetch(`${baseUrl}/oauth2/token`, {
@@ -37,31 +79,47 @@ export async function GET(req: NextRequest) {
     const data = await tokenRes.json();
 
     if (!tokenRes.ok || !data.access_token) {
-      return Response.json(
-        { error: "Token exchange failed", details: data },
-        { status: 400 }
+      console.error("Square token exchange failed:", data);
+      return page(
+        "Connection failed",
+        "Square rejected the token exchange. Please try again, or contact us at soonest.today/contact.",
+        false
       );
     }
 
-    await prisma.sellerToken.create({
-      data: {
+    const merchantId: string = data.merchant_id || "unknown";
+    await prisma.sellerToken.upsert({
+      where: {
+        source_externalSellerId: {
+          source: "square",
+          externalSellerId: merchantId,
+        },
+      },
+      create: {
         source: "square",
-        externalSellerId: data.merchant_id || "unknown",
+        externalSellerId: merchantId,
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token || null,
+        expiresAt: data.expires_at ? new Date(data.expires_at) : null,
+      },
+      update: {
         accessToken: data.access_token,
         refreshToken: data.refresh_token || null,
         expiresAt: data.expires_at ? new Date(data.expires_at) : null,
       },
     });
 
-    return new Response(
-      `<html><body><h1>Connected!</h1><p>Your Square account is now connected. You can close this window.</p></body></html>`,
-      { headers: { "Content-Type": "text/html" } }
+    return page(
+      "Connected!",
+      "Your Square account is now linked to Soonest. We'll be in touch as your live availability goes up — you can close this window.",
+      true
     );
   } catch (e) {
     console.error("Square OAuth callback error:", e);
-    return Response.json(
-      { error: "OAuth callback failed" },
-      { status: 500 }
+    return page(
+      "Connection failed",
+      "Something went wrong on our side. Please try again, or contact us at soonest.today/contact.",
+      false
     );
   }
 }

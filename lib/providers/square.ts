@@ -11,17 +11,13 @@ import type {
   TimeRange,
 } from "@/lib/types";
 
-function assertSandbox() {
-  if (process.env.SQUARE_ENVIRONMENT === "production") {
-    throw new Error("Square production is not allowed in this build");
-  }
-}
-
 function makeClient(token: string): SquareClient {
-  assertSandbox();
   return new SquareClient({
     token,
-    environment: SquareEnvironment.Sandbox,
+    environment:
+      process.env.SQUARE_ENVIRONMENT === "production"
+        ? SquareEnvironment.Production
+        : SquareEnvironment.Sandbox,
   });
 }
 
@@ -29,7 +25,6 @@ export class SquareBookingProvider implements BookingProvider {
   source = "square";
 
   async search(query: SearchQuery): Promise<ProviderResult[]> {
-    assertSandbox();
     const results: ProviderResult[] = [];
 
     const tokens = await prisma.sellerToken.findMany({
@@ -151,6 +146,9 @@ export class SquareBookingProvider implements BookingProvider {
   }
 
   async book(slotId: string, contact: ContactInfo): Promise<BookingResult> {
+    // Booking writes stay sandbox-only until the create-booking payload is
+    // production-grade (service variation, team member, customer id). We
+    // never fire a half-built write at a real merchant's calendar.
     if (process.env.SQUARE_ENVIRONMENT === "production") {
       return { success: false, error: "Production booking not allowed" };
     }
